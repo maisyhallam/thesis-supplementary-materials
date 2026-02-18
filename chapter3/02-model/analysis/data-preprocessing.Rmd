@@ -1,0 +1,69 @@
+---
+title: "preprocessing"
+author: "Maisy Hallam"
+date: "2026-02-17"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+```
+
+# Preprocessing data for kin term granularity analyses
+
+In this document, we will preprocess the cross-linguistic data on kin term granularity compiled by our model (Section 2 and 3 of the paper)
+
+## Kin term granularity
+
+First, let's import the data from our typological analysis. `lex_size` contains six columns:
+* `language` is the language name
+* `language_family` is the language family
+* `glottocode` is the glottocode for that language
+* `prop` is the kin term granularity: the proportion of kin terms over kin types.
+* `count` is the raw number of kin terms in that language.
+* `n_kintypes` is the number of kin types that were available in that language's dataset (out of a possible 48).
+
+```{r}
+gran <- read_csv('data/raw/granularity.csv')
+
+```
+
+First, we will filter this dataset so it only contains languages who have at least 40/48 kin types in their dataset (`n_kintypes` > 40), to preserve the accuracy of the kin term granularity measure as much as possible.
+
+```{r}
+gran_filtered <- gran %>% filter(n_kintypes > 40)
+```
+
+We'll be comparing this data against data produced by a model, so we want to add a column that marks this data as veridical:
+
+```{r}
+gran_filtered <- gran_filtered %>% mutate(data_type = 'veridical')
+```
+
+And save.
+
+```{r}
+write_csv(gran_filtered,'data/preprocessed/kinterm_granularity.csv')
+```
+
+## Model data
+
+The baseline data has the same columns as the natural language data.
+
+```{r}
+baseline <- read_csv('data/raw/simulation.csv')
+```
+
+Again, we want to add a column to mark this as data from the model.
+
+```{r}
+baseline <- baseline %>% mutate(data_type = 'simulated')
+```
+
+And save.
+
+```{r}
+write_csv(baseline, 'data/preprocessed/simulated_baseline.csv')
+```
+

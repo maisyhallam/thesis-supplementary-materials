@@ -1,0 +1,244 @@
+---
+title: "analysis"
+author: "Maisy Hallam"
+date: "2026-02-17"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+```
+
+```{r}
+# PLOT THEMES AND COLOURS
+
+extrafont::loadfonts()
+
+theme_set(theme_bw(base_size = 10))
+theme_update(axis.line.x = element_line(color = "black"),
+    axis.line.y = element_line(color = 'black'),
+    text = element_text(family = "Charter"),
+    plot.margin = margin(c(0,0,0,0)),
+    axis.text = element_text(size = 8),
+    panel.background = element_rect(fill = 'transparent'),
+    plot.background = element_rect(fill = 'transparent', color = 'NA'))
+```
+
+# Is kin term granularity highly constrained relative to plausible alternatives?
+
+We discovered that kinship terminology is typically quite coarse-grain, with the majority of languages having a granularity coarser than 0.5 (i.e. 24 terms in total, or one term per two meanings).
+
+But is this trend significant? In this document, we compare veridical kin term granularity data with the granularity of a simulated dataset of kinship systems. These simulated systems represent theoretically plausible (but generally unattested) systems of kinship terminology. By measuring their granularity, we can test whether natural languages typically have surprisingly coarse-grain kin terms relative to what is possible.
+
+# NATURAL LANGUAGES ARE MORE COARSE-GRAIN THAN THE BASELINE
+
+To test whether natural languages are coarser-grain than the baseline, we will compare the veridical distribution of kin term granularity to the baseline distribution. Let's import the natural language data and the model data:
+
+```{r}
+gran <- read_csv('data/preprocessed/kinterm_granularity.csv')
+
+baseline <- read_csv('data/preprocessed/simulated_baseline.csv')
+
+```
+
+By plotting the two datasets, we can visually see a difference between the distributions:
+
+```{r}
+rbind(gran,baseline) %>% group_by(data_type) %>%
+  mutate(
+    mean = mean(prop),
+    sd = sd(prop),
+    n = n(),
+    simulation = factor(ifelse(data_type == 'veridical', 'Veridical','Baseline'), levels = c('Veridical', 'Baseline'))
+  ) %>%
+  ggplot() +
+  geom_histogram(aes(x = prop, fill = simulation), bins = 30, colour = 'black', linewidth = 0.1) +
+  scale_fill_manual(name = 'Data type', values = c('Veridical' = '#f6ecd0', 'Baseline' = '#708090')) +
+  geom_vline(aes(xintercept = mean), linetype = 'dashed',linewidth = 0.2) +
+  # geom_richtext(mapping = aes(x = 0.85, y = 41, label = paste0('n = ', n), family = 'Charter'),fill = 'NA') +
+  lims(x = c(0,1)) +
+  # scale_x_manual(labels = c(0,0.25,0.5,0.75,1)) +
+  labs(x = 'Kin term granularity',
+       y = 'count') +
+  facet_wrap(~simulation) +
+  theme(legend.position = 'none',
+        plot.margin = margin(c(0,5,0,0)),
+        axis.text = element_text(size = 8))
+
+ggsave('plots/veridical_vs_baseline.pdf', device = cairo_pdf, width = 15, height = 6, unit = 'cm')
+```
+
+
+Looking at the summary statistics of our baseline distribution compared to the veridical distribution, we can see that the baseline granularity is slightly larger on average, and also more highly constrained than the veridical data. This suggests that natural languages reach granularity values that are so low as to be incredibly unlikely.
+
+```{r}
+veridical_summary <- gran %>% summarise(
+  mean = mean(prop),
+  sd = sd(prop),
+  range = paste0('[',round(range(prop)[1],4),' - ',round(range(prop)[2],4),']'))
+
+baseline_summary <- baseline %>% summarise(
+  mean = mean(prop),
+  sd = sd(prop),
+  range = paste0('[',round(range(prop)[1],4),' - ',round(range(prop)[2],4),']'))
+
+veridical_summary
+baseline_summary
+
+```
+
+We can test the significance of this difference by z-transforming the data. For each language, we compare its granularity value to the mean of the baseline distribution, and measure how many standard deviations the value sits from this mean. A value more than 1.96 standard deviations from the baseline indicates significance (at a threshold of p < 0.05). So if kin term granularity is significantly more coarse than we would expect by chance, then we should expect a large proportion of our natural languages to have a z score less than -1.96.
+
+```{r}
+z <- gran %>%
+  group_by(glottocode) %>%
+  mutate(
+    z = (prop - mean(baseline$prop)) / sd(baseline$prop))
+
+z
+```
+We can calculate the proportion of languages that are (a) significantly coarser than the baseline, (b) significantly finer than the baseline, and (c) about the same as the baseline. A large proportion of languages are significantly coarse, a similar proportion are about the same, and very very few are significantly finer. This suggests that there may be a pressure operating on systems of kinship terminology that constrain their size.
+
+```{r}
+nrow(filter(z, z < -1.96)) / nrow(z) # 0.476
+
+nrow(filter(z, z > 1.96)) / nrow(z) # 0.07
+
+nrow(filter(z, z > -1.96 & z < 1.96)) / nrow(z) # 0.453
+```
+
+Plot the z-scores, with grey bars indicating languages that are not significantly different from the baseline:
+
+```{r}
+z %>%
+  mutate(
+    mean = mean(prop),
+    sd = sd(prop),
+    n = n(),
+    significant = ifelse(z > 1.96 | z < -1.96, 'y','n')
+  ) %>%
+  ggplot() +
+  geom_histogram(aes(x = z, fill = significant), bins = 60, colour = 'black', linewidth = 0.1) +
+  scale_fill_manual(values = c('#708090','#e06666')) +
+  annotate("text", x = 9.32, y = 13, label = 'Batanga',family = 'Charter', size = 3) +
+  annotate("text", x = -9, y = 12, label = 'Paiwan',family = 'Charter', size = 3) +
+  annotate("text", x = -6, y = 47, label = 'Indonesian',family = 'Charter', size = 3) +
+  annotate("segment", x = 9.32, xend = 9.32, y = 8, yend = 3, linewidth = 0.1) +
+  annotate("segment", x = -8.5, xend = -6.7, y = 8, yend = 2, linewidth = 0.1) +
+  annotate("segment", x = -5, xend = -3.64, y = 43, yend = 37, linewidth = 0.1) +
+  geom_vline(aes(xintercept = 0), linewidth = 0.2) +
+  geom_vline(aes(xintercept = 1.96), linetype = 'dashed', linewidth = 0.2) +
+  geom_vline(aes(xintercept = -1.96), linetype = 'dashed', linewidth = 0.2) +
+  labs(x = 'Kin term granularity \n(z-transformed)',
+       y = 'count') +
+  lims(x = c(-10,15)) +
+  # facet_wrap(~language_family) +
+  theme(legend.position = 'none',
+        plot.margin = margin(c(0,0,0,0)))
+
+ggsave('plots/z_scores.pdf', device = cairo_pdf, unit = 'cm', width = 14, height = 6)
+```
+
+```{r}
+z %>% filter(language == 'Batanga')
+```
+
+
+# APPENDIX A: MODELS WITH ALTERNATIVE CONSTRAINTS
+
+We generated data from models with a range of constraints. The baseline model used in the analysis is based on a model from Kemp and Regier (2012), and it samples possible meanings of kin terms from the natural language dataset. But we also tested two other models, with varying constraints: one which randomly assigns kin terms to kin types, regardless of what is possible in natural language, and one which assigned kin terms to kin terms proportional to how much semantic content they share.
+
+Import the data for the other simulation types:
+
+```{r}
+random <- read_csv('data/raw/stochastic_model.csv')
+
+weighted <- read_csv('data/raw/weighted_model.csv')
+```
+
+And add columns to specify which model they were generated by:
+
+```{r}
+random <- random %>% mutate(data_type = 'random')
+
+weighted <- random %>% mutate(data_type = 'weighted')
+```
+
+
+```{r}
+rbind(random,weighted,baseline) %>% group_by(data_type) %>%
+  mutate(
+    mean = mean(prop),
+    sim_type = case_when(
+      data_type == 'simulated' ~ 'Reported model',
+      data_type == 'random' ~ 'Stochastic',
+      data_type == 'weighted' ~ 'Weighted'
+    ),
+    sim_type = factor(sim_type, levels = c('Reported model', 'Stochastic', 'Weighted'))
+  ) %>%
+  ggplot(aes(x = prop, fill = sim_type)) +
+  scale_fill_manual(values = c('Stochastic' = '#f6ecd0', 'Weighted' = '#708090','Reported model' = '#e06666')) +
+  geom_histogram(colour = 'black', linewidth = 0.1) +
+  geom_vline(aes(xintercept = mean), linetype = 'dashed', linewidth = 0.2) +
+  labs(x = 'Kin term granularity', y = 'count') +
+  lims(x = c(0,1)) +
+  facet_wrap(~sim_type) +
+  theme(legend.position = 'none',
+        plot.margin = margin(c(0,10,0,0)),
+        panel.spacing = unit(1, "lines"))
+
+ggsave('plots/simulation_types.pdf', device = cairo_pdf, unit = 'cm', width = 14, height = 5)
+```
+
+And get summary statistics. The weighted and random baselines are practically identical, but the reported baseline has a much larger mean and generally the values skew more fine-grain.
+
+```{r}
+rbind(random,weighted,baseline) %>% group_by(data_type) %>%
+  summarise(
+    mean = mean(prop),
+    sd = sd(prop),
+    range = range(prop)
+  )
+```
+
+
+# APPENDIX B: ORDER OF KIN TERM ASSIGNMENT DOES NOT AFFECT MODEL OUTCOME
+
+The reported model assigned kin terms to kin types in a random order. However, it is plausible that in natural languages, kin might be assigned in a specific order -- in particular, terms for the kin that we interact with the most, such as our nearest genealogical relatives, might be learned first.
+
+We tested whether or not the order of assignment makes a difference to the distribution of granularity in the model, comparing the reported model to an `ordered` model, where the kin terms are assigned to mother, father, sister, brother, son, and daughter first.
+
+Let's import the ordered model.
+
+```{r}
+ordered <- read_csv('data/raw/ordered_model.csv')
+```
+
+There is very little difference between the ordered model and the reported model distributions in terms of summary statistics -- if anything the ordered model skews slightly finer-grain:
+
+```{r}
+reported_summary <- baseline %>% summarise(
+  mean = mean(prop),
+  sd = sd(prop),
+  range = paste0('[',round(range(prop)[1],4),' - ',round(range(prop)[2],4),']'))
+
+ordered_summary <- ordered %>% summarise(
+  mean = mean(prop),
+  sd = sd(prop),
+  range = paste0('[',round(range(prop)[1],4),' - ',round(range(prop)[2],4),']'))
+
+reported_summary
+ordered_summary
+```
+
+And a Kolmogorov-Smirnov test suggests that these distributions are not significantly different ($D = 0.044, p < 0.2877$).
+
+```{r}
+ks.test(ordered$prop,baseline$prop)
+```
+
+We are confident that the random order of assignment employed by our model is not what drives the distinction between the model output and the granularity of natural kinship terminology systems.
+
+
+

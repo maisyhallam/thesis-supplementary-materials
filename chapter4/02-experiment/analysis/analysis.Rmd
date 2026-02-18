@@ -1,0 +1,377 @@
+---
+title: "nifty-fig-analysis"
+author: "Maisy Hallam"
+date: "2025-05-29"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(lme4)
+library(binom)
+library(ggtext)
+```
+
+```{r}
+# PLOT THEMES AND COLOURS
+
+# extrafont::loadfonts()
+
+theme_set(theme_bw(base_size = 10))
+theme_update(axis.line.x = element_line(color = "black"),
+    axis.line.y = element_line(color = 'black'),
+    text = element_text(family = "Charter"),
+    plot.margin = margin(c(0,0,0,0)),
+    axis.text = element_text(size = 8),
+    panel.background = element_rect(fill = 'transparent'),
+    plot.background = element_rect(fill = 'transparent', color = 'NA'))
+
+colours = c(
+  'gene' = '#EF476F',
+  'gend' = '#F9844A',
+  'line' = '#FFD166',
+  'gcr' = '#43AA8B')
+```
+
+# Does individual behaviour during classification mirror the cross-linguistic hierarchy of kin term semantics?
+
+Across the world's languages, systems of kinship terminology encode semantics in a hierarchy:
+
+Generation > \{Gender > Lineality > GCR\} > \{Seniority > Speaker Gender\}
+
+Where features at the top of the hierarchy are encoded robustly and often in kinship terminology,
+and those at the bottom are encoded sporadically and rarely. By encode, we mean whether or not these features are shared by individuals who share all or part of their wordform.
+
+We ran an experiment to test whether this hierarchy is mirrored in individual behaviour when classifying kin.
+
+We predict that when choosing how to extend a known kin term, participants will preferentially extend the
+term to an individual who shares a higher-ranked feature with the known referent rather than a lower-ranked feature.
+
+
+First, let's read in the preprocessed experiment data. In this dataframe, we have a number of columns:
+* `random_id` is a randomly generated number associated with each participant.
+* `condition` is one of four conditions participants were assigned to that determined the left-right
+order of presentation in the kinship tree diagram: e.g. `mfgb` (mother left, father right, girls left, boys right)
+* `feature1` and `feature2` are the two features being tested in a particular trial - `gene` = generation, `gend` = gender, `line` = lineality, `gcr` = gender of connecting relative.
+* `exemplar` is the exemplar - the first individual to be given a label.
+* `exemplar_label` is the label given to the exemplar.
+* `target1` is the target who shares `feature1` with the exemplar.
+* `target2` is the target who shares `feature2` with the exemplar.
+* `target1_choice` is the label the participant assigned to `target1`.
+* `target2_choice` is the label the participant assigned to `target2`.
+* `chosen_target` is the target who was assigned the same label as the exemplar.
+* `chosen_feature` is the feature shared by the chosen_target and exemplar.
+* `correct` is whether or not the participant extended the label to the target who
+shares the higher ranked feature with the exemplar - i.e. did they match our hypothesis?
+
+
+```{r}
+df <- read_csv('data/preprocessed/experiment_data.csv')
+
+colnames(df)
+```
+
+We'll make some adjustments to the data and set factors. We add the following columns:
+* `accuracy`: 1 if the participant classified by the higher-ranked feature, 0 if they did not
+* `trial_type`: which two features were compared in each trial (e.g. generation-gender)
+* `stepwise_distance`: the number of steps on the hierarchy between `feature1` and `feature2` (e.g. generation and gcr have a three step distance)
+
+```{r}
+df <- df %>%
+  mutate(
+  accuracy = ifelse(correct == 'Y', 1,0), # allows us to calculate proportion of correct trials
+  trial_type = paste0(feature1, '-', feature2), # a column containing the trial type (i.e. which features were compared)
+  stepwise_distance = case_when(
+    feature1 == 'gene' & feature2 == 'gend' ~ 1,
+    feature1 == 'gend' & feature2 == 'line' ~ 1,
+    feature1 == 'line' & feature2 == 'gcr' ~ 1,
+    feature1 == 'gene' & feature2 == 'line' ~ 2,
+    feature1 == 'gend' & feature2 == 'gcr' ~ 2,
+    feature1 == 'gene' & feature2 == 'gcr' ~ 3
+  ),
+  
+  correct = factor(correct, levels = c('N','Y')), # No is the reference level
+  random_id = factor(random_id),
+  chosen_feature = factor(chosen_feature, levels = c('gene','gend','line','gcr')), # set order of features
+  trial_type = factor(trial_type, levels = c('gene-gend','gene-line','gene-gcr','gend-line','gend-gcr','line-gcr')),
+  stepwise_distance = factor(stepwise_distance) # a column containing the number of steps between each pair of features on the hierarchy
+  )
+```
+
+# PARTICIPANTS PREFER TO CLASSIFY BY HIGHER-RANKED FEATURES
+
+First, let's plot participant accuracy - the proportion of trials where they classify by higher-ranked features.
+
+```{r}
+df %>% group_by(random_id) %>%
+  
+  summarise(
+    prop = mean(accuracy)) %>%
+  
+  group_by() %>%
+  
+  mutate(
+    mean_prop = mean(prop),
+    sd = sd(prop),
+    n = n(),
+    lower95 = binom.confint(sum(prop),n,methods = 'wilson')$lower,
+    upper95 = binom.confint(sum(prop),n,methods = 'wilson')$upper,
+  ) %>%
+  
+  ggplot(aes(x = '', y = prop)) +
+  geom_errorbar(aes(ymin = lower95, ymax = upper95), width = 0.05,colour = 'black') +
+  geom_hline(yintercept = 0.5,linetype = 'dashed') +
+  geom_violin(fill = '#ddafa9', alpha = 0.5, colour = 'NA', trim = FALSE) +
+  geom_point(aes(y = mean_prop),size = 10,shape = 21, fill = 'red',color = 'black') +
+  lims(y = c(0,1)) +
+  labs(
+    title = 'Proportion of all trials where higher ranked feature was co-lexified', 
+    y = 'Proportion of trials', 
+    x = 'All participants')
+```
+
+Dotted line marks chance at 50%, and it looks like participants are choosing the higher ranked feature well above chance. Let's confirm that with an intercept-only logistic regression model, predicting the intercept of `correct` (a binary variable Y/N) with random intercepts per participant:
+
+```{r}
+acc_mdl <- glmer(correct ~ 1 + (1 |random_id), data = df, family = binomial())
+
+summary(acc_mdl)
+```
+
+The estimate is 0.84 log-odds, corresponding to 0.7 probability that participants choose the higher-ranked feature across all trials.
+
+```{r}
+plogis(0.84178)
+```
+
+And if we break down the proportions with which each feature was chosen, we see that the highest-ranked
+Generation is chosen the most, followed by Gender, followed by Lineality -- but then there is no
+observable difference between Lineality and GCR.
+
+```{r}
+df %>%
+  group_by(chosen_feature) %>%
+  
+  summarise(
+    count = n(),
+    n_trials = nrow(df) / 2,
+    prop_selected = (count) / n_trials,
+    lower95 = binom.confint(count,n_trials,methods = 'wilson')$lower,
+    upper95 = binom.confint(count,n_trials,methods = 'wilson')$upper,
+  ) %>%
+  
+  ggplot(aes(x = chosen_feature, y = prop_selected,fill = chosen_feature)) +
+  scale_x_discrete(labels = c('Generation\n','Gender\n','Lineality\n','GCR\n')) +
+  scale_fill_manual(values = colours) +
+  geom_hline(yintercept = 0.5,linetype = 'dashed') +
+  geom_errorbar(aes(ymin = lower95, ymax = upper95), width = 0.05,colour = 'black', linewidth = 0.2) +
+  geom_point(size = 4,shape = 21,stroke = 0.5,colour = 'black') +
+  lims(y = c(0,1)) +
+  labs(x = 'Feature',y = 'Proportion of trials\n') +
+  theme(legend.position = 'none')
+
+# ggsave('plots/feature_freq.pdf',width = 9, height = 9, unit = 'cm', device = cairo_pdf)
+```
+
+We can confirm that participants do not reliably choose the higher ranked feature in the Lineality-GCR trial: 
+
+```{r}
+# filter full dataframe to just the lineality-gcr trials
+line_gcr_df <- df %>% filter(
+  trial_type == 'line-gcr')
+
+line_gcr_mdl <- glmer(correct ~ 1 + (1 |random_id), data = line_gcr_df, family = binomial())
+
+summary(line_gcr_mdl)
+```
+
+The estimate is -0.18 log-odds, and the effect is not significant: the model predicts no difference in participants' classification choice in the Lineality-GCR trial specifically.
+
+
+# EFFECT OF HIERARCHY IS STRONGER THE GREATER THE DISTANCE BETWEEN FEATURES
+
+If we look at the proportion with which the higher ranked feature was chosen in each trial type, we see that participants perform above chance in every trial except Lineality-GCR.
+
+```{r}
+# create plot labels
+label_pos <- data.frame(
+  trial = c('gene-gend','gene-line','gene-gcr','gend-line','gend-gcr','line-gcr'),
+  label1 = c('Generation','Generation','Generation','Gender','Gender','Lineality'),
+  label2 = c('Gender','Lineality','GCR','Lineality','GCR','GCR'),
+  colours1 = c('#EF476F','#EF476F','#EF476F','#F9844A','#F9844A','#FFD166'),
+  colours2 = c('#F9844A','#FFD166','#43AA8B','#FFD166','#43AA8B','#43AA8B'),
+  x = c(1,2,3,4,5,6),
+  y1 = c(1,1,1,1,1,1),
+  y2 = c(0,0,0,0,0,0)
+)
+
+df %>% 
+  drop_na() %>%
+  group_by(trial_type) %>%
+  mutate(
+    prop_correct = mean(accuracy), # proportion of higher-ranked selections made
+    n = n(),
+    lower95 = binom.confint(sum(accuracy),n,methods = 'wilson')$lower,
+    upper95 = binom.confint(sum(accuracy),n,methods = 'wilson')$upper,
+  ) %>%
+  
+  ggplot(aes(x = trial_type, y = prop_correct)) +
+  scale_x_discrete(labels = c('Generation- \n Gender','Generation- \n Lineality','Generation- \n GCR','Gender- \n Lineality','Gender- \n GCR', 'Lineality- \n GCR')) +
+  geom_hline(yintercept = 0.5, linetype = 'dashed') +
+  geom_errorbar(aes(ymin = lower95, ymax = upper95), width = 0.05,colour = 'black') +
+  geom_point(shape = 21, stroke = 1, colour = 'black',fill = 'black', size = 5) +
+  geom_richtext(data = label_pos, aes(x = x, y = y1, label = label1,fill = colours1),label.colour = 'NA',fontface = 'bold', family = 'Charter',size = 3) +
+  geom_richtext(data = label_pos, aes(x = x, y = y2, label = label2,fill = colours2),label.colour = 'NA',fontface = 'bold', family = 'Charter',size = 3) +
+  scale_fill_identity() +
+  lims(y = c(0,1)) +
+  labs(
+    x = '',
+    y = 'Proportion of trials') +
+  theme(legend.position = 'none',
+        axis.text.x = element_blank())
+
+# ggsave('plots/pairwise_comparisons.pdf', width = 14, height = 8, device = cairo_pdf, unit = 'cm')
+```
+
+And there also appears to be a slight effect whereby the greater the stepwise distance between features on the hierarchy, the more likely a participant will choose to classify by that feature. For example, Generation and Gender are 1 step apart, and participants often choose Generation over Gender. But Generation and GCR are 3 steps apart, and participants choose Generation even more often over GCR.
+
+Let's confirm that with logistic regression:
+
+```{r}
+dist_mdl <- glmer(correct ~ stepwise_distance + (1 |random_id), data = df, family = binomial())
+
+summary(dist_mdl)
+```
+
+The model estimates the intercept (a one-step distance) at 0.44 log-odds, a two-step distance at 0.73 log-odds, and a three-step distance at 1.23 log-odds. This tells us that a two-step distance is more likely to lead to participants choosing the higher ranked feature than a one-step distance, and that a three-step distance is even more likely to lead to participants choosing the higher-ranked feature than a one-step distance. All effects are significant.
+
+
+# APPENDIX C: VISUAL PROXIMITY DOES NOT CONFOUND EXPERIMENT RESULTS
+
+It is plausible that our experiment design is confounded by proximity effects, so we want to confirm that participants are not just choosing the target that is closest to the exemplar on screen.
+
+One way of doing this is to look at the accuracy in Gender-GCR trials, as in these trials, the target who shares Gender will always be further away from the exemplar than the target who shares GCR.
+
+```{r}
+# filter the dataframe to just include the Gender-GCR trials
+gend_gcr <- filter(df, feature1 == 'gend' & feature2 == 'gcr')
+
+gend_gcr_mdl <- glm(correct ~ 1, data = gend_gcr, family = binomial())
+
+summary(gend_gcr_mdl)
+```
+
+The estimate is 1.14 log-odds, corresponding to a 0.76 probability of participants choosing the higher-ranked feature, Gender, over the lower-ranked feature, GCR:
+
+```{r}
+plogis(1.1378)
+```
+
+This suggests that they are not just selecting the target that is more proximal, as if they were, they would have much lower accuracy on this trial.
+
+We can also look at the effect of physical on-screen distance, which takes a few more bells and whistles. Participants were randomly assigned to a condition that determined the position of each family member in the kinship tree diagram, so first we need to identify the on-screen coordinates of each family member in each condition:
+
+```{r}
+# what order did each family member appear in in each condition?
+mfgb <- c('mm','mf','fm','ff','mz','mb','m','f','fz','fb','mzd','mzs','mbd','mbs','z','b','fzd','fzs','fbd','fbs','zd','zs','d','s','bd','bs','dd','ds','sd','ss')
+
+fmgb <- c('fm','ff','mm','mf','fz','fb','f','m','mz','mb','fzd','fzs','fbd','fbs','z','b','mzd','mzs','mbd','mbs','zd','zs','d','s','bd','bs','dd','ds','sd','ss')
+
+fmbg <- c('ff','fm','mf','mm','fb','fz','f','m','mb','mz','fbs','fbd','fzs','fzd','b','z','mbs','mbd','mzs','mzd','bs','bd','s','d','zs','zd','ss','sd','ds','dd')
+
+mfbg <- c('mf','mm','ff','fm','mb','mz','m','f','fb','fz','mbs','mbd','mzs','mzd','b','z','fbs','fbd','fzs','fzd','bs','bd','s','d','zs','zd','ss','sd','ds','dd')
+
+# what were the x and y coordinates in each position?
+x = c(357,476,919,1038,99,319,642,764,1089,1304,49,149,268,370,467,927,1040,1141,1250,
+      1352,385,515,629,770,880,1014,555,646,740,830)
+
+y = c(40,40,40,40,166,166,166,166,166,166,300,300,300,300,300,300,300,300,300,300,434,434,
+      434,434,434,434,559,559,559,559)
+```
+
+
+Next, we write a function that takes one of these four conditions as an argument, filters the full dataframe by just that condition, and outputs a dataframe that includes the x and y coordinates of the exemplar, target1 and target2. These coordinates are used to determine two more variables: `closer_picked` which indicates whether the participant chose the closer target, and `target_closer` which indicates whether the correct target (with the higher-ranked feature) was also the closer target.
+
+```{r}
+get_distance <- function(cond) {
+  
+  coords_x <- tibble(cond,x)
+  coords_y <- tibble(cond,y)
+  
+  condition_name = deparse(substitute(cond))
+
+  coords_x <- coords_x %>% pivot_wider(names_from = cond, values_from = x)
+  coords_y <- coords_y %>% pivot_wider(names_from = cond, values_from = y)
+  
+distance_df <- df %>% filter(condition == condition_name) %>% mutate(
+  exemplar_x = coords_x[1, exemplar] %>% as.numeric(),
+  target1_x = coords_x[1, target1] %>% as.numeric(),
+  target2_x = coords_x[1, target2] %>% as.numeric(),
+  exemplar_y = coords_y[1, exemplar] %>% as.numeric(),
+  target1_y = coords_y[1, target1] %>% as.numeric(),
+  target2_y = coords_y[1, target2] %>% as.numeric(),
+  target1_x_dist = abs(exemplar_x - target1_x),
+  target1_y_dist = abs(exemplar_y - target1_y),
+  target2_x_dist = abs(exemplar_x - target2_x),
+  target2_y_dist = abs(exemplar_y - target2_y),
+  closer = ifelse(target1_x_dist + target1_y_dist > target2_x_dist + target2_y_dist, target2,target1),
+  closer_picked = factor(ifelse(closer == chosen_target,'Y','N')),
+  target_closer = factor(ifelse(closer == target1, 'Y','N'))
+)
+
+return(distance_df)
+}
+```
+
+Using this function, we build a dataframe including the `closer_picked` and `target_closer` variables for all four conditions:
+
+```{r}
+df_dist <- rbind(get_distance(mfgb),get_distance(fmgb),get_distance(mfbg),get_distance(fmbg))
+```
+
+And then we can model whether participants were more likely to be correct if the higher-ranked target was closer to the exemplar:
+
+```{r}
+proximity_mdl <- glmer(correct ~ target_closer + (1 | random_id), data = df_dist, family = binomial())
+
+summary(proximity_mdl)
+```
+
+The model intercept is estimated at 0.77 log-odds (participants have a 0.68 probability of responding 'correctly'). The effect of the correct target being closer is estimated at 0.17 log-odds, but this effect is not significant, indicating that the closeness of the target does not affect whether or not participants chose to classify by higher-ranked features.
+
+```{r}
+plogis(0.7702)
+```
+
+We can plot this data to compare the two groups (higher-ranked target closer and higher-ranked target not closer):
+
+```{r}
+df_dist %>%
+  group_by(random_id, target_closer) %>%
+  mutate(
+  target_closer = factor(target_closer, levels = c('Y','N')),
+  n = n(),
+  prop_correct = sum(accuracy) / n
+  ) %>%
+  group_by(target_closer) %>%
+  mutate(
+    mean = mean(prop_correct),
+    sd = sd(prop_correct),
+    se = sd / sqrt(n()),
+    upper = mean + (se * 1.96),
+    lower = mean - (se * 1.96)
+  ) %>%
+  ggplot(aes(x = target_closer, y = prop_correct, fill = target_closer)) +
+  scale_fill_manual(name = 'Target Closer', values = c('Y' = '#f6ecd0', 'N' = '#708090')) +
+  geom_violin(alpha = 0.8) +
+  geom_point(aes(y = mean), shape = 18, size = 3) + 
+  geom_errorbar(aes(ymax = upper, ymin = lower), width = 0.1) +
+  labs(x = 'Higher-ranked target closer', y = 'Higher-ranked target chosen') +
+  theme(legend.position = 'none',
+        axis.text = element_text(size = 8),
+        plot.margin = margin(c(0,0,0,0)))
+
+# ggsave('plots/proximity.pdf', device = cairo_pdf, unit = 'cm', width = 10, height = 7)
+```
+

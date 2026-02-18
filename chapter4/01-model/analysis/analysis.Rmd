@@ -1,0 +1,494 @@
+---
+title: "analysis"
+author: "Maisy Hallam"
+date: "2025-03-31"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+library(tidyverse)
+library(glmmTMB)
+library(ggridges)
+library(ggtext)
+library(patchwork)
+```
+
+```{r}
+# SET PLOT THEMES AND COLOURS
+
+# extrafont::loadfonts()
+
+theme_set(theme_bw(base_size = 10))
+theme_update(axis.line.x = element_line(color = "black"),
+    axis.line.y = element_line(color = 'black'),
+    text = element_text(family = "Charter"),
+    axis.text = element_text(size = 8),
+    plot.margin = margin(c(0,0,0,0)),
+    panel.background = element_rect(fill = 'transparent'),
+    plot.background = element_rect(fill = 'transparent', color = 'NA'))
+
+colours = c(
+  'generation' = '#EF476F',
+  'gender' = '#F9844A',
+  'lineal' = '#FFD166',
+  'gcr' = '#43AA8B',
+  'seniority' = '#277DA1',
+  'speaker_gender' = '#7B2CBF')
+
+line_colours = c(
+  'generation' = '#C70039',
+  'gender' = '#ce5a31',
+  'lineal' = '#cea931',
+  'gcr' = '#26956e',
+  'seniority' = '#266b95',
+  'speaker_gender' = '#632695')
+```
+
+# SEMANTIC ENCODING OF KINSHIP ACROSS THE WORLD'S LANGUAGES
+
+Under the assumption that kin terms with similar meanings will have similar forms, we developed a metric of semantic encoding for kinship.
+
+The meanings of kin terms can be derived from six semantic features: Generation, Gender, Lineality, Gender of Connecting Relative, Seniority, and Speaker Gender.
+
+We built a model that optimises the correlation between semantic similarity and form similarity in a particular language, by manipulating how much weight each semantic feature contributes to semantic similarity.
+
+The resulting distribution of weights tells us, for each language, how much each feature contributes to shared form-meaning mappings in that language (i.e., how much it is encoded in that language).
+
+We find that languages vary in the semantic features they encode, but that the feature themselves vary in the extent to which they are encoded. In brief, the features are encoded *hierarchically* such that some features are encoded robustly and often, while others are more sporadic and rare.
+
+On the basis of the analysis in this document, we propose the following cross-linguistic hierarchy of encoding for kinship: Generation > \{Gender > Lineality > GCR\} > \{Seniority > Speaker Gender\}, where curly brackets indicate features that are similarly likely to be encoded.
+
+
+First things first, let's import the results from our model. This dataframe contains a column for `Language`, `Glottocode`, and `Language Family`. 
+
+It also contains a column for each feature, who values are the weight assigned by the model to that feature in that language. 
+
+`result` is the optimised correlation between semantic similarity and form similarity.
+
+```{r}
+df <- read_csv('data/model_run.csv')
+
+colnames(df)
+```
+
+For plotting purposes, we'll want this dataframe in a longform format, so let's pivot the data so that we have a row for each feature in each language.
+
+```{r}
+df_long <- df %>% pivot_longer(cols = c(generation, gender, lineal, gcr, seniority, speaker_gender),names_to = 'feature',values_to = 'weight')
+
+df_long
+```
+
+# LANGUAGES DIFFER IN WHICH FEATURES THEY ENCODE
+
+To see whether languages differ in the features they encode, let's look at the feature weights for a random sample of languages.
+
+First, let's create the sample. To replicate the plot in the paper, use the following sample (originally generated randomly, but given statically here):
+
+```{r}
+paper_sample_languages <- c('English','German','Hawaiian','Hindi','Indonesian','Myene','Māori', 'Nepali', 'Seki', 'Selkup', 'Yansi','Nimboran')
+
+paper_sample <- df_long %>% filter(language %in% paper_sample_languages) %>% 
+  mutate(
+  label = sprintf('%s \n (%s)',language,family), # create a facet label: language (family)
+  label = factor(label)) %>% 
+    unique() # remove duplicates if there are any
+
+paper_sample
+```
+If you'd prefer a random sample, run the following chunk:
+
+```{r}
+random_sample_languages <- c(sample(df$language,12))
+
+random_sample <- df_long %>% filter(language %in% random_sample_languages) %>% 
+  mutate(
+  label = sprintf('%s \n (%s)',language,family), # create a facet label: language (family)
+  label = factor(label)) %>% 
+    unique() # remove duplicates if there are any
+
+random_sample
+```
+
+Then, we can plot this sample in a series of column plots, to show that different languages have different weights on each feature.
+
+```{r}
+axis_labels = c(
+  'gender' = 'gend.',
+  'generation' = 'gene.',
+  'seniority' = 'sen.',
+  'speaker_gender' = 'speak.',
+  'lineal' = 'line.',
+  'gcr' = 'conn.'
+)
+
+random_sample %>%
+  ggplot(aes(y = weight, x = feature, fill = feature)) +
+  scale_fill_manual(name = '', labels = features, values = colours) +
+  scale_x_discrete(labels = axis_labels) +
+  geom_col() +
+  labs(x = '\nSemantic feature',y = 'Weight value') +
+  facet_wrap(~label,nrow = 2) +
+  lims(y = c(0,1)) +
+  theme(legend.key.size = unit(0.3, 'cm'),
+        legend.position = 'top',
+        legend.margin=margin(c(1,5,-5,5)),
+        legend.background = element_rect(fill = 'NA'),
+        legend.text = element_text(size = 7),
+        axis.text.x = element_blank(),
+        strip.text = element_text(size = 7)) + 
+  guides(fill = guide_legend(nrow = 1))
+
+# ggsave('../plots/sample.pdf', width = 17, height = 8, unit = 'cm', device = cairo_pdf)
+```
+
+While languages differ, we can notice several commonalities between them just from these plots. For example, most languages rank Generation the highest (and much more than any other feature). Gender, Lineality, and GCR are often encoded, but not usually weighted as highly as Generation. Seniority and Speaker Gender are very often not encoded at all, and where they are, they tend to receive very low weights.
+
+# THE FEATURES THEMSELVES FORM A HIERARCHY
+
+Given what we can observe from the column plots, we now turn to ask: do the distributions of weights on each feature vary? Is each feature encoded similarly, or do we see patterns in which features are encoded the most often and which are encoded only rarely?
+
+First, let's order the features by their median weight values:
+
+```{r}
+df_long %>% group_by(feature) %>% summarise(median(weight))
+
+df_long <- df_long %>% mutate(
+  feature = factor(feature, levels = c('generation','gender','lineal','gcr','seniority','speaker_gender')),
+  language = factor(language))
+```
+
+Now, we can plot the distribution of weights on each feature.
+
+```{r}
+features <-
+  c(
+    'generation' = 'Generation',
+    'gender' = 'Gender',
+    'speaker_gender' = 'Speaker\n gender',
+    'lineal' = 'Lineality',
+    'gcr' = 'GCR',
+    'seniority' = 'Seniority'
+  )
+
+df_long %>%
+  ggplot(aes(x = weight, y = feature, fill = feature,colour=feature,height = ..ndensity..)) +
+  scale_y_discrete(labels = features,limits = rev) +
+  scale_fill_manual(name = 'Feature', values = colours) +
+  scale_colour_manual(name = 'Feature', values = line_colours) +
+  geom_density_ridges(stat = 'binline',scale = 0.8,bins = 25,alpha = 0.8,linewidth = 0.2,draw_baseline = FALSE) +
+  labs(x = 'Weight value', y = '') +
+  theme(legend.position = 'none',
+        panel.grid.major.y = element_line(colour = 'black',linewidth = 0.3),
+        panel.grid.major.x = element_line(colour = 'NA'),
+        plot.margin = margin(c(0,0,0,-10)),
+        axis.text = element_text(size = 9))
+
+# ggsave('plots/hierarchy.pdf', device = cairo_pdf, width = 10, height = 7, unit = 'cm')
+
+```
+
+We ran two sets of regression models to confirm that features differ in the extent to which they are encoded.
+
+First, we compared a model that predicts Weight by Feature to a model without the Feature predictor. If the inclusion of the Feature predictor helps the model predict what the Weight will be, then that indicates that the distributions of weight on each feature do differ from one another. In this model, the Feature predicor is sum-coded:
+
+```{r}
+contrasts(df_long$feature) <- contr.sum(6)
+
+contrasts(df_long$feature)
+```
+
+We need to use a Beta regression model for this data, as our weight values are bounded between 0 and 1. To make this viable, we must also avoid absolute 0 values (which our data does have). To circumvent this, we multiply all weights by a small constant:
+
+```{r}
+constant <- 1e-5
+df_long$weight_adj <- (df_long$weight * (1 - 2 * constant)) + constant # avoid absolute 0 values for beta regression
+```
+
+Then we can run the two models and the model comparison. Our models include random intercepts for language and language family, to account for the fact that we have multiple data points per language (one for each feature) and to account for shared ancestry between languages.
+
+```{r}
+feat_mdl <- glmmTMB(weight_adj ~ feature + (1 |language) + (1|family), data = df_long, family = beta_family())
+
+null_mdl <- glmmTMB(weight_adj ~ 1 + (1|language) + (1|family), data = df_long, family = beta_family())
+
+anova(feat_mdl, null_mdl)
+```
+
+The model comparison suggests that including Feature as a predictor significantly improves the fit of the model, indicating that feature vary in the extent to which they are encoded.
+
+But we want to test not only whether features differ from each other, but also whether they differ *successively*. The ridgeline plot above suggests that when we order the features by their median value, that the weights on each feature get increasingly lower: Generation receives the highest weights, then Gender, then Lineality, all the way down to Speaker Gender which receives mostly weights of 0. Our next model tests whether this hierarchical difference between features is robust. In this model, the Feature predictor is successive-differences coded: the model will compare between each level of the model and the next, e.g. Generation against Gender, Gender against Lineality, Lineality against GCR, GCR against Seniority, and Seniority against Speaker Gender, to test the size the difference between their weights.
+
+```{r}
+contrasts(df_long$feature) <- MASS::contr.sdif(6)
+
+contrasts(df_long$feature)
+```
+
+As before, the model includes random intercepts for language and language family.
+
+```{r}
+feat_mdl_succ <- glmmTMB(weight_adj ~ feature + (1 | language) + (1 | family), data = df_long, family = beta_family())
+
+summary(feat_mdl_succ)
+```
+
+The model reveals a signficant decrease in weight between each successive level of the predictor, suggesting that not only do features differ in the extent to which they are encoded, there is a HIERARCHY OF ENCODING, such that Generation is encoded the most robustly and often, followed by Gender, Lineality, GCR, Seniority and finally, Speaker Gender.
+
+We note that the effect sizes, while significant at every level of the model, are not consistent. The effect size for the Generation-Gender contrast, for example, is much greater than the effect size for the Seniority-Speaker contrast. We therefore propose 'bands' of the hierarchy, where features in the same band are similarly likely to be encoded:
+
+Generation > \{Gender > Lineality > GCR\} > \{Seniority > Speaker Gender\}
+
+Finally, we calculate confidence intervals for the model predictions:
+
+```{r}
+cis <- c(
+  'contrast' = c(1,2,3,4,5),
+  'upper' = c(-2.12535 + (1.96*0.02606), -0.47488 + (1.96*0.04154), -0.44978 + (1.96*0.04277),
+              -0.68180 + (1.96*0.04322), -0.19795 + (1.96*0.04312)),
+  'lower' = c(-2.12535 - (1.96*0.02606), -0.47488 - (1.96*0.04154), -0.44978 - (1.96*0.04277),
+              -0.68180 - (1.96*0.04322), -0.19795 - (1.96*0.04312))
+)
+
+cis
+```
+
+# APPENDIX A: CORRELATIONS BETWEEN FORM AND MEANING ARE ROBUST
+
+Our model depends on the assumption that kin terms are topographic; i.e. that for each language, there is a strong correlation between our measure of semantic similarity and our measure of form similarity.
+
+This correlation should be stronger after optimisation, reflecting that the model has successfully identified which features contribute most to form-meaning mappings in that language.
+
+Additionally, the correlation after optimisation should be robust to permutation -- otherwise, we cannot trust that the model is actually finding the parameter weights on each feature that contribute most to topographicity.
+
+First, let's look at the distribution of correlations when all features are treated equally, compared to the correlations we get after we optimise the semantic similarity metric to that language. We'll import the data:
+
+```{r}
+equal_corrs <- read_csv('data/true_correlations.csv') %>% rename(equal_weight = correlation)
+
+weighted_corrs <- df_long %>% dplyr::select(c(language,family,glottocode,result)) %>% rename(optimised = result)
+
+correlations <- merge(equal_corrs,weighted_corrs) %>% # merge the 'equal' correlations with the 'weighted' correlations
+  mutate(difference = optimised - equal_weight) # and create a new column showing the difference between them
+
+# baseline_corrs <- read_csv('data/baseline_correlations.csv')
+```
+We can confirm with summary statistics that the average correlation is stronger after optimisation, as expected:
+
+```{r}
+correlations <- correlations %>% filter(!is.na(optimised))
+
+correlations %>% summarise(
+  optimised_mean = mean(optimised),
+  optimised_sd = sd(optimised),
+  optimised_range = paste0('[',range(optimised)[1],' - ',range(optimised)[2],']'),
+  equal_mean = mean(equal_weight),
+  equal_sd = sd(equal_weight),
+  equal_range = paste0('[',range(equal_weight)[1],' - ',range(equal_weight)[2],']')
+)
+```
+
+Now let's plot the correlations before and after optimisation - grey bars are equal-weight correlations, cream bars are post-optimisation correlations.
+
+```{r}
+corr_plot <- correlations %>% 
+  ggplot() +
+  geom_histogram(aes(x = equal_weight), fill = 'grey',colour = 'grey',bins = 30) +
+  geom_vline(aes(xintercept = 0.3170863),linewidth = 0.3,colour = '#333',linetype = 'dashed') +
+  geom_histogram(aes(x = optimised), colour = 'black', fill = '#f6ecd0', bins = 30,alpha = 0.6,size = 0.2) +
+  geom_vline(aes(xintercept = 0.568124),linewidth = 0.3,colour = 'black',linetype = 'dashed') +
+  lims(x = c(-1,1)) +
+  labs(x = 'Correlation between form \nand meaning') +
+  theme(axis.text = element_text(size = 8),
+        plot.margins = margin(c(0,0,0,0)))
+
+# ggsave('plots/correlations.pdf', width = 6.75*0.45,height = 1.25)
+```
+
+To confirm that correlations are reliably better after optimisation, we compared the veridical correlations to a null baseline.
+
+This baseline was generated by measuring the correlations of each language after it was randomly permuted, using the weights that were generated by the model.
+
+If a veridical language has a higher correlation between semantic similarity and edit similarity that its permuted counterparts, that suggests that the model is identifying the best set of weight parameters for that language.
+
+First, let's import the baseline data:
+
+```{r}
+baseline_corrs <- read_csv('data/correlation_baseline.csv')
+```
+
+Then, we can merge this data with our optimised correlations, and calculate the z-score for each language that tells us how many standard deviations the optimised correlation is from its bespoke baseline mean.
+
+```{r}
+all_corrs <- merge(baseline_corrs,correlations) %>% unique() %>% rename(simulated_correlation = correlation)
+
+corr_z <- all_corrs %>% group_by(glottocode) %>%
+  summarise(
+    mean = mean(simulated_correlation),
+    sd = sd(simulated_correlation),
+    z = (optimised - mean) / sd
+  ) %>% unique()
+```
+
+If a veridical correlation of a language beats 95\% of its baseline correlations, i.e. it has a z-score greater than 1.96, then we can confirm that the veridical correlation is significantly better than the baseline (p < 0.05). And indeed, 99% of languages beat their baseline, so we confirm that the optimised feature weights lead to better correlations for the veridical orientation of the language than the permuted one. This confirms that the model works as intended, and produces better correlations after optimisation.
+
+```{r}
+nrow(filter(corr_z, z > 1.96)) / nrow(corr_z)
+```
+
+We can plot this distribution of z-scores:
+
+```{r}
+z_plot <- corr_z %>% mutate(significant = ifelse(z > 1.96,z,NA),insignificant = ifelse(z < 1.96,z,NA)) %>%
+  ggplot() +
+  geom_histogram(aes(x = z), colour = 'black', fill = '#708090', bins = 30,alpha = 0.6,size = 0.2) +
+  labs(x = 'Correlation between form \nand meaning (z-transformed)') +
+  geom_vline(aes(xintercept = 1.96),linewidth = 0.3) +
+  geom_vline(aes(xintercept = -1.96),linewidth = 0.3)
+```
+
+And using the `patchwork` package, we can combine our two correlation plots.
+
+```{r}
+corr_plot + z_plot
+
+ggsave('plots/corrs_and_z.pdf',unit = 'cm', device = cairo_pdf, width = 14,height = 6)
+```
+
+
+# APPENDIX B: THE HIERARCHY IS ROBUST TO PERMUTATION
+
+To test whether the hierarchy is robust to permutation (i.e. it captures the topographic mappings between form and meaning, rather than capturing regularities in the features themselves in how much information they encode), we compare the veridical data to a null baseline.
+
+This baseline is generated by randomly shuffling which terms are assigned to which kin types, and running the resulting permuted language through the optimisation algorithm.
+
+This gives us a dataframe much like our veridical data, with weights on each semantic feature for these permuted languages.
+
+
+```{r}
+baseline <- read_csv('data/model_baseline.csv')
+
+colnames(baseline)
+```
+
+As above, we also want this baseline data in longform format, and we'll set the factor levels while we're at it.
+
+```{r}
+baseline_long <- baseline %>% pivot_longer(cols = c(gender,speaker_gender,gcr,generation,seniority,lineal),names_to = 'feature',values_to = 'weight')
+
+baseline_long <- baseline_long %>% mutate(
+  feature = factor(feature, levels = c('generation','gender','lineal','gcr','seniority','speaker_gender')),
+  language = factor(language))
+```
+
+To plot the veridical data and the baseline data side by side, first we bind the veridical data and the simulated data together.
+
+```{r}
+baseline_long <- baseline_long %>% mutate(simulation = 'y')
+df_long <- df_long %>% mutate(simulation = 'n')
+
+
+ver_and_sim <- rbind(df_long, baseline_long)
+```
+
+Then we can make a faceted plot with veridical data on the left and simulated data on the right, from which it is quite clear that the distributions differ:
+
+```{r}
+ver_and_sim %>% 
+  mutate(
+    simulation = factor(ifelse(simulation == 'y', 'Null baseline', 'Veridical data'), 
+                        levels = c('Veridical data', 'Null baseline'))) %>%
+  ggplot(aes(x = weight, y = feature, fill = feature,colour = feature,height = ..ndensity..)) +
+  scale_y_discrete(labels = features,limits = rev) +
+  scale_fill_manual(name = 'Feature', values = colours) +
+  scale_colour_manual(name = 'Feature', values = line_colours) +
+  geom_density_ridges(stat = 'binline',scale = 0.8,bins = 25,alpha = 0.8,linewidth = 0.2,draw_baseline = FALSE) +
+  labs(x = 'Weight value', y = '') +
+  theme(legend.position = 'none',
+        panel.grid.major.y = element_line(colour = 'black',linewidth = 0.3),
+        panel.grid.major.x = element_line(colour = 'NA'),
+        plot.margin = margin(c(0,0,0,-10))) +
+  facet_wrap(~simulation)
+
+# ggsave('plots/hierarchy_null_baseline.pdf', device = cairo_pdf, unit = 'cm', width = 14, height = 7)
+```
+
+Although the distributions do not look that different for Seniority and Speaker Gender, we anecdotally confirm that the veridical data is much more skewed towards 0 than the baseline data:
+
+```{r}
+nrow(filter(df, seniority > 0.2)) / nrow(df) # 6% of veridical languages weight Seniority above 0.2
+nrow(filter(baseline, seniority > 0.2)) / nrow(baseline) # while 30% of baseline languages do
+
+nrow(filter(df, speaker_gender > 0.2)) / nrow(df) # 0.4% of veridical languages weight Speaker above 0.2
+nrow(filter(baseline, speaker_gender > 0.2)) / nrow(baseline) # while 24% of baseline languages do
+```
+
+And we can confirm using KL divergence that the veridical distributions for each feature diverge from the baseline distribution. KL divergence tells us how much information loss we suffer if we use an approximating model (our baseline distribution) instead of the actual model (our veridical data).
+
+First, we write a function that takes a feature as an argument and returns the KL divergence between distributions:
+
+```{r}
+kl_divergence <- function(feat){
+  true_data <- filter(w_l,feature == feat)$weight
+  sim_data <- filter(baseline_l,feature == feat)$weight
+  
+  # get bin width by calculating the interquartile range (Freedman Diaconis method for skewed data)
+  fd <- ceiling((max(sim_data) - min(sim_data)) / (2 * IQR(sim_data) / length(sim_data)^(1/3))) # bin based on sim
+  # fd <- ceiling((max(true_data) - min(true_data)) / (2 * IQR(true_data) / length(true_data)^(1/3))) # bin based on true data
+  print(fd)
+  
+  bins <- seq(0, 1, length.out = fd)
+
+  
+  # Estimate frequency count for each bin
+  p1 <- hist(sim_data, breaks = bins, plot = FALSE)$counts
+  p2 <- hist(true_data, breaks = bins, plot = FALSE)$counts
+  
+  hist(true_data)
+  hist(sim_data)
+
+  # Convert to probability distributions (normalize to sum to 1)
+  p1 <- p1 / sum(p1)
+  p2 <- p2 / sum(p2)
+  
+  # Ensure there are no zero probabilities (avoid log(0) issues)
+  p1 <- pmax(p1, 1e-10)
+  p2 <- pmax(p2, 1e-10)
+  
+  # Compute KL divergence
+  # kl_div <- entropy::KL.plugin(p1, p2)
+  kl_div <- philentropy::KL(rbind(p1,p2))
+
+  
+  return(kl_div)
+}
+```
+
+Then, we use this function to calculate the KL divergence between each pair of distributions. KL = 0 indicates that the two distributions are identical, and anything greater than 1 is typically considered to be a large divergence (i.e. a very large loss of information when using the baseline distribution instead of the veridical distribution).
+
+```{r}
+# generation
+kl_divergence('generation') #3.878509
+
+# gender
+kl_divergence('gender') #2.579267
+
+# lineality
+kl_divergence('lineal') #3.612728
+
+# gender of connecting relative
+kl_divergence('gcr') #3.022169
+
+# seniority
+kl_divergence('seniority') #2.454278
+
+# speaker gender
+kl_divergence('speaker_gender') #5.241261
+```
+
+We confirm that the baseline distributions diverge considerably from the veridical distributions, suggesting that the semantic hierarchy is robust to permutation: the differences between each feature have to do with how they are encoded in the mapping between wordforms and meanings, not how much information each feature encodes as a baseline.
+
+
+

@@ -1,0 +1,177 @@
+---
+title: "preprocessing"
+author: "Maisy Hallam"
+date: "2026-02-17"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+```
+
+# Preprocessing data for kin term granularity analyses
+
+In this document, we will preprocess the cross-linguistic data on kin term granularity compiled by our model, and extract data on population size from the LinguaMeta dataset and combine it with the kinship data.
+
+We will also extract data from D-PLACE on four variables: settlement (EA030), subsistence (EA042), household size (B022), and family size (B023) (Appendix).
+
+## Kin term granularity
+
+First, let's import the data from our typological analysis. `gran` contains six columns:
+* `language` is the language name
+* `language_family` is the language family
+* `glottocode` is the glottocode for that language
+* `prop` is the kin term granularity: the proportion of kin terms over kin types.
+* `count` is the raw number of kin terms in that language.
+* `n_kintypes` is the number of kin types that were available in that language's dataset (out of a possible 48).
+
+```{r}
+gran <- read_csv('data/raw/granularity.csv')
+
+gran
+```
+
+First, we will filter this dataset so it only contains languages who have at least 40/48 kin types in their dataset (`n_kintypes` > 40), to preserve the accuracy of the kin term granularity measure as much as possible.
+
+```{r}
+gran_filtered <- gran %>% filter(n_kintypes > 40)
+
+write_csv(gran_filtered,'data/preprocessed/kinterm_granularity.csv')
+```
+
+## Population size
+
+Our population size data come from LinguaMeta, so we import the full LinguaMeta dataset and filter just the `estimated_number_of_speakers` variable.
+
+```{r}
+pop_size <- read_tsv('data/raw/linguameta.tsv') %>% select(c(english_name,estimated_number_of_speakers,glottocode))
+```
+
+Then we merge this data with the `lex_size_filtered` data:
+
+```{r}
+gran_pop <- merge(gran_filtered,pop_size, .by = 'glottocode', all.x = TRUE) %>% filter(!is.na(estimated_number_of_speakers)) %>% # remove NA values
+  dplyr::select(c(glottocode,language,estimated_number_of_speakers,family,prop,n_kintypes)) # select only relevant columns
+
+gran_pop
+```
+
+We will want to take the log estimated number of speakers for our analyses, so we create a new variable `log_pop`.
+
+```{r}
+gran_pop <- gran_pop %>% mutate(
+  log_pop = log2(estimated_number_of_speakers)
+)
+```
+
+And save this new dataframe.
+
+```{r}
+write_csv(gran_pop,'data/preprocessed/granularity_population.csv')
+```
+
+
+## D-PLACE data
+
+We compare kin term granularity to some other correlates of network density: settlement type, subsistence type, average household size, and average family size.
+
+First, import the data from D-PLACE:
+
+It's split into three dataframes: 
+* `codes` contains each variable in D-PLACE and its possible values.
+* `data` contains the value for each variable for each society (by ID)
+* `societies` contains each society and their corresponding ID.
+
+```{r}
+codes <- read_csv('data/raw/dplace/codes.csv')
+data <- read_csv('data/raw/dplace/data.csv')
+societies <- read_csv('data/raw/dplace/societies.csv')
+```
+
+We need to merge the dataframes together in order to have both the data and the society name in a single dataframe.
+
+Notice the column `ID` in `societies` does not match the column name `Soc_ID` in `data`; let's fix that.
+
+```{r}
+colnames(societies)
+colnames(data)
+
+societies_renamed <- societies %>% rename(Soc_ID = ID)
+```
+
+Now let's merge `societies` and `data` by the `Soc_ID`.
+
+```{r}
+societies_data <- merge(societies_renamed,data,by = 'Soc_ID')
+```
+
+And then filter by our first variable, EA030 (settlement type).
+We'll also select only a handful of columns: we want the society `Name`,
+the language's `Glottocode`, and the `Value` for the settlement type variable.
+
+```{r}
+settlement <- filter(societies_data,Var_ID == 'EA030') 
+
+%>% dplyr::select(c(Name,Glottocode,Value))
+
+settlement
+```
+
+We have our own coding system that is less granular than the D-PLACE system, so we'll create a new column with our own Values.
+
+```{r}
+settlement <- settlement %>% mutate(
+    Settlement_Type = case_when(
+      Value %in% c('Nomadic','Seminomadic','Semisedentary','Impermanent') ~ 'Nomadic/Impermanent',
+      Value %in% c('Dispersed homesteads','Hamlets') ~ 'Small settlements',
+      Value %in% c('Villages/towns','Complex permanent') ~ 'Large settlements'
+    )
+  )
+```
+
+And save this new dataframe.
+
+```{r}
+write_csv(settlement,'data/preprocessed/settlement_type.csv')
+```
+
+
+Now we'll do the same for our subsistence type data.
+
+```{r}
+subsistence <- filter(societies_data,Var_ID == 'EA042') %>% dplyr::select(c(Name,Glottocode,Value))
+
+subsistence <- subsistence %>% mutate(
+    Subsistence_Type = case_when(
+      Value %in% c('Gathering','Fishing','Hunting','Pastoralism') ~ 'Hunting and gathering',
+      Value %in% c('Casual agriculture','Extensive agriculture', 'Intensive agriculture', 'Agriculture, type unknown') ~ 'Agriculture')
+    )
+
+write_csv(subsistence,'data/preprocessed/subsistence_type.csv')
+```
+
+And for household size data:
+
+```{r}
+household <- societies_data %>% filter(Var_ID == 'B022') %>% 
+  dplyr::select(Name, Glottocode, Value) %>%
+  rename(Household_Size = Value)
+
+household
+
+write_csv(household, 'data/preprocessed/household_size.csv')
+```
+
+And family size data:
+
+```{r}
+family <- societies_data %>% filter(Var_ID == 'B023') %>% 
+  dplyr::select(Name, Glottocode, Value) %>%
+  rename(Family_Size = Value)
+
+family
+
+write_csv(family, 'data/preprocessed/family_size.csv')
+```
+

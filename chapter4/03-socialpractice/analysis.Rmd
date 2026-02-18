@@ -1,0 +1,435 @@
+---
+title: "social-practice-ordinal"
+author: "Maisy Hallam"
+date: "2026-01-20"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(ordinal)
+library(ggeffects)
+library(emmeans)
+library(patchwork)
+```
+
+# Are kin term semantics predicted by social practice?
+
+To model whether kin term semantics vary with social practice, here I will test whether the rank of a particular feature can be predicted by a social practice variable.
+
+We test four predictions here:
+1. Societies with bilateral descent will have higher ranks on Lineality.
+2. Societies with unilineal descent will have higher ranks on GCR.
+3. Societies who allow cousin marriage will have higher ranks on Lineality.
+4. Societies who allow cross-cousin marriage only will have higher ranks on GCR.
+
+
+First, we need to import the kin term semantics data and create a new variable, `rank`,
+based on which features are weighted highest and which are weighted lowest.
+
+The highest ranked feature receives rank 6, the lowest receives rank 1. 
+
+```{r}
+sem <- read_csv('data/preprocessed/model_run.csv')
+
+sem_l <- sem %>% pivot_longer(cols = c(generation,gender,lineal,gcr,seniority,speaker_gender),names_to = 'feature',values_to = 'weight') %>% unique()
+
+ranked <- sem_l %>% group_by(Name) %>% summarise(
+  Glottocode = Glottocode,
+  Family = Family,
+  Feature = feature,
+  Weight = weight,
+  Rank = case_when(
+    weight == sort(Weight)[1] ~ 1,
+    weight == sort(Weight)[2] ~ 2,
+    weight == sort(Weight)[3] ~ 3,
+    weight == sort(Weight)[4] ~ 4,
+    weight == sort(Weight)[5] ~ 5,
+    weight == sort(Weight)[6] ~ 6
+  )
+)
+
+ranked
+```
+
+Now we have a dataset that includes rankings, let's import our social practice data.
+
+```{r}
+descent <- read_csv('data/preprocessed/descent.csv') %>% rename(Glottocode = glottocode)
+
+marriage <- read_csv('data/preprocessed/marriage.csv') %>% rename(Glottocode = glottocode)
+```
+
+
+# BILATERAL SOCIETIES RANK LINEALITY HIGHER
+
+Combine `descent` data with `ranked` data, and create `Descent_Type` variable.
+
+```{r}
+descent_ranked <- merge(ranked,descent,.by = 'Glottocode') %>% 
+  mutate(
+  Descent_Type = factor(case_when(
+    Value %in% c('Mixed','Bilateral', 'Ambilineal') ~ 'bilateral',
+    Value %in% c('Matrilineal','Patrilineal') ~ 'unilineal',
+  ))
+) %>%
+  dplyr::select(
+    c(Glottocode, Name, Family, Feature, Rank, Descent_Type)
+  )
+
+```
+
+Set factors.
+
+```{r}
+descent_ranked <- descent_ranked %>% mutate(
+  Descent_Type = factor(Descent_Type, levels = c('unilineal', 'bilateral')), # unilineal is the reference level
+  Family = factor(Family),
+  Rank = factor(Rank, ordered = TRUE)
+)
+
+levels(descent_ranked$Descent_Type)
+```
+
+Filter data to only include Lineality rank, and then plot a histogram of
+how many societies have each ranking.
+
+```{r}
+descent_lineality <- descent_ranked %>% filter(Feature == 'lineal')
+
+descent_lineality %>%
+  ggplot(aes(x = Rank, fill = Descent_Type)) +
+  geom_histogram(stat = 'count')
+```
+
+Run the ordinal model predicting `Rank` of lineality by `Descent_Type` (with random intercepts for Language Family).
+
+```{r}
+dl_mdl <- clmm(Rank ~ Descent_Type + (1|Family), data = descent_lineality)
+
+summary(dl_mdl)
+```
+
+The estimate for `bilateral` is 0.5447 log-odds, which means that when a society is bilateral, the odds of Lineality being ranked higher are approximately doubled:
+
+```{r}
+exp(0.5447)
+```
+
+Plotting the model predictions, we can that bilateral societies tend to have higher ranks on Lineality,
+and unilineal societies tend to have lower ranks:
+
+```{r}
+pred <- ggpredict(dl_mdl, terms = "Descent_Type")
+
+plot(pred)
+```
+
+
+# UNILINEAL SOCIETIES RANK GCR HIGHER
+
+Combine `descent` data with `ranked` data.
+
+```{r}
+descent_ranked # same df as above
+```
+
+Set factors - this time, we want `bilateral` to be the reference level.
+
+```{r}
+descent_ranked <- descent_ranked %>% mutate(
+  Descent_Type = factor(Descent_Type, levels = c('bilateral', 'unilineal'))) # bilateral is the reference level
+
+levels(descent_ranked$Descent_Type)
+```
+
+Filter data (as we are only interested in the rank of GCR):
+
+```{r}
+descent_gcr <- descent_ranked %>% filter(Feature == 'gcr')
+
+descent_gcr %>%
+  ggplot(aes(x = Rank, fill = Descent_Type)) +
+  geom_histogram(stat = 'count')
+```
+
+Run the ordinal model.
+
+```{r}
+dg_mdl <- clmm(Rank ~ Descent_Type + (1|Family), data = descent_gcr)
+
+summary(dg_mdl)
+```
+
+The estimate for `unilineal` is 0.9068 log-odds, which means that when a society is unilineal, the odds of GCR being ranked higher are more than doubled:
+
+```{r}
+exp(0.9068)
+```
+
+Again this is confirmed visually by plotting the model predictions:
+
+```{r}
+pred <- ggpredict(dg_mdl, terms = "Descent_Type")
+
+plot(pred)
+```
+
+# SOCEITIES WHO ALLOW COUSIN MARRIAGE RANK LINEALITY HIGHER
+
+Combine `marriage` data with `ranked` data, and create two variables: `Marriage_Permitted`,
+which tells us if a society permits marriage to any or all cousins, and `Marriage_Type` which tells us
+which cousins are permitted (for the cross-cousin marriage - GCR analysis).
+
+```{r}
+cousin_marriage <- merge(ranked,marriage,.by = 'Glottocode') %>% 
+  mutate(
+  Marriage_Permitted = ifelse(Value %in% c('No first/second cousins', 'No first cousins'), 'N','Y'),
+  Marriage_Type = factor(case_when(
+    Value %in% c('Cross-cousin', 'Matrilateral cross only', 'Patrilateral cross only') ~ 'cross cousins',
+    Value %in% c('Any first cousins', 'Paternal only', 'Maternal only') ~ 'other cousins',
+    Value %in% c('No first/second cousins', 'No first cousins') ~ 'no cousins'
+))) %>%
+  dplyr::select(
+    c(Glottocode, Name, Family, Feature, Rank, Marriage_Type,Marriage_Permitted)
+  )
+
+cousin_marriage
+```
+
+Set factors.
+
+```{r}
+cousin_marriage <- cousin_marriage %>% mutate(
+  Marriage_Permitted = factor(Marriage_Permitted, levels = c('N','Y')), # N is the reference level
+  Family = factor(Family),
+  Rank = factor(Rank, ordered = TRUE)
+)
+
+levels(cousin_marriage$Marriage_Permitted)
+```
+
+Filter data (as we are only interested in the rank of Lineality), then make a histogram
+of how often each rank is assigned when a society permits/does not permit cousin marriage.
+
+```{r}
+marriage_lineality <- cousin_marriage %>% filter(Feature == 'lineal')
+
+marriage_lineality %>%
+  ggplot(aes(x = Rank, fill = Marriage_Permitted)) +
+  geom_histogram(stat = 'count')
+```
+
+Run the ordinal model.
+
+```{r}
+ml_mdl <- clmm(Rank ~ Marriage_Permitted + (1|Family), data = marriage_lineality)
+
+
+summary(ml_mdl)
+```
+
+The estimate for `Yes` is 0.05438 log-odds, which means when a society permits cousin marriage the odds of Lineality being ranked higher are approximately the same as in a society where no cousin marriage is permitted:
+
+```{r}
+exp(0.05438)
+```
+
+And indeed the model predicts no difference between the probability of each rank:
+
+```{r}
+pred <- ggpredict(m_l_mdl2, terms = "Marriage_Permitted")
+
+plot(pred)
+```
+
+# SOCIETIES WHO ALLOW CROSS-COUSIN MARRIAGE RANK GCR HIGHER
+
+Combine `marriage` data with `ranked` data, and create a `Marriage_Type` variable which tells us what
+kinds of cousins you are allowed to marry in that society.
+
+```{r}
+cousin_marriage # same df as above
+```
+
+Set factors.
+
+```{r}
+cousin_marriage <- cousin_marriage %>% mutate(
+  Marriage_Type = factor(Marriage_Type, levels = c('no cousins', 'other cousins', 'cross cousins')), # no cousins is the reference level
+  Family = factor(Family),
+  Rank = factor(Rank, ordered = TRUE)
+)
+
+levels(cousin_marriage$Marriage_Type)
+```
+
+Filter data (as we are only interested in the rank of GCR):
+
+```{r}
+marriage_gcr <- cousin_marriage %>% filter(Feature == 'gcr')
+
+marriage_gcr %>%
+  ggplot(aes(x = Rank, fill = Marriage_Type)) +
+  geom_histogram(stat = 'count')
+```
+
+Run the ordinal model.
+
+```{r}
+mg_mdl <- clmm(Rank ~ Marriage_Type + (1|Family), data = marriage_gcr)
+
+summary(mg_mdl)
+```
+
+The estimate for `other cousins` is -0.8611 log-odds, which means that when a society allows cousin marriage (but NOT cross-cousin marriage specifically), the odds of GCR being ranked higher decrease by about half compared to a society that permits no cousin marriage. But this effect is not significant.
+
+```{r}
+exp(-0.8611)
+```
+
+The estimate for `cross cousins` is 0.1038 log-odds, which means that when a society allows marriage to cross cousins, the odds of GCR being ranked higher are about the same as a society that allows no cousin marriage.
+
+```{r}
+exp(0.1038)
+```
+
+Plotting the model predictions shows that the probability of each rank is about the same for each group,
+but a rank of 1 seems a bit more likely for the `other cousins` group.
+
+```{r}
+pred <- ggpredict(mg_mdl, terms = "Marriage_Type")
+
+plot(pred)
+```
+
+We'll use `emmeans` to look at the pairwise comparisons for this model, which shows that there are
+no significant increases or decreases in rank of GCR between any of the groups.
+
+```{r}
+emm <- emmeans(mg_mdl, ~ Marriage_Type)
+contrast(emm, "pairwise", type = "response")
+```
+
+# Plot the distribution of ranks
+
+Finally, we'll plot this data tidily for the paper.
+NOTE: if you do not have the font 'Charter' installed, please comment out the line that assigns fonts.
+
+Set plot themes:
+
+```{r}
+extrafont::loadfonts()
+
+theme_set(theme_bw(base_size = 10))
+theme_update(axis.line.x = element_line(color = "black"),
+    axis.line.y = element_line(color = 'black'),
+    text = element_text(family = "Charter"), # comment out this line if you do not have the font Charter
+    panel.background = element_rect(fill = 'transparent'),
+    plot.background = element_rect(fill = 'transparent', color = 'NA'))
+```
+
+
+First, a plot for Descent Type + Lineality rank.
+
+```{r}
+colours = c(
+  'bilateral' = '#f6ecd0',
+  'unilineal' = '#708090')
+
+
+bl <- descent_lineality %>% filter(!is.na(Descent_Type)) %>% mutate(Descent_Type = factor(Descent_Type, levels = c('bilateral','unilineal'))) %>%
+  ggplot(aes(x = fct_rev(Rank), fill = Descent_Type)) + # fct_rev reverses the order of factors
+                                                        # for a more intuitive x axis
+  scale_fill_manual(name = 'Descent Type', values = colours) +
+  geom_bar(position = 'dodge', linewidth = 0.2, colour = 'black') +
+  labs(x = 'Rank of Lineality',
+       y = 'count',
+       fill = 'Descent type',
+       title = 'Descent type and Lineality') +
+  theme(legend.position = 'none',
+        plot.margin = margin(c(0,0,10,0)),
+        plot.title = element_text(size = 7))
+
+bl
+```
+
+A plot for Descent Type and GCR:
+
+```{r}
+ug <- descent_gcr %>% filter(!is.na(Descent_Type)) %>%
+  ggplot(aes(x = fct_rev(Rank), fill = Descent_Type)) +
+  scale_fill_manual(name = 'Descent Type', values = colours) +
+  geom_bar(position = 'dodge', linewidth = 0.2, colour = 'black') +
+  labs(x = 'Rank of GCR',
+       y = '',
+       fill = 'Descent type',
+       title = 'Descent type and GCR') +
+  theme(legend.margin = margin(c(1,1,1,1)),
+        legend.text = element_text(size = 7),
+        legend.title = element_text(size = 7),
+        legend.key.size = unit(0.4, 'cm'),
+        plot.margin = margin(c(0,0,10,0)),
+        plot.title = element_text(size = 7))
+
+ug
+```
+
+Cousin marriage and Lineality.
+
+```{r}
+colours = c(
+  'N' = '#f6ecd0',
+  'Y' = '#708090')
+
+ml <- marriage_lineality %>% filter(!is.na(Marriage_Permitted)) %>%
+  ggplot(aes(x = fct_rev(Rank), fill = Marriage_Permitted)) +
+  scale_fill_manual(name = 'Marriage Permitted', values = colours) +
+  geom_bar(position = 'dodge', linewidth = 0.2, colour = 'black') +
+  labs(x = 'Rank of Lineality',
+       y = 'count',
+       fill = 'Marriage permitted',
+       title = 'Cousin Marriage and Lineality') +
+  theme(legend.margin = margin(c(0,0,0,0)),
+        legend.text = element_text(size = 7),
+        legend.title = element_text(size = 7),
+        legend.key.size = unit(0.4, 'cm'),
+        plot.margin = margin(c(0,0,0,0)),
+        plot.title = element_text(size = 7))
+```
+
+Cousin marriage and GCR.
+
+```{r}
+colours = c(
+  'no cousins' = '#f6ecd0',
+  'other cousins' = '#666',
+  'cross cousins' = '#708090')
+
+mg <- marriage_gcr %>% filter(!is.na(Marriage_Type)) %>% mutate(Marriage_Type = factor(Marriage_Type, levels = c('no cousins', 'cross cousins', 'other cousins'))) %>%
+  ggplot(aes(x = fct_rev(Rank), fill = Marriage_Type)) +
+  scale_fill_manual(name = 'Marriage Permitted', values = colours) +
+  geom_bar(position = 'dodge', linewidth = 0.2, colour = 'black') +
+  labs(x = 'Rank of GCR',
+       y = '',
+       fill = 'Marriage type',
+       title = 'Cross-cousin Marriage and GCR') +
+  theme(legend.margin = margin(c(0,0,0,0)),
+        legend.text = element_text(size = 7),
+        legend.title = element_text(size = 7),
+        legend.key.size = unit(0.4, 'cm'),
+        plot.margin = margin(c(0,0,0,0)),
+        plot.title = element_text(size = 7))
+```
+
+
+
+Combine all four plots together using `patchwork` package, and save.
+
+```{r}
+bl + ug + ml + mg
+
+ggsave('plots/social_practice.pdf', device = cairo_pdf, width = 14, height = 10, unit = 'cm')
+```
+

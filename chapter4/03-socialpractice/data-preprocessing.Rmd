@@ -1,0 +1,70 @@
+---
+title: "preprocessing"
+author: "Maisy Hallam"
+date: "2026-02-17"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Preprocessing data for social practice analysis
+
+In this document, we will filter out variables EA023 (cousin marriage) and EA043 (patterns of descent)
+from the full D-PLACE dataset.
+
+
+First, import the data from D-PLACE:
+
+It's split into three dataframes: 
+* `codes` contains each variable in D-PLACE and its possible values.
+* `data` contains the value for each variable for each society (by ID)
+* `societies` contains each society and their corresponding ID.
+
+```{r}
+codes <- read_csv('data/raw/codes.csv')
+data <- read_csv('data/raw/data.csv')
+societies <- read_csv('data/raw/societies.csv')
+```
+
+We need to merge the dataframes together in order to have both the data and the society name in a single dataframe.
+
+Notice the column `id` in `societies` does not match the column name `Soc_ID` in `data`; let's fix that.
+
+```{r}
+colnames(societies)
+colnames(data)
+
+societies_renamed <- societies %>% rename(Soc_ID = id)
+```
+
+Now let's merge `societies` and `data` by the `Soc_ID`.
+
+```{r}
+societies_data <- merge(societies_renamed,data,by = 'Soc_ID')
+```
+
+And then filter by our first variable, EA024 (cousin marriage practices).
+We'll also select only a handful of columns: we want the society name `pref_name_for_society`,
+the language's `glottocode`, the `Value` for the cousin marriage variable.
+
+```{r}
+marriage <- filter(societies_data,Var_ID == 'EA023') %>% dplyr::select(c(pref_name_for_society,glottocode,Value,pref_name_for_society))
+```
+
+And then filter by our second variable, EA043 (patterns of descent).
+Again we only select a handful of columns.
+
+```{r}
+descent <- filter(societies_data,Var_ID == 'EA043') %>% dplyr::select(c(pref_name_for_society,glottocode,Value,pref_name_for_society))
+```
+
+Save these new dataframes to our `preprocessed` directory. NOTE: these dataframes already exist in this directory - please only run this cell if you are sure you want to rewrite them.
+
+```{r}
+write_csv(marriage,'data/preprocessed/marriage.csv')
+
+write_csv(descent, 'data/preprocessed/descent.csv')
+```
+

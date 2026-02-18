@@ -1,0 +1,801 @@
+x,y,z,system,system_type,system_group,data_type
+mzd,mzd,1,9,1,1,perfect
+mzd,mzs,1,9,1,1,perfect
+mzd,mbd,1,9,1,1,perfect
+mzd,mbs,1,9,1,1,perfect
+mzd,z,0,9,1,1,perfect
+mzd,b,0,9,1,1,perfect
+mzd,fzd,1,9,1,1,perfect
+mzd,fzs,1,9,1,1,perfect
+mzd,fbd,1,9,1,1,perfect
+mzd,fbs,1,9,1,1,perfect
+mzs,mzd,1,9,1,1,perfect
+mzs,mzs,1,9,1,1,perfect
+mzs,mbd,1,9,1,1,perfect
+mzs,mbs,1,9,1,1,perfect
+mzs,z,0,9,1,1,perfect
+mzs,b,0,9,1,1,perfect
+mzs,fzd,1,9,1,1,perfect
+mzs,fzs,1,9,1,1,perfect
+mzs,fbd,1,9,1,1,perfect
+mzs,fbs,1,9,1,1,perfect
+mbd,mzd,1,9,1,1,perfect
+mbd,mzs,1,9,1,1,perfect
+mbd,mbd,1,9,1,1,perfect
+mbd,mbs,1,9,1,1,perfect
+mbd,z,0,9,1,1,perfect
+mbd,b,0,9,1,1,perfect
+mbd,fzd,1,9,1,1,perfect
+mbd,fzs,1,9,1,1,perfect
+mbd,fbd,1,9,1,1,perfect
+mbd,fbs,1,9,1,1,perfect
+mbs,mzd,1,9,1,1,perfect
+mbs,mzs,1,9,1,1,perfect
+mbs,mbd,1,9,1,1,perfect
+mbs,mbs,1,9,1,1,perfect
+mbs,z,0,9,1,1,perfect
+mbs,b,0,9,1,1,perfect
+mbs,fzd,1,9,1,1,perfect
+mbs,fzs,1,9,1,1,perfect
+mbs,fbd,1,9,1,1,perfect
+mbs,fbs,1,9,1,1,perfect
+z,mzd,0,9,1,1,perfect
+z,mzs,0,9,1,1,perfect
+z,mbd,0,9,1,1,perfect
+z,mbs,0,9,1,1,perfect
+z,z,1,9,1,1,perfect
+z,b,1,9,1,1,perfect
+z,fzd,0,9,1,1,perfect
+z,fzs,0,9,1,1,perfect
+z,fbd,0,9,1,1,perfect
+z,fbs,0,9,1,1,perfect
+b,mzd,0,9,1,1,perfect
+b,mzs,0,9,1,1,perfect
+b,mbd,0,9,1,1,perfect
+b,mbs,0,9,1,1,perfect
+b,z,1,9,1,1,perfect
+b,b,1,9,1,1,perfect
+b,fzd,0,9,1,1,perfect
+b,fzs,0,9,1,1,perfect
+b,fbd,0,9,1,1,perfect
+b,fbs,0,9,1,1,perfect
+fzd,mzd,1,9,1,1,perfect
+fzd,mzs,1,9,1,1,perfect
+fzd,mbd,1,9,1,1,perfect
+fzd,mbs,1,9,1,1,perfect
+fzd,z,0,9,1,1,perfect
+fzd,b,0,9,1,1,perfect
+fzd,fzd,1,9,1,1,perfect
+fzd,fzs,1,9,1,1,perfect
+fzd,fbd,1,9,1,1,perfect
+fzd,fbs,1,9,1,1,perfect
+fzs,mzd,1,9,1,1,perfect
+fzs,mzs,1,9,1,1,perfect
+fzs,mbd,1,9,1,1,perfect
+fzs,mbs,1,9,1,1,perfect
+fzs,z,0,9,1,1,perfect
+fzs,b,0,9,1,1,perfect
+fzs,fzd,1,9,1,1,perfect
+fzs,fzs,1,9,1,1,perfect
+fzs,fbd,1,9,1,1,perfect
+fzs,fbs,1,9,1,1,perfect
+fbd,mzd,1,9,1,1,perfect
+fbd,mzs,1,9,1,1,perfect
+fbd,mbd,1,9,1,1,perfect
+fbd,mbs,1,9,1,1,perfect
+fbd,z,0,9,1,1,perfect
+fbd,b,0,9,1,1,perfect
+fbd,fzd,1,9,1,1,perfect
+fbd,fzs,1,9,1,1,perfect
+fbd,fbd,1,9,1,1,perfect
+fbd,fbs,1,9,1,1,perfect
+fbs,mzd,1,9,1,1,perfect
+fbs,mzs,1,9,1,1,perfect
+fbs,mbd,1,9,1,1,perfect
+fbs,mbs,1,9,1,1,perfect
+fbs,z,0,9,1,1,perfect
+fbs,b,0,9,1,1,perfect
+fbs,fzd,1,9,1,1,perfect
+fbs,fzs,1,9,1,1,perfect
+fbs,fbd,1,9,1,1,perfect
+fbs,fbs,1,9,1,1,perfect
+mzd,mzd,1,10,2x2 side,2x2,perfect
+mzd,mzs,1,10,2x2 side,2x2,perfect
+mzd,mbd,1,10,2x2 side,2x2,perfect
+mzd,mbs,1,10,2x2 side,2x2,perfect
+mzd,z,0,10,2x2 side,2x2,perfect
+mzd,b,0,10,2x2 side,2x2,perfect
+mzd,fzd,0,10,2x2 side,2x2,perfect
+mzd,fzs,0,10,2x2 side,2x2,perfect
+mzd,fbd,0,10,2x2 side,2x2,perfect
+mzd,fbs,0,10,2x2 side,2x2,perfect
+mzs,mzd,1,10,2x2 side,2x2,perfect
+mzs,mzs,1,10,2x2 side,2x2,perfect
+mzs,mbd,1,10,2x2 side,2x2,perfect
+mzs,mbs,1,10,2x2 side,2x2,perfect
+mzs,z,0,10,2x2 side,2x2,perfect
+mzs,b,0,10,2x2 side,2x2,perfect
+mzs,fzd,0,10,2x2 side,2x2,perfect
+mzs,fzs,0,10,2x2 side,2x2,perfect
+mzs,fbd,0,10,2x2 side,2x2,perfect
+mzs,fbs,0,10,2x2 side,2x2,perfect
+mbd,mzd,1,10,2x2 side,2x2,perfect
+mbd,mzs,1,10,2x2 side,2x2,perfect
+mbd,mbd,1,10,2x2 side,2x2,perfect
+mbd,mbs,1,10,2x2 side,2x2,perfect
+mbd,z,0,10,2x2 side,2x2,perfect
+mbd,b,0,10,2x2 side,2x2,perfect
+mbd,fzd,0,10,2x2 side,2x2,perfect
+mbd,fzs,0,10,2x2 side,2x2,perfect
+mbd,fbd,0,10,2x2 side,2x2,perfect
+mbd,fbs,0,10,2x2 side,2x2,perfect
+mbs,mzd,1,10,2x2 side,2x2,perfect
+mbs,mzs,1,10,2x2 side,2x2,perfect
+mbs,mbd,1,10,2x2 side,2x2,perfect
+mbs,mbs,1,10,2x2 side,2x2,perfect
+mbs,z,0,10,2x2 side,2x2,perfect
+mbs,b,0,10,2x2 side,2x2,perfect
+mbs,fzd,0,10,2x2 side,2x2,perfect
+mbs,fzs,0,10,2x2 side,2x2,perfect
+mbs,fbd,0,10,2x2 side,2x2,perfect
+mbs,fbs,0,10,2x2 side,2x2,perfect
+z,mzd,0,10,2x2 side,2x2,perfect
+z,mzs,0,10,2x2 side,2x2,perfect
+z,mbd,0,10,2x2 side,2x2,perfect
+z,mbs,0,10,2x2 side,2x2,perfect
+z,z,0,10,2x2 side,2x2,perfect
+z,b,0,10,2x2 side,2x2,perfect
+z,fzd,0,10,2x2 side,2x2,perfect
+z,fzs,0,10,2x2 side,2x2,perfect
+z,fbd,0,10,2x2 side,2x2,perfect
+z,fbs,0,10,2x2 side,2x2,perfect
+b,mzd,0,10,2x2 side,2x2,perfect
+b,mzs,0,10,2x2 side,2x2,perfect
+b,mbd,0,10,2x2 side,2x2,perfect
+b,mbs,0,10,2x2 side,2x2,perfect
+b,z,0,10,2x2 side,2x2,perfect
+b,b,0,10,2x2 side,2x2,perfect
+b,fzd,0,10,2x2 side,2x2,perfect
+b,fzs,0,10,2x2 side,2x2,perfect
+b,fbd,0,10,2x2 side,2x2,perfect
+b,fbs,0,10,2x2 side,2x2,perfect
+fzd,mzd,0,10,2x2 side,2x2,perfect
+fzd,mzs,0,10,2x2 side,2x2,perfect
+fzd,mbd,0,10,2x2 side,2x2,perfect
+fzd,mbs,0,10,2x2 side,2x2,perfect
+fzd,z,0,10,2x2 side,2x2,perfect
+fzd,b,0,10,2x2 side,2x2,perfect
+fzd,fzd,1,10,2x2 side,2x2,perfect
+fzd,fzs,1,10,2x2 side,2x2,perfect
+fzd,fbd,1,10,2x2 side,2x2,perfect
+fzd,fbs,1,10,2x2 side,2x2,perfect
+fzs,mzd,0,10,2x2 side,2x2,perfect
+fzs,mzs,0,10,2x2 side,2x2,perfect
+fzs,mbd,0,10,2x2 side,2x2,perfect
+fzs,mbs,0,10,2x2 side,2x2,perfect
+fzs,z,0,10,2x2 side,2x2,perfect
+fzs,b,0,10,2x2 side,2x2,perfect
+fzs,fzd,1,10,2x2 side,2x2,perfect
+fzs,fzs,1,10,2x2 side,2x2,perfect
+fzs,fbd,1,10,2x2 side,2x2,perfect
+fzs,fbs,1,10,2x2 side,2x2,perfect
+fbd,mzd,0,10,2x2 side,2x2,perfect
+fbd,mzs,0,10,2x2 side,2x2,perfect
+fbd,mbd,0,10,2x2 side,2x2,perfect
+fbd,mbs,0,10,2x2 side,2x2,perfect
+fbd,z,0,10,2x2 side,2x2,perfect
+fbd,b,0,10,2x2 side,2x2,perfect
+fbd,fzd,1,10,2x2 side,2x2,perfect
+fbd,fzs,1,10,2x2 side,2x2,perfect
+fbd,fbd,1,10,2x2 side,2x2,perfect
+fbd,fbs,1,10,2x2 side,2x2,perfect
+fbs,mzd,0,10,2x2 side,2x2,perfect
+fbs,mzs,0,10,2x2 side,2x2,perfect
+fbs,mbd,0,10,2x2 side,2x2,perfect
+fbs,mbs,0,10,2x2 side,2x2,perfect
+fbs,z,0,10,2x2 side,2x2,perfect
+fbs,b,0,10,2x2 side,2x2,perfect
+fbs,fzd,1,10,2x2 side,2x2,perfect
+fbs,fzs,1,10,2x2 side,2x2,perfect
+fbs,fbd,1,10,2x2 side,2x2,perfect
+fbs,fbs,1,10,2x2 side,2x2,perfect
+mzd,mzd,1,11,2x2 gen,2x2,perfect
+mzd,mzs,1,11,2x2 gen,2x2,perfect
+mzd,mbd,0,11,2x2 gen,2x2,perfect
+mzd,mbs,0,11,2x2 gen,2x2,perfect
+mzd,z,0,11,2x2 gen,2x2,perfect
+mzd,b,0,11,2x2 gen,2x2,perfect
+mzd,fzd,1,11,2x2 gen,2x2,perfect
+mzd,fzs,1,11,2x2 gen,2x2,perfect
+mzd,fbd,0,11,2x2 gen,2x2,perfect
+mzd,fbs,0,11,2x2 gen,2x2,perfect
+mzs,mzd,1,11,2x2 gen,2x2,perfect
+mzs,mzs,1,11,2x2 gen,2x2,perfect
+mzs,mbd,0,11,2x2 gen,2x2,perfect
+mzs,mbs,0,11,2x2 gen,2x2,perfect
+mzs,z,0,11,2x2 gen,2x2,perfect
+mzs,b,0,11,2x2 gen,2x2,perfect
+mzs,fzd,1,11,2x2 gen,2x2,perfect
+mzs,fzs,1,11,2x2 gen,2x2,perfect
+mzs,fbd,0,11,2x2 gen,2x2,perfect
+mzs,fbs,0,11,2x2 gen,2x2,perfect
+mbd,mzd,0,11,2x2 gen,2x2,perfect
+mbd,mzs,0,11,2x2 gen,2x2,perfect
+mbd,mbd,1,11,2x2 gen,2x2,perfect
+mbd,mbs,1,11,2x2 gen,2x2,perfect
+mbd,z,0,11,2x2 gen,2x2,perfect
+mbd,b,0,11,2x2 gen,2x2,perfect
+mbd,fzd,0,11,2x2 gen,2x2,perfect
+mbd,fzs,0,11,2x2 gen,2x2,perfect
+mbd,fbd,1,11,2x2 gen,2x2,perfect
+mbd,fbs,1,11,2x2 gen,2x2,perfect
+mbs,mzd,0,11,2x2 gen,2x2,perfect
+mbs,mzs,0,11,2x2 gen,2x2,perfect
+mbs,mbd,1,11,2x2 gen,2x2,perfect
+mbs,mbs,1,11,2x2 gen,2x2,perfect
+mbs,z,0,11,2x2 gen,2x2,perfect
+mbs,b,0,11,2x2 gen,2x2,perfect
+mbs,fzd,0,11,2x2 gen,2x2,perfect
+mbs,fzs,0,11,2x2 gen,2x2,perfect
+mbs,fbd,1,11,2x2 gen,2x2,perfect
+mbs,fbs,1,11,2x2 gen,2x2,perfect
+z,mzd,0,11,2x2 gen,2x2,perfect
+z,mzs,0,11,2x2 gen,2x2,perfect
+z,mbd,0,11,2x2 gen,2x2,perfect
+z,mbs,0,11,2x2 gen,2x2,perfect
+z,z,0,11,2x2 gen,2x2,perfect
+z,b,0,11,2x2 gen,2x2,perfect
+z,fzd,0,11,2x2 gen,2x2,perfect
+z,fzs,0,11,2x2 gen,2x2,perfect
+z,fbd,0,11,2x2 gen,2x2,perfect
+z,fbs,0,11,2x2 gen,2x2,perfect
+b,mzd,0,11,2x2 gen,2x2,perfect
+b,mzs,0,11,2x2 gen,2x2,perfect
+b,mbd,0,11,2x2 gen,2x2,perfect
+b,mbs,0,11,2x2 gen,2x2,perfect
+b,z,0,11,2x2 gen,2x2,perfect
+b,b,0,11,2x2 gen,2x2,perfect
+b,fzd,0,11,2x2 gen,2x2,perfect
+b,fzs,0,11,2x2 gen,2x2,perfect
+b,fbd,0,11,2x2 gen,2x2,perfect
+b,fbs,0,11,2x2 gen,2x2,perfect
+fzd,mzd,1,11,2x2 gen,2x2,perfect
+fzd,mzs,1,11,2x2 gen,2x2,perfect
+fzd,mbd,0,11,2x2 gen,2x2,perfect
+fzd,mbs,0,11,2x2 gen,2x2,perfect
+fzd,z,0,11,2x2 gen,2x2,perfect
+fzd,b,0,11,2x2 gen,2x2,perfect
+fzd,fzd,1,11,2x2 gen,2x2,perfect
+fzd,fzs,1,11,2x2 gen,2x2,perfect
+fzd,fbd,0,11,2x2 gen,2x2,perfect
+fzd,fbs,0,11,2x2 gen,2x2,perfect
+fzs,mzd,1,11,2x2 gen,2x2,perfect
+fzs,mzs,1,11,2x2 gen,2x2,perfect
+fzs,mbd,0,11,2x2 gen,2x2,perfect
+fzs,mbs,0,11,2x2 gen,2x2,perfect
+fzs,z,0,11,2x2 gen,2x2,perfect
+fzs,b,0,11,2x2 gen,2x2,perfect
+fzs,fzd,1,11,2x2 gen,2x2,perfect
+fzs,fzs,1,11,2x2 gen,2x2,perfect
+fzs,fbd,0,11,2x2 gen,2x2,perfect
+fzs,fbs,0,11,2x2 gen,2x2,perfect
+fbd,mzd,0,11,2x2 gen,2x2,perfect
+fbd,mzs,0,11,2x2 gen,2x2,perfect
+fbd,mbd,1,11,2x2 gen,2x2,perfect
+fbd,mbs,1,11,2x2 gen,2x2,perfect
+fbd,z,0,11,2x2 gen,2x2,perfect
+fbd,b,0,11,2x2 gen,2x2,perfect
+fbd,fzd,0,11,2x2 gen,2x2,perfect
+fbd,fzs,0,11,2x2 gen,2x2,perfect
+fbd,fbd,1,11,2x2 gen,2x2,perfect
+fbd,fbs,1,11,2x2 gen,2x2,perfect
+fbs,mzd,0,11,2x2 gen,2x2,perfect
+fbs,mzs,0,11,2x2 gen,2x2,perfect
+fbs,mbd,1,11,2x2 gen,2x2,perfect
+fbs,mbs,1,11,2x2 gen,2x2,perfect
+fbs,z,0,11,2x2 gen,2x2,perfect
+fbs,b,0,11,2x2 gen,2x2,perfect
+fbs,fzd,0,11,2x2 gen,2x2,perfect
+fbs,fzs,0,11,2x2 gen,2x2,perfect
+fbs,fbd,1,11,2x2 gen,2x2,perfect
+fbs,fbs,1,11,2x2 gen,2x2,perfect
+mzd,mzd,1,12,2x2 opp,2x2,perfect
+mzd,mzs,1,12,2x2 opp,2x2,perfect
+mzd,mbd,0,12,2x2 opp,2x2,perfect
+mzd,mbs,0,12,2x2 opp,2x2,perfect
+mzd,z,0,12,2x2 opp,2x2,perfect
+mzd,b,0,12,2x2 opp,2x2,perfect
+mzd,fzd,0,12,2x2 opp,2x2,perfect
+mzd,fzs,0,12,2x2 opp,2x2,perfect
+mzd,fbd,1,12,2x2 opp,2x2,perfect
+mzd,fbs,1,12,2x2 opp,2x2,perfect
+mzs,mzd,1,12,2x2 opp,2x2,perfect
+mzs,mzs,1,12,2x2 opp,2x2,perfect
+mzs,mbd,0,12,2x2 opp,2x2,perfect
+mzs,mbs,0,12,2x2 opp,2x2,perfect
+mzs,z,0,12,2x2 opp,2x2,perfect
+mzs,b,0,12,2x2 opp,2x2,perfect
+mzs,fzd,0,12,2x2 opp,2x2,perfect
+mzs,fzs,0,12,2x2 opp,2x2,perfect
+mzs,fbd,1,12,2x2 opp,2x2,perfect
+mzs,fbs,1,12,2x2 opp,2x2,perfect
+mbd,mzd,0,12,2x2 opp,2x2,perfect
+mbd,mzs,0,12,2x2 opp,2x2,perfect
+mbd,mbd,1,12,2x2 opp,2x2,perfect
+mbd,mbs,1,12,2x2 opp,2x2,perfect
+mbd,z,0,12,2x2 opp,2x2,perfect
+mbd,b,0,12,2x2 opp,2x2,perfect
+mbd,fzd,1,12,2x2 opp,2x2,perfect
+mbd,fzs,1,12,2x2 opp,2x2,perfect
+mbd,fbd,0,12,2x2 opp,2x2,perfect
+mbd,fbs,0,12,2x2 opp,2x2,perfect
+mbs,mzd,0,12,2x2 opp,2x2,perfect
+mbs,mzs,0,12,2x2 opp,2x2,perfect
+mbs,mbd,1,12,2x2 opp,2x2,perfect
+mbs,mbs,1,12,2x2 opp,2x2,perfect
+mbs,z,0,12,2x2 opp,2x2,perfect
+mbs,b,0,12,2x2 opp,2x2,perfect
+mbs,fzd,1,12,2x2 opp,2x2,perfect
+mbs,fzs,1,12,2x2 opp,2x2,perfect
+mbs,fbd,0,12,2x2 opp,2x2,perfect
+mbs,fbs,0,12,2x2 opp,2x2,perfect
+z,mzd,0,12,2x2 opp,2x2,perfect
+z,mzs,0,12,2x2 opp,2x2,perfect
+z,mbd,0,12,2x2 opp,2x2,perfect
+z,mbs,0,12,2x2 opp,2x2,perfect
+z,z,0,12,2x2 opp,2x2,perfect
+z,b,0,12,2x2 opp,2x2,perfect
+z,fzd,0,12,2x2 opp,2x2,perfect
+z,fzs,0,12,2x2 opp,2x2,perfect
+z,fbd,0,12,2x2 opp,2x2,perfect
+z,fbs,0,12,2x2 opp,2x2,perfect
+b,mzd,0,12,2x2 opp,2x2,perfect
+b,mzs,0,12,2x2 opp,2x2,perfect
+b,mbd,0,12,2x2 opp,2x2,perfect
+b,mbs,0,12,2x2 opp,2x2,perfect
+b,z,0,12,2x2 opp,2x2,perfect
+b,b,0,12,2x2 opp,2x2,perfect
+b,fzd,0,12,2x2 opp,2x2,perfect
+b,fzs,0,12,2x2 opp,2x2,perfect
+b,fbd,0,12,2x2 opp,2x2,perfect
+b,fbs,0,12,2x2 opp,2x2,perfect
+fzd,mzd,0,12,2x2 opp,2x2,perfect
+fzd,mzs,0,12,2x2 opp,2x2,perfect
+fzd,mbd,1,12,2x2 opp,2x2,perfect
+fzd,mbs,1,12,2x2 opp,2x2,perfect
+fzd,z,0,12,2x2 opp,2x2,perfect
+fzd,b,0,12,2x2 opp,2x2,perfect
+fzd,fzd,1,12,2x2 opp,2x2,perfect
+fzd,fzs,1,12,2x2 opp,2x2,perfect
+fzd,fbd,0,12,2x2 opp,2x2,perfect
+fzd,fbs,0,12,2x2 opp,2x2,perfect
+fzs,mzd,0,12,2x2 opp,2x2,perfect
+fzs,mzs,0,12,2x2 opp,2x2,perfect
+fzs,mbd,1,12,2x2 opp,2x2,perfect
+fzs,mbs,1,12,2x2 opp,2x2,perfect
+fzs,z,0,12,2x2 opp,2x2,perfect
+fzs,b,0,12,2x2 opp,2x2,perfect
+fzs,fzd,1,12,2x2 opp,2x2,perfect
+fzs,fzs,1,12,2x2 opp,2x2,perfect
+fzs,fbd,0,12,2x2 opp,2x2,perfect
+fzs,fbs,0,12,2x2 opp,2x2,perfect
+fbd,mzd,1,12,2x2 opp,2x2,perfect
+fbd,mzs,1,12,2x2 opp,2x2,perfect
+fbd,mbd,0,12,2x2 opp,2x2,perfect
+fbd,mbs,0,12,2x2 opp,2x2,perfect
+fbd,z,0,12,2x2 opp,2x2,perfect
+fbd,b,0,12,2x2 opp,2x2,perfect
+fbd,fzd,0,12,2x2 opp,2x2,perfect
+fbd,fzs,0,12,2x2 opp,2x2,perfect
+fbd,fbd,1,12,2x2 opp,2x2,perfect
+fbd,fbs,1,12,2x2 opp,2x2,perfect
+fbs,mzd,1,12,2x2 opp,2x2,perfect
+fbs,mzs,1,12,2x2 opp,2x2,perfect
+fbs,mbd,0,12,2x2 opp,2x2,perfect
+fbs,mbs,0,12,2x2 opp,2x2,perfect
+fbs,z,0,12,2x2 opp,2x2,perfect
+fbs,b,0,12,2x2 opp,2x2,perfect
+fbs,fzd,0,12,2x2 opp,2x2,perfect
+fbs,fzs,0,12,2x2 opp,2x2,perfect
+fbs,fbd,1,12,2x2 opp,2x2,perfect
+fbs,fbs,1,12,2x2 opp,2x2,perfect
+mzd,mzd,1,13,3x1 fb,3x1,perfect
+mzd,mzs,1,13,3x1 fb,3x1,perfect
+mzd,mbd,1,13,3x1 fb,3x1,perfect
+mzd,mbs,1,13,3x1 fb,3x1,perfect
+mzd,z,0,13,3x1 fb,3x1,perfect
+mzd,b,0,13,3x1 fb,3x1,perfect
+mzd,fzd,1,13,3x1 fb,3x1,perfect
+mzd,fzs,1,13,3x1 fb,3x1,perfect
+mzd,fbd,0,13,3x1 fb,3x1,perfect
+mzd,fbs,0,13,3x1 fb,3x1,perfect
+mzs,mzd,1,13,3x1 fb,3x1,perfect
+mzs,mzs,1,13,3x1 fb,3x1,perfect
+mzs,mbd,1,13,3x1 fb,3x1,perfect
+mzs,mbs,1,13,3x1 fb,3x1,perfect
+mzs,z,0,13,3x1 fb,3x1,perfect
+mzs,b,0,13,3x1 fb,3x1,perfect
+mzs,fzd,1,13,3x1 fb,3x1,perfect
+mzs,fzs,1,13,3x1 fb,3x1,perfect
+mzs,fbd,0,13,3x1 fb,3x1,perfect
+mzs,fbs,0,13,3x1 fb,3x1,perfect
+mbd,mzd,1,13,3x1 fb,3x1,perfect
+mbd,mzs,1,13,3x1 fb,3x1,perfect
+mbd,mbd,1,13,3x1 fb,3x1,perfect
+mbd,mbs,1,13,3x1 fb,3x1,perfect
+mbd,z,0,13,3x1 fb,3x1,perfect
+mbd,b,0,13,3x1 fb,3x1,perfect
+mbd,fzd,1,13,3x1 fb,3x1,perfect
+mbd,fzs,1,13,3x1 fb,3x1,perfect
+mbd,fbd,0,13,3x1 fb,3x1,perfect
+mbd,fbs,0,13,3x1 fb,3x1,perfect
+mbs,mzd,1,13,3x1 fb,3x1,perfect
+mbs,mzs,1,13,3x1 fb,3x1,perfect
+mbs,mbd,1,13,3x1 fb,3x1,perfect
+mbs,mbs,1,13,3x1 fb,3x1,perfect
+mbs,z,0,13,3x1 fb,3x1,perfect
+mbs,b,0,13,3x1 fb,3x1,perfect
+mbs,fzd,1,13,3x1 fb,3x1,perfect
+mbs,fzs,1,13,3x1 fb,3x1,perfect
+mbs,fbd,0,13,3x1 fb,3x1,perfect
+mbs,fbs,0,13,3x1 fb,3x1,perfect
+z,mzd,0,13,3x1 fb,3x1,perfect
+z,mzs,0,13,3x1 fb,3x1,perfect
+z,mbd,0,13,3x1 fb,3x1,perfect
+z,mbs,0,13,3x1 fb,3x1,perfect
+z,z,0,13,3x1 fb,3x1,perfect
+z,b,0,13,3x1 fb,3x1,perfect
+z,fzd,0,13,3x1 fb,3x1,perfect
+z,fzs,0,13,3x1 fb,3x1,perfect
+z,fbd,0,13,3x1 fb,3x1,perfect
+z,fbs,0,13,3x1 fb,3x1,perfect
+b,mzd,0,13,3x1 fb,3x1,perfect
+b,mzs,0,13,3x1 fb,3x1,perfect
+b,mbd,0,13,3x1 fb,3x1,perfect
+b,mbs,0,13,3x1 fb,3x1,perfect
+b,z,0,13,3x1 fb,3x1,perfect
+b,b,0,13,3x1 fb,3x1,perfect
+b,fzd,0,13,3x1 fb,3x1,perfect
+b,fzs,0,13,3x1 fb,3x1,perfect
+b,fbd,0,13,3x1 fb,3x1,perfect
+b,fbs,0,13,3x1 fb,3x1,perfect
+fzd,mzd,1,13,3x1 fb,3x1,perfect
+fzd,mzs,1,13,3x1 fb,3x1,perfect
+fzd,mbd,1,13,3x1 fb,3x1,perfect
+fzd,mbs,1,13,3x1 fb,3x1,perfect
+fzd,z,0,13,3x1 fb,3x1,perfect
+fzd,b,0,13,3x1 fb,3x1,perfect
+fzd,fzd,1,13,3x1 fb,3x1,perfect
+fzd,fzs,1,13,3x1 fb,3x1,perfect
+fzd,fbd,0,13,3x1 fb,3x1,perfect
+fzd,fbs,0,13,3x1 fb,3x1,perfect
+fzs,mzd,1,13,3x1 fb,3x1,perfect
+fzs,mzs,1,13,3x1 fb,3x1,perfect
+fzs,mbd,1,13,3x1 fb,3x1,perfect
+fzs,mbs,1,13,3x1 fb,3x1,perfect
+fzs,z,0,13,3x1 fb,3x1,perfect
+fzs,b,0,13,3x1 fb,3x1,perfect
+fzs,fzd,1,13,3x1 fb,3x1,perfect
+fzs,fzs,1,13,3x1 fb,3x1,perfect
+fzs,fbd,0,13,3x1 fb,3x1,perfect
+fzs,fbs,0,13,3x1 fb,3x1,perfect
+fbd,mzd,0,13,3x1 fb,3x1,perfect
+fbd,mzs,0,13,3x1 fb,3x1,perfect
+fbd,mbd,0,13,3x1 fb,3x1,perfect
+fbd,mbs,0,13,3x1 fb,3x1,perfect
+fbd,z,0,13,3x1 fb,3x1,perfect
+fbd,b,0,13,3x1 fb,3x1,perfect
+fbd,fzd,0,13,3x1 fb,3x1,perfect
+fbd,fzs,0,13,3x1 fb,3x1,perfect
+fbd,fbd,1,13,3x1 fb,3x1,perfect
+fbd,fbs,1,13,3x1 fb,3x1,perfect
+fbs,mzd,0,13,3x1 fb,3x1,perfect
+fbs,mzs,0,13,3x1 fb,3x1,perfect
+fbs,mbd,0,13,3x1 fb,3x1,perfect
+fbs,mbs,0,13,3x1 fb,3x1,perfect
+fbs,z,0,13,3x1 fb,3x1,perfect
+fbs,b,0,13,3x1 fb,3x1,perfect
+fbs,fzd,0,13,3x1 fb,3x1,perfect
+fbs,fzs,0,13,3x1 fb,3x1,perfect
+fbs,fbd,1,13,3x1 fb,3x1,perfect
+fbs,fbs,1,13,3x1 fb,3x1,perfect
+mzd,mzd,1,14,3x1 fz,3x1,perfect
+mzd,mzs,1,14,3x1 fz,3x1,perfect
+mzd,mbd,1,14,3x1 fz,3x1,perfect
+mzd,mbs,1,14,3x1 fz,3x1,perfect
+mzd,z,0,14,3x1 fz,3x1,perfect
+mzd,b,0,14,3x1 fz,3x1,perfect
+mzd,fzd,0,14,3x1 fz,3x1,perfect
+mzd,fzs,0,14,3x1 fz,3x1,perfect
+mzd,fbd,1,14,3x1 fz,3x1,perfect
+mzd,fbs,1,14,3x1 fz,3x1,perfect
+mzs,mzd,1,14,3x1 fz,3x1,perfect
+mzs,mzs,1,14,3x1 fz,3x1,perfect
+mzs,mbd,1,14,3x1 fz,3x1,perfect
+mzs,mbs,1,14,3x1 fz,3x1,perfect
+mzs,z,0,14,3x1 fz,3x1,perfect
+mzs,b,0,14,3x1 fz,3x1,perfect
+mzs,fzd,0,14,3x1 fz,3x1,perfect
+mzs,fzs,0,14,3x1 fz,3x1,perfect
+mzs,fbd,1,14,3x1 fz,3x1,perfect
+mzs,fbs,1,14,3x1 fz,3x1,perfect
+mbd,mzd,1,14,3x1 fz,3x1,perfect
+mbd,mzs,1,14,3x1 fz,3x1,perfect
+mbd,mbd,1,14,3x1 fz,3x1,perfect
+mbd,mbs,1,14,3x1 fz,3x1,perfect
+mbd,z,0,14,3x1 fz,3x1,perfect
+mbd,b,0,14,3x1 fz,3x1,perfect
+mbd,fzd,0,14,3x1 fz,3x1,perfect
+mbd,fzs,0,14,3x1 fz,3x1,perfect
+mbd,fbd,1,14,3x1 fz,3x1,perfect
+mbd,fbs,1,14,3x1 fz,3x1,perfect
+mbs,mzd,1,14,3x1 fz,3x1,perfect
+mbs,mzs,1,14,3x1 fz,3x1,perfect
+mbs,mbd,1,14,3x1 fz,3x1,perfect
+mbs,mbs,1,14,3x1 fz,3x1,perfect
+mbs,z,0,14,3x1 fz,3x1,perfect
+mbs,b,0,14,3x1 fz,3x1,perfect
+mbs,fzd,0,14,3x1 fz,3x1,perfect
+mbs,fzs,0,14,3x1 fz,3x1,perfect
+mbs,fbd,1,14,3x1 fz,3x1,perfect
+mbs,fbs,1,14,3x1 fz,3x1,perfect
+z,mzd,0,14,3x1 fz,3x1,perfect
+z,mzs,0,14,3x1 fz,3x1,perfect
+z,mbd,0,14,3x1 fz,3x1,perfect
+z,mbs,0,14,3x1 fz,3x1,perfect
+z,z,0,14,3x1 fz,3x1,perfect
+z,b,0,14,3x1 fz,3x1,perfect
+z,fzd,0,14,3x1 fz,3x1,perfect
+z,fzs,0,14,3x1 fz,3x1,perfect
+z,fbd,0,14,3x1 fz,3x1,perfect
+z,fbs,0,14,3x1 fz,3x1,perfect
+b,mzd,0,14,3x1 fz,3x1,perfect
+b,mzs,0,14,3x1 fz,3x1,perfect
+b,mbd,0,14,3x1 fz,3x1,perfect
+b,mbs,0,14,3x1 fz,3x1,perfect
+b,z,0,14,3x1 fz,3x1,perfect
+b,b,0,14,3x1 fz,3x1,perfect
+b,fzd,0,14,3x1 fz,3x1,perfect
+b,fzs,0,14,3x1 fz,3x1,perfect
+b,fbd,0,14,3x1 fz,3x1,perfect
+b,fbs,0,14,3x1 fz,3x1,perfect
+fzd,mzd,0,14,3x1 fz,3x1,perfect
+fzd,mzs,0,14,3x1 fz,3x1,perfect
+fzd,mbd,0,14,3x1 fz,3x1,perfect
+fzd,mbs,0,14,3x1 fz,3x1,perfect
+fzd,z,0,14,3x1 fz,3x1,perfect
+fzd,b,0,14,3x1 fz,3x1,perfect
+fzd,fzd,1,14,3x1 fz,3x1,perfect
+fzd,fzs,1,14,3x1 fz,3x1,perfect
+fzd,fbd,0,14,3x1 fz,3x1,perfect
+fzd,fbs,0,14,3x1 fz,3x1,perfect
+fzs,mzd,0,14,3x1 fz,3x1,perfect
+fzs,mzs,0,14,3x1 fz,3x1,perfect
+fzs,mbd,0,14,3x1 fz,3x1,perfect
+fzs,mbs,0,14,3x1 fz,3x1,perfect
+fzs,z,0,14,3x1 fz,3x1,perfect
+fzs,b,0,14,3x1 fz,3x1,perfect
+fzs,fzd,1,14,3x1 fz,3x1,perfect
+fzs,fzs,1,14,3x1 fz,3x1,perfect
+fzs,fbd,0,14,3x1 fz,3x1,perfect
+fzs,fbs,0,14,3x1 fz,3x1,perfect
+fbd,mzd,1,14,3x1 fz,3x1,perfect
+fbd,mzs,1,14,3x1 fz,3x1,perfect
+fbd,mbd,1,14,3x1 fz,3x1,perfect
+fbd,mbs,1,14,3x1 fz,3x1,perfect
+fbd,z,0,14,3x1 fz,3x1,perfect
+fbd,b,0,14,3x1 fz,3x1,perfect
+fbd,fzd,0,14,3x1 fz,3x1,perfect
+fbd,fzs,0,14,3x1 fz,3x1,perfect
+fbd,fbd,1,14,3x1 fz,3x1,perfect
+fbd,fbs,1,14,3x1 fz,3x1,perfect
+fbs,mzd,1,14,3x1 fz,3x1,perfect
+fbs,mzs,1,14,3x1 fz,3x1,perfect
+fbs,mbd,1,14,3x1 fz,3x1,perfect
+fbs,mbs,1,14,3x1 fz,3x1,perfect
+fbs,z,0,14,3x1 fz,3x1,perfect
+fbs,b,0,14,3x1 fz,3x1,perfect
+fbs,fzd,0,14,3x1 fz,3x1,perfect
+fbs,fzs,0,14,3x1 fz,3x1,perfect
+fbs,fbd,1,14,3x1 fz,3x1,perfect
+fbs,fbs,1,14,3x1 fz,3x1,perfect
+mzd,mzd,1,15,3x1 mb,3x1,perfect
+mzd,mzs,1,15,3x1 mb,3x1,perfect
+mzd,mbd,0,15,3x1 mb,3x1,perfect
+mzd,mbs,0,15,3x1 mb,3x1,perfect
+mzd,z,0,15,3x1 mb,3x1,perfect
+mzd,b,0,15,3x1 mb,3x1,perfect
+mzd,fzd,1,15,3x1 mb,3x1,perfect
+mzd,fzs,1,15,3x1 mb,3x1,perfect
+mzd,fbd,1,15,3x1 mb,3x1,perfect
+mzd,fbs,1,15,3x1 mb,3x1,perfect
+mzs,mzd,1,15,3x1 mb,3x1,perfect
+mzs,mzs,1,15,3x1 mb,3x1,perfect
+mzs,mbd,0,15,3x1 mb,3x1,perfect
+mzs,mbs,0,15,3x1 mb,3x1,perfect
+mzs,z,0,15,3x1 mb,3x1,perfect
+mzs,b,0,15,3x1 mb,3x1,perfect
+mzs,fzd,1,15,3x1 mb,3x1,perfect
+mzs,fzs,1,15,3x1 mb,3x1,perfect
+mzs,fbd,1,15,3x1 mb,3x1,perfect
+mzs,fbs,1,15,3x1 mb,3x1,perfect
+mbd,mzd,0,15,3x1 mb,3x1,perfect
+mbd,mzs,0,15,3x1 mb,3x1,perfect
+mbd,mbd,1,15,3x1 mb,3x1,perfect
+mbd,mbs,1,15,3x1 mb,3x1,perfect
+mbd,z,0,15,3x1 mb,3x1,perfect
+mbd,b,0,15,3x1 mb,3x1,perfect
+mbd,fzd,0,15,3x1 mb,3x1,perfect
+mbd,fzs,0,15,3x1 mb,3x1,perfect
+mbd,fbd,0,15,3x1 mb,3x1,perfect
+mbd,fbs,0,15,3x1 mb,3x1,perfect
+mbs,mzd,0,15,3x1 mb,3x1,perfect
+mbs,mzs,0,15,3x1 mb,3x1,perfect
+mbs,mbd,1,15,3x1 mb,3x1,perfect
+mbs,mbs,1,15,3x1 mb,3x1,perfect
+mbs,z,0,15,3x1 mb,3x1,perfect
+mbs,b,0,15,3x1 mb,3x1,perfect
+mbs,fzd,0,15,3x1 mb,3x1,perfect
+mbs,fzs,0,15,3x1 mb,3x1,perfect
+mbs,fbd,0,15,3x1 mb,3x1,perfect
+mbs,fbs,0,15,3x1 mb,3x1,perfect
+z,mzd,0,15,3x1 mb,3x1,perfect
+z,mzs,0,15,3x1 mb,3x1,perfect
+z,mbd,0,15,3x1 mb,3x1,perfect
+z,mbs,0,15,3x1 mb,3x1,perfect
+z,z,0,15,3x1 mb,3x1,perfect
+z,b,0,15,3x1 mb,3x1,perfect
+z,fzd,0,15,3x1 mb,3x1,perfect
+z,fzs,0,15,3x1 mb,3x1,perfect
+z,fbd,0,15,3x1 mb,3x1,perfect
+z,fbs,0,15,3x1 mb,3x1,perfect
+b,mzd,0,15,3x1 mb,3x1,perfect
+b,mzs,0,15,3x1 mb,3x1,perfect
+b,mbd,0,15,3x1 mb,3x1,perfect
+b,mbs,0,15,3x1 mb,3x1,perfect
+b,z,0,15,3x1 mb,3x1,perfect
+b,b,0,15,3x1 mb,3x1,perfect
+b,fzd,0,15,3x1 mb,3x1,perfect
+b,fzs,0,15,3x1 mb,3x1,perfect
+b,fbd,0,15,3x1 mb,3x1,perfect
+b,fbs,0,15,3x1 mb,3x1,perfect
+fzd,mzd,1,15,3x1 mb,3x1,perfect
+fzd,mzs,1,15,3x1 mb,3x1,perfect
+fzd,mbd,0,15,3x1 mb,3x1,perfect
+fzd,mbs,0,15,3x1 mb,3x1,perfect
+fzd,z,0,15,3x1 mb,3x1,perfect
+fzd,b,0,15,3x1 mb,3x1,perfect
+fzd,fzd,1,15,3x1 mb,3x1,perfect
+fzd,fzs,1,15,3x1 mb,3x1,perfect
+fzd,fbd,1,15,3x1 mb,3x1,perfect
+fzd,fbs,1,15,3x1 mb,3x1,perfect
+fzs,mzd,1,15,3x1 mb,3x1,perfect
+fzs,mzs,1,15,3x1 mb,3x1,perfect
+fzs,mbd,0,15,3x1 mb,3x1,perfect
+fzs,mbs,0,15,3x1 mb,3x1,perfect
+fzs,z,0,15,3x1 mb,3x1,perfect
+fzs,b,0,15,3x1 mb,3x1,perfect
+fzs,fzd,1,15,3x1 mb,3x1,perfect
+fzs,fzs,1,15,3x1 mb,3x1,perfect
+fzs,fbd,1,15,3x1 mb,3x1,perfect
+fzs,fbs,1,15,3x1 mb,3x1,perfect
+fbd,mzd,1,15,3x1 mb,3x1,perfect
+fbd,mzs,1,15,3x1 mb,3x1,perfect
+fbd,mbd,0,15,3x1 mb,3x1,perfect
+fbd,mbs,0,15,3x1 mb,3x1,perfect
+fbd,z,0,15,3x1 mb,3x1,perfect
+fbd,b,0,15,3x1 mb,3x1,perfect
+fbd,fzd,1,15,3x1 mb,3x1,perfect
+fbd,fzs,1,15,3x1 mb,3x1,perfect
+fbd,fbd,1,15,3x1 mb,3x1,perfect
+fbd,fbs,1,15,3x1 mb,3x1,perfect
+fbs,mzd,1,15,3x1 mb,3x1,perfect
+fbs,mzs,1,15,3x1 mb,3x1,perfect
+fbs,mbd,0,15,3x1 mb,3x1,perfect
+fbs,mbs,0,15,3x1 mb,3x1,perfect
+fbs,z,0,15,3x1 mb,3x1,perfect
+fbs,b,0,15,3x1 mb,3x1,perfect
+fbs,fzd,1,15,3x1 mb,3x1,perfect
+fbs,fzs,1,15,3x1 mb,3x1,perfect
+fbs,fbd,1,15,3x1 mb,3x1,perfect
+fbs,fbs,1,15,3x1 mb,3x1,perfect
+mzd,mzd,1,16,3x1 mz,3x1,perfect
+mzd,mzs,1,16,3x1 mz,3x1,perfect
+mzd,mbd,0,16,3x1 mz,3x1,perfect
+mzd,mbs,0,16,3x1 mz,3x1,perfect
+mzd,z,0,16,3x1 mz,3x1,perfect
+mzd,b,0,16,3x1 mz,3x1,perfect
+mzd,fzd,0,16,3x1 mz,3x1,perfect
+mzd,fzs,0,16,3x1 mz,3x1,perfect
+mzd,fbd,0,16,3x1 mz,3x1,perfect
+mzd,fbs,0,16,3x1 mz,3x1,perfect
+mzs,mzd,1,16,3x1 mz,3x1,perfect
+mzs,mzs,1,16,3x1 mz,3x1,perfect
+mzs,mbd,0,16,3x1 mz,3x1,perfect
+mzs,mbs,0,16,3x1 mz,3x1,perfect
+mzs,z,0,16,3x1 mz,3x1,perfect
+mzs,b,0,16,3x1 mz,3x1,perfect
+mzs,fzd,0,16,3x1 mz,3x1,perfect
+mzs,fzs,0,16,3x1 mz,3x1,perfect
+mzs,fbd,0,16,3x1 mz,3x1,perfect
+mzs,fbs,0,16,3x1 mz,3x1,perfect
+mbd,mzd,0,16,3x1 mz,3x1,perfect
+mbd,mzs,0,16,3x1 mz,3x1,perfect
+mbd,mbd,1,16,3x1 mz,3x1,perfect
+mbd,mbs,1,16,3x1 mz,3x1,perfect
+mbd,z,0,16,3x1 mz,3x1,perfect
+mbd,b,0,16,3x1 mz,3x1,perfect
+mbd,fzd,1,16,3x1 mz,3x1,perfect
+mbd,fzs,1,16,3x1 mz,3x1,perfect
+mbd,fbd,1,16,3x1 mz,3x1,perfect
+mbd,fbs,1,16,3x1 mz,3x1,perfect
+mbs,mzd,0,16,3x1 mz,3x1,perfect
+mbs,mzs,0,16,3x1 mz,3x1,perfect
+mbs,mbd,1,16,3x1 mz,3x1,perfect
+mbs,mbs,1,16,3x1 mz,3x1,perfect
+mbs,z,0,16,3x1 mz,3x1,perfect
+mbs,b,0,16,3x1 mz,3x1,perfect
+mbs,fzd,1,16,3x1 mz,3x1,perfect
+mbs,fzs,1,16,3x1 mz,3x1,perfect
+mbs,fbd,1,16,3x1 mz,3x1,perfect
+mbs,fbs,1,16,3x1 mz,3x1,perfect
+z,mzd,0,16,3x1 mz,3x1,perfect
+z,mzs,0,16,3x1 mz,3x1,perfect
+z,mbd,0,16,3x1 mz,3x1,perfect
+z,mbs,0,16,3x1 mz,3x1,perfect
+z,z,0,16,3x1 mz,3x1,perfect
+z,b,0,16,3x1 mz,3x1,perfect
+z,fzd,0,16,3x1 mz,3x1,perfect
+z,fzs,0,16,3x1 mz,3x1,perfect
+z,fbd,0,16,3x1 mz,3x1,perfect
+z,fbs,0,16,3x1 mz,3x1,perfect
+b,mzd,0,16,3x1 mz,3x1,perfect
+b,mzs,0,16,3x1 mz,3x1,perfect
+b,mbd,0,16,3x1 mz,3x1,perfect
+b,mbs,0,16,3x1 mz,3x1,perfect
+b,z,0,16,3x1 mz,3x1,perfect
+b,b,0,16,3x1 mz,3x1,perfect
+b,fzd,0,16,3x1 mz,3x1,perfect
+b,fzs,0,16,3x1 mz,3x1,perfect
+b,fbd,0,16,3x1 mz,3x1,perfect
+b,fbs,0,16,3x1 mz,3x1,perfect
+fzd,mzd,0,16,3x1 mz,3x1,perfect
+fzd,mzs,0,16,3x1 mz,3x1,perfect
+fzd,mbd,1,16,3x1 mz,3x1,perfect
+fzd,mbs,1,16,3x1 mz,3x1,perfect
+fzd,z,0,16,3x1 mz,3x1,perfect
+fzd,b,0,16,3x1 mz,3x1,perfect
+fzd,fzd,1,16,3x1 mz,3x1,perfect
+fzd,fzs,1,16,3x1 mz,3x1,perfect
+fzd,fbd,1,16,3x1 mz,3x1,perfect
+fzd,fbs,1,16,3x1 mz,3x1,perfect
+fzs,mzd,0,16,3x1 mz,3x1,perfect
+fzs,mzs,0,16,3x1 mz,3x1,perfect
+fzs,mbd,1,16,3x1 mz,3x1,perfect
+fzs,mbs,1,16,3x1 mz,3x1,perfect
+fzs,z,0,16,3x1 mz,3x1,perfect
+fzs,b,0,16,3x1 mz,3x1,perfect
+fzs,fzd,1,16,3x1 mz,3x1,perfect
+fzs,fzs,1,16,3x1 mz,3x1,perfect
+fzs,fbd,1,16,3x1 mz,3x1,perfect
+fzs,fbs,1,16,3x1 mz,3x1,perfect
+fbd,mzd,0,16,3x1 mz,3x1,perfect
+fbd,mzs,0,16,3x1 mz,3x1,perfect
+fbd,mbd,1,16,3x1 mz,3x1,perfect
+fbd,mbs,1,16,3x1 mz,3x1,perfect
+fbd,z,0,16,3x1 mz,3x1,perfect
+fbd,b,0,16,3x1 mz,3x1,perfect
+fbd,fzd,1,16,3x1 mz,3x1,perfect
+fbd,fzs,1,16,3x1 mz,3x1,perfect
+fbd,fbd,1,16,3x1 mz,3x1,perfect
+fbd,fbs,1,16,3x1 mz,3x1,perfect
+fbs,mzd,0,16,3x1 mz,3x1,perfect
+fbs,mzs,0,16,3x1 mz,3x1,perfect
+fbs,mbd,1,16,3x1 mz,3x1,perfect
+fbs,mbs,1,16,3x1 mz,3x1,perfect
+fbs,z,0,16,3x1 mz,3x1,perfect
+fbs,b,0,16,3x1 mz,3x1,perfect
+fbs,fzd,1,16,3x1 mz,3x1,perfect
+fbs,fzs,1,16,3x1 mz,3x1,perfect
+fbs,fbd,1,16,3x1 mz,3x1,perfect
+fbs,fbs,1,16,3x1 mz,3x1,perfect

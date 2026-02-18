@@ -1,0 +1,414 @@
+---
+title: "predictive-structure"
+author: "Maisy Hallam"
+date: "2025-03-18"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(ggtext)
+library(extrafont)
+library(ggExtra)
+library(patchwork)
+library(lme4)
+library(broom)
+library(emmeans)
+library(binom)
+
+```
+
+```{r}
+# PLOT THEMES AND COLOURS
+
+extrafont::loadfonts()
+
+theme_set(theme_bw(base_size = 10))
+theme_update(axis.line.x = element_line(color = "black"),
+    axis.line.y = element_line(color = 'black'),
+    text = element_text(family = "Charter"),
+    plot.margin = margin(c(0,0,0,0)),
+    axis.text = element_text(size = 8),
+    panel.background = element_rect(fill = 'transparent'),
+    plot.background = element_rect(fill = 'transparent', color = 'NA'))
+```
+
+Import typological data.
+
+```{r}
+# symmetric conditional entropy of simulated kinship systems
+sim <- read_csv('data/simulated_data.csv')
+
+# symmetric conditional entropy of veridical kinship systems
+true <- read_csv('data/typological_data.csv')
+
+# z scores for each language
+ps_z <- read_csv('data/predictive_structure_z.csv')
+
+# edit distance scores for each language
+ed <- read_csv('data/edit_distance.csv') %>% rename(language_family = family)
+
+# number of data points for each language
+count <- read_csv('data/data_count.csv')
+
+# constrained version of the analysis to show that degrees of freedom matter
+small_sim <- read_csv('data/small_sim_z.csv')
+
+```
+
+# Section 2: How common is predictive structure?
+
+```{r}
+ps_z %>% filter(z < 1.96 & z > -1.96)
+```
+
+
+
+### Figure 4. Distribution of z-scores for all languages in the dataset.
+
+```{r}
+ps_z %>% mutate(insignificant = ifelse(z < 1.96 & z > -1.96,z,NA)) %>% ggplot() +
+  # geom_histogram(aes(x=mutual_information), fill = 'NA', colour = 'grey') +
+  geom_histogram(aes(x = z), fill = '#ddafa9', colour = '#d95f50',bins = 100, size = 0.3) +
+  geom_histogram(aes(x = insignificant), fill = 'grey',colour = '#666', bins = 100,size = 0.3) +
+  geom_vline(xintercept = 0,linetype = 'dashed',size = 0.2) +
+  labs(x = 'Symmetric conditional entropy (bits)', y = '') +
+  scale_x_continuous(breaks=c(-20,-15,-10,-5,-1.96,0,1.96,5,10),labels = c(-20,-15,-10,-5,-1.96,0,1.96,5,10)) +
+  theme(
+    legend.position = 'none')
+
+ggsave('plots/typological_z.pdf', width = 5.25, height = 2, units = 'in', device = cairo_pdf)
+```
+
+
+
+Calculate percentages of languages with significant symmetric conditional entropy.
+
+```{r}
+#77.5%
+count(filter(ps_z,z < -1.96)) /  count(ps_z %>% drop_na(z)) # significantly low symmetric conditional entropy
+
+# 2.5%
+count(filter(ps_z,z > 1.96)) / count(ps_z %>% drop_na(z)) # significantly high symmetric conditional entropy
+
+
+#20%
+count(filter(ps_z, z < 1.96 & z > -1.96)) / count(ps_z %>% drop_na(z)) # insignificant symmetric conditional entropy
+```
+
+### Figure 5: Symmetric conditional entropy values for a sample of languages in the dataset
+
+Get the sample:
+
+```{r}
+sample <- c('English','French','Hindi','Japanese','Sundanese','Tsonga','Central Kurdish',"Kankanaey","Wayampi","Yugambir","Irish","Fijian","Karitiâna","Yami","Turkish","Southern Paiute","Yindjibarndi") # randomly generated, then added English Hindi French
+
+full_sample <- subset(sim,language %in% sample) 
+
+# adjust language labels for plot facets
+full_sample <- full_sample %>% mutate(
+  language = str_replace_all(language, '_', ' '),
+  language = str_replace(language, " \\s*\\([^\\)]+\\)", ""),
+  language = ifelse(language == 'Central Kurdish', 'Kurdish',language),
+  language = ifelse(language == 'Japanese', 'Japanese (Japonic)',sprintf('%s (%s)',language,language_family)
+))
+
+# filter the z-score data so we can add the z-scores as labels on the plot
+sample_z <- filter(ps_z, language %in% sample) %>%
+  filter(code != 'japa1256') %>% mutate(
+  language = str_replace_all(language, '_', ' '),
+  language = str_replace(language, " \\s*\\([^\\)]+\\)", ""),
+  language = ifelse(language == 'Central Kurdish', 'Kurdish',language),
+  language = ifelse(language == 'Japanese', 'Japanese (Japonic)',sprintf('%s (%s)',language,language_family))) %>%
+  summarise(
+    language = language,
+    z = z
+  )
+
+```
+
+Figure 5:
+
+```{r}
+full_sample %>%
+  ggplot(aes(predictive_structure)) +
+  geom_density(colour = '#575757',fill = '#575757') +
+  geom_vline(aes(xintercept = true_value),linetype = 4) +
+  xlab('Symmetric conditional entropy (bits)') +
+  ylab('') +
+  geom_richtext(data=sample_z, mapping=aes(x=3.9, y=5, label=paste0('z = ', round(z,2))), size = 4, family = 'Linux Libertine Display') +
+  facet_wrap(~language,nrow = 4)
+
+ggsave('plots/typological_sample.pdf',width = 8.5,height = 4.5, device = cairo_pdf)
+```
+
+
+# Section 3: Is predictive structure due to compositionality?
+
+### Figure 6: Distribution of edit distance z-scores for all languages in the dataset.
+
+```{r}
+ed <- ed %>% filter(z != 1 & z != -1) # post-hoc analysis revealed that values of exactly 1 or -1 were due to rounding errors for languages that should not have been considered for analysis; they only include terms for mother/father/brother/sister and so cannot vary under permutation. so we removed them.
+
+ed %>% mutate(insignificant = ifelse(z < 1.96 & z > -1.96,z,NA)) %>% ggplot() +
+  # geom_histogram(aes(x=mutual_information), fill = 'NA', colour = 'grey') +
+  geom_histogram(aes(x = z), fill = '#ddafa9', colour = '#d95f50',bins = 75, size = 0.5) +
+  geom_histogram(aes(x = insignificant), fill = 'grey',colour = '#666', bins = 75,size = 0.5) +
+  geom_vline(xintercept = 0,linetype = 'dashed',size = 0.2) +
+  labs(x = 'Average edit distance (z-transformed)') +
+  scale_x_continuous(breaks=c(-20,-15,-10,-5,-1.96,0,1.96,5,10,15,20),labels = c(-20,-15,-10,-5,-1.96,0,1.96,5,10,15,20)) +
+  theme(
+    legend.position = 'none')
+
+ggsave('plots/ed_z.pdf',width = 5.25,height = 2,device = cairo_pdf)
+```
+
+
+Calculate percentages of significant edit distance.
+
+```{r}
+#26.5%
+count(filter(ed,z < -1.96)) / count(ed %>% drop_na(z)) # significant compositionality
+```
+
+```{r}
+# 16.9%
+count(filter(ed,z > 1.96)) / count(ed %>% drop_na(z)) # significant non-compositionality
+```
+
+```{r}
+#56.6%
+count(filter(ed, z < 1.96 & z > -1.96)) / count(ed %>% drop_na(z)) # insignificant
+
+# combined total of languages that are not significant + significantly non-compositional
+56.6+16.9
+```
+
+Calculate how many languages are not compositional but have significant predictive structure:
+
+```{r}
+# get the insignificant edit distance scores
+insig_ed <- filter(ed, z < 1.96 & z > -1.96)
+
+# get the significantly non-compositional edit distance scores
+high_ed <- filter(ed, z > 1.96)
+
+# all languages that are not compositional
+non_comp <- rbind(insig_ed,high_ed)
+
+# merge symmetric conditional entropy and insignificant edit distance scores
+ps_ed_insig <- ps_z %>% select(c(code,z)) %>% merge(insig_ed, by = 'code') %>% rename(ps = z.x, ed = z.y)
+
+# merge sym conditional entropy and non-compositional
+ps_non_comp <- ps_z %>% select(c(code,z)) %>% merge(non_comp, by = 'code') %>% rename(ps = z.x, ed = z.y)
+
+# merge symmetric conditional entropy and significant non-compositionality scores
+ps_ed_high <- ps_z %>% select(c(code,z)) %>% merge(high_ed, by = 'code') %>% rename(ps = z.x, ed = z.y)
+```
+
+```{r}
+# 52.8%
+count(filter(ps_ed_insig, ps < -1.96)) / count(ps_ed_insig) # percentage of significant Hsym but insigificant ED
+```
+
+```{r}
+#59.9
+count(filter(ps_non_comp, ps < -1.96)) / count(ps_non_comp) # percentage of significant Hsym but NOT compositional
+```
+
+```{r}
+#83.4%
+count(filter(ps_ed_high, ps < -1.96)) / count(ps_ed_high) # percentage of significant Hsym with significantly non-compositional languages
+```
+
+What is the z-score for Andi?
+
+```{r}
+filter(ps_ed_high, language == 'Andi') # check z scores for Andi
+```
+
+### Figure 7: Relationship between average edit distance and symmetric conditional entropy
+
+```{r}
+# combine the edit distance data with the symmetric conditional entropy data
+
+ed_ps <- merge(ed,true,.by = code)
+
+ed_ps_z <- ed %>% rename(edit_distance_z = z) %>% merge(ps_z, by = 'code') %>% rename(
+    predictive_structure_z = z)
+```
+
+Left-hand plot:
+
+```{r}
+ed_ps_plt <- ed_ps %>%
+  ggplot(aes(x = predictive_structure, y = z)) +
+  geom_point(size = 0.7,alpha = 0.4) +
+  geom_smooth(colour = '#d95f50', method='lm',se = FALSE) +
+  geom_hline(yintercept = 1.96,linetype = 'dashed',linewidth = 0.2) +
+  geom_hline(yintercept = -1.96,linetype = 'dashed',linewidth = 0.2) +
+    geom_rug(alpha = 0.2) +
+    labs(
+       x = 'Symmetric conditional entropy \n (bits)',
+       y = 'Average edit distance \n (z-transformed)') +
+    theme(plot.margin = unit(c(0,0,0,0), "cm"))
+```
+
+Right-hand plot:
+
+```{r}
+ed_ps_z_plt <- ed_ps_z %>%
+  ggplot(aes(x = predictive_structure_z, y = edit_distance_z)) +
+geom_point(alpha = 0.4,size = 0.7) + 
+  geom_smooth(colour = '#d95f50', method='lm',se = FALSE) +
+  geom_hline(yintercept = 1.96,linetype = 'dashed',linewidth = 0.2) +
+  geom_hline(yintercept = -1.96,linetype = 'dashed',linewidth = 0.2) +
+  geom_vline(xintercept = 1.96,linetype = 'dashed',linewidth = 0.2) +
+  geom_vline(xintercept = -1.96,linetype = 'dashed',linewidth = 0.2) +
+  geom_rug(alpha = 0.2) +
+    labs(
+       x = 'Symmetric conditional entropy \n(z-transformed)',
+       y = '') +
+  theme(plot.margin = unit(c(0,0,0,0), "cm"))
+```
+
+Combine the plots with `patchwork`.
+
+```{r}
+edit_distance_plts <- ed_ps_plt + ed_ps_z_plt
+
+edit_distance_plts
+
+ggsave('plots/edit_distance.pdf',edit_distance_plts, width = 5.25, height = 2.7, device = cairo_pdf)
+```
+
+
+# APPENDICES
+
+Testing that randomly generated strings do not yield the same distribution of significant and insignificant compositionality.
+
+```{r}
+#import the data
+
+ed_random <- read_csv('data/edit_distance_random_strings.csv')
+```
+
+```{r}
+# plot the distribution of z scores
+
+ed_random %>% mutate(insignificant = ifelse(z < 1.96 & z > -1.96,z,NA)) %>% ggplot() +
+  # geom_histogram(aes(x=mutual_information), fill = 'NA', colour = 'grey') +
+  geom_histogram(aes(x = z), fill = '#ddafa9', colour = '#d95f50',bins = 75, size = 0.5) +
+  geom_histogram(aes(x = insignificant), fill = 'grey',colour = '#666', bins = 75,size = 0.5) +
+  geom_vline(xintercept = 0,linetype = 'dashed',size = 0.2) +
+  labs(x = 'Average edit distance (z-transformed)') +
+  scale_x_continuous(breaks=c(-20,-15,-10,-5,-1.96,0,1.96,5,10,15,20),labels = c(-20,-15,-10,-5,-1.96,0,1.96,5,10,15,20)) +
+  theme(
+    legend.position = 'none')
+
+ggsave('plots/ed_random.pdf',width = 5.3, height = 2, device = cairo_pdf)
+```
+
+Calculate percentages.
+
+```{r}
+#2.7%
+count(filter(ed_random,z < -1.96)) / count(ed_random %>% drop_na(z)) # significantly low edit distance
+
+# 2.4%
+count(filter(ed_random,z > 1.96)) / count(ed_random %>% drop_na(z)) # significantly high edit distance
+
+#95%
+count(filter(ed_random, z < 1.96 & z > -1.96)) / count(ed_random %>% drop_na(z)) # insignificant edit distance
+```
+
+To confirm that the randomly generated data is significantly different from the true edit distance data, let's compare
+the two distributions (null hypothesis: the data comes from the same underlying distribution).
+
+```{r}
+# p < 0.01
+ks.test(ed_random$z, ed$z)
+```
+
+
+# Appendix C: access to data affects predictiveness score
+
+Merge the count of data points with the symmetric conditional entropy z-score data.
+
+```{r}
+count_ps_z <- count %>% merge(ps_z, by = 'code')
+```
+
+### Figure C.15: Amount of data available in Kinbank for each language compared against its symmetric conditional entropy significance.
+
+```{r}
+count_ps_z %>%
+  mutate(significant = ifelse(z < -1.96 | z > 1.96, 'Yes','No'),
+         significant = ifelse(is.na(significant),'No',significant),
+         significant = factor(significant,levels = c('Yes','No'))) %>%
+  group_by(significant) %>%
+  mutate(
+         mean = mean(data_length), 
+         sd = sd(data_length),
+         n = n(),
+         se = sd/sqrt(n),
+         lower95 = mean - 1.96 * (sd / sqrt(n)),
+         upper95 = mean + 1.96 * (sd / sqrt(n))) %>%
+  ggplot(aes(y = data_length, x = significant, fill = significant, colour = significant)) +
+  scale_fill_manual(values = c('#d95f50','#7570b3'), 
+                    name = 'Significant mutual information?', 
+                    labels = c('Y: z > 1.96','N: -1.96 < z < 1.96','z = 0')) +
+  scale_colour_manual(values = c('#d95f50','#7570b3'), 
+                    name = 'Significant mutual information?', 
+                    labels = c('Y: z > 1.96','N: -1.96 < z < 1.96','z = 0')) +
+  # geom_dotplot(binaxis = 'y', stackratio = 0.5, stackdir = 'center', dotsize = 0.5,stroke = 0.01,alpha = 0.3) +
+geom_violin(aes(fill= significant), color = 'NA', alpha = 1, scale = 'width') +
+  geom_errorbar(aes(ymin = lower95, ymax = upper95),width = 0.1,linewidth = 0.3, colour = 'black') +
+  geom_point(aes(y = mean),size = 1, shape = 16, colour = 'black') +
+  labs(x = 'Significant degree of \n symmetric conditional entropy?',
+       y = 'Number of relatives \n available in database') +
+  theme(legend.position = 'none')
+
+ggsave('plots/data_length.pdf', width = 2.6, height = 2.6, device = cairo_pdf)
+```
+
+Appendix D: Experiment results are as extreme as typological results
+
+```{r}
+# a dataset containing symmetric conditional entropy z-scores for a subset of kin types
+# (only those used in the experiment)
+small_sim
+```
+
+### Figure D.16: Distribution of z-scores for all languages in the dataset when constrained to the 16 kin types used in the experiment.
+
+```{r}
+small_sim %>% filter(round(true_value,5) != round(simulated_mean,5)) %>% mutate(insignificant = ifelse(z < 1.96 & z > -1.96,z,NA)) %>% ggplot() +
+  # geom_histogram(aes(x=mutual_information), fill = 'NA', colour = 'grey') +
+  geom_histogram(aes(x = z), fill = '#ddafa9', colour = '#d95f50',bins = 100, size = 0.3) +
+  geom_histogram(aes(x = insignificant), fill = 'grey',colour = '#666', bins = 100,size = 0.3) +
+  geom_vline(xintercept = 0,linetype = 'dashed',size = 0.2) +
+  labs(x = 'Symmetric conditional entropy (bits)') +
+  scale_x_continuous(breaks=c(-20,-15,-10,-5,-1.96,0,1.96,5,10),labels = c(-20,-15,-10,-5,-1.96,0,1.96,5,10)) +
+  theme(
+    legend.position = 'none')
+
+ggsave('plots/small_sim_z.pdf', width = 5.25, height = 2, units = 'in', device = cairo_pdf)
+```
+
+Calculate percentages.
+
+```{r}
+#29.1%
+count(filter(small_sim,z < -1.96)) /  count(small_sim %>% drop_na(z)) # significantly low symmetric conditional entropy
+
+# 1.6%
+count(filter(small_sim,z > 1.96)) / count(small_sim %>% drop_na(z)) # significantly high symmetric conditional entropy
+
+# 69.3%
+count(filter(small_sim, z < 1.96 & z > -1.96)) / count(small_sim %>% drop_na(z)) # insignificant symmetric conditional entropy
+```
+
+Results are less extreme when our analysis contains fewer kin types. But the experiment data is about as extreme as the typological data when under the same constraints, suggesting that the effect is a similar order of magnitude.
+

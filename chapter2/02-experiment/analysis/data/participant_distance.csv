@@ -1,0 +1,801 @@
+x,y,z,system,system_type,system_group,data_type
+mzd,mzd,1,1,1,1,ppt
+mzd,mzs,0.6666666666666666,1,1,1,ppt
+mzd,mbd,0.8333333333333334,1,1,1,ppt
+mzd,mbs,0.8333333333333334,1,1,1,ppt
+mzd,z,0.16666666666666666,1,1,1,ppt
+mzd,b,0,1,1,1,ppt
+mzd,fzd,0.8333333333333334,1,1,1,ppt
+mzd,fzs,0.5,1,1,1,ppt
+mzd,fbd,0.6666666666666666,1,1,1,ppt
+mzd,fbs,0.6666666666666666,1,1,1,ppt
+mzs,mzd,0.6666666666666666,1,1,1,ppt
+mzs,mzs,1,1,1,1,ppt
+mzs,mbd,0.6666666666666666,1,1,1,ppt
+mzs,mbs,0.8333333333333334,1,1,1,ppt
+mzs,z,0.16666666666666666,1,1,1,ppt
+mzs,b,0,1,1,1,ppt
+mzs,fzd,0.5,1,1,1,ppt
+mzs,fzs,0.6666666666666666,1,1,1,ppt
+mzs,fbd,0.5,1,1,1,ppt
+mzs,fbs,0.6666666666666666,1,1,1,ppt
+mbd,mzd,0.8333333333333334,1,1,1,ppt
+mbd,mzs,0.6666666666666666,1,1,1,ppt
+mbd,mbd,1,1,1,1,ppt
+mbd,mbs,0.6666666666666666,1,1,1,ppt
+mbd,z,0.3333333333333333,1,1,1,ppt
+mbd,b,0,1,1,1,ppt
+mbd,fzd,0.6666666666666666,1,1,1,ppt
+mbd,fzs,0.5,1,1,1,ppt
+mbd,fbd,0.8333333333333334,1,1,1,ppt
+mbd,fbs,0.5,1,1,1,ppt
+mbs,mzd,0.8333333333333334,1,1,1,ppt
+mbs,mzs,0.8333333333333334,1,1,1,ppt
+mbs,mbd,0.6666666666666666,1,1,1,ppt
+mbs,mbs,1,1,1,1,ppt
+mbs,z,0.16666666666666666,1,1,1,ppt
+mbs,b,0,1,1,1,ppt
+mbs,fzd,0.6666666666666666,1,1,1,ppt
+mbs,fzs,0.6666666666666666,1,1,1,ppt
+mbs,fbd,0.5,1,1,1,ppt
+mbs,fbs,0.8333333333333334,1,1,1,ppt
+z,mzd,0.16666666666666666,1,1,1,ppt
+z,mzs,0.16666666666666666,1,1,1,ppt
+z,mbd,0.3333333333333333,1,1,1,ppt
+z,mbs,0.16666666666666666,1,1,1,ppt
+z,z,1,1,1,1,ppt
+z,b,0.5,1,1,1,ppt
+z,fzd,0,1,1,1,ppt
+z,fzs,0,1,1,1,ppt
+z,fbd,0.16666666666666666,1,1,1,ppt
+z,fbs,0,1,1,1,ppt
+b,mzd,0,1,1,1,ppt
+b,mzs,0,1,1,1,ppt
+b,mbd,0,1,1,1,ppt
+b,mbs,0,1,1,1,ppt
+b,z,0.5,1,1,1,ppt
+b,b,1,1,1,1,ppt
+b,fzd,0.16666666666666666,1,1,1,ppt
+b,fzs,0.3333333333333333,1,1,1,ppt
+b,fbd,0.16666666666666666,1,1,1,ppt
+b,fbs,0.16666666666666666,1,1,1,ppt
+fzd,mzd,0.8333333333333334,1,1,1,ppt
+fzd,mzs,0.5,1,1,1,ppt
+fzd,mbd,0.6666666666666666,1,1,1,ppt
+fzd,mbs,0.6666666666666666,1,1,1,ppt
+fzd,z,0,1,1,1,ppt
+fzd,b,0.16666666666666666,1,1,1,ppt
+fzd,fzd,1,1,1,1,ppt
+fzd,fzs,0.6666666666666666,1,1,1,ppt
+fzd,fbd,0.8333333333333334,1,1,1,ppt
+fzd,fbs,0.8333333333333334,1,1,1,ppt
+fzs,mzd,0.5,1,1,1,ppt
+fzs,mzs,0.6666666666666666,1,1,1,ppt
+fzs,mbd,0.5,1,1,1,ppt
+fzs,mbs,0.6666666666666666,1,1,1,ppt
+fzs,z,0,1,1,1,ppt
+fzs,b,0.3333333333333333,1,1,1,ppt
+fzs,fzd,0.6666666666666666,1,1,1,ppt
+fzs,fzs,1,1,1,1,ppt
+fzs,fbd,0.6666666666666666,1,1,1,ppt
+fzs,fbs,0.8333333333333334,1,1,1,ppt
+fbd,mzd,0.6666666666666666,1,1,1,ppt
+fbd,mzs,0.5,1,1,1,ppt
+fbd,mbd,0.8333333333333334,1,1,1,ppt
+fbd,mbs,0.5,1,1,1,ppt
+fbd,z,0.16666666666666666,1,1,1,ppt
+fbd,b,0.16666666666666666,1,1,1,ppt
+fbd,fzd,0.8333333333333334,1,1,1,ppt
+fbd,fzs,0.6666666666666666,1,1,1,ppt
+fbd,fbd,1,1,1,1,ppt
+fbd,fbs,0.6666666666666666,1,1,1,ppt
+fbs,mzd,0.6666666666666666,1,1,1,ppt
+fbs,mzs,0.6666666666666666,1,1,1,ppt
+fbs,mbd,0.5,1,1,1,ppt
+fbs,mbs,0.8333333333333334,1,1,1,ppt
+fbs,z,0,1,1,1,ppt
+fbs,b,0.16666666666666666,1,1,1,ppt
+fbs,fzd,0.8333333333333334,1,1,1,ppt
+fbs,fzs,0.8333333333333334,1,1,1,ppt
+fbs,fbd,0.6666666666666666,1,1,1,ppt
+fbs,fbs,1,1,1,1,ppt
+mzd,mzd,1,2,2x2 side,2x2,ppt
+mzd,mzs,0.5,2,2x2 side,2x2,ppt
+mzd,mbd,1,2,2x2 side,2x2,ppt
+mzd,mbs,0.5,2,2x2 side,2x2,ppt
+mzd,z,0,2,2x2 side,2x2,ppt
+mzd,b,0,2,2x2 side,2x2,ppt
+mzd,fzd,0.5,2,2x2 side,2x2,ppt
+mzd,fzs,0,2,2x2 side,2x2,ppt
+mzd,fbd,0.5,2,2x2 side,2x2,ppt
+mzd,fbs,0,2,2x2 side,2x2,ppt
+mzs,mzd,0.5,2,2x2 side,2x2,ppt
+mzs,mzs,1,2,2x2 side,2x2,ppt
+mzs,mbd,0.5,2,2x2 side,2x2,ppt
+mzs,mbs,1,2,2x2 side,2x2,ppt
+mzs,z,0,2,2x2 side,2x2,ppt
+mzs,b,0,2,2x2 side,2x2,ppt
+mzs,fzd,0,2,2x2 side,2x2,ppt
+mzs,fzs,0.5,2,2x2 side,2x2,ppt
+mzs,fbd,0,2,2x2 side,2x2,ppt
+mzs,fbs,0.5,2,2x2 side,2x2,ppt
+mbd,mzd,1,2,2x2 side,2x2,ppt
+mbd,mzs,0.5,2,2x2 side,2x2,ppt
+mbd,mbd,1,2,2x2 side,2x2,ppt
+mbd,mbs,0.5,2,2x2 side,2x2,ppt
+mbd,z,0,2,2x2 side,2x2,ppt
+mbd,b,0,2,2x2 side,2x2,ppt
+mbd,fzd,0.5,2,2x2 side,2x2,ppt
+mbd,fzs,0,2,2x2 side,2x2,ppt
+mbd,fbd,0.5,2,2x2 side,2x2,ppt
+mbd,fbs,0,2,2x2 side,2x2,ppt
+mbs,mzd,0.5,2,2x2 side,2x2,ppt
+mbs,mzs,1,2,2x2 side,2x2,ppt
+mbs,mbd,0.5,2,2x2 side,2x2,ppt
+mbs,mbs,1,2,2x2 side,2x2,ppt
+mbs,z,0,2,2x2 side,2x2,ppt
+mbs,b,0,2,2x2 side,2x2,ppt
+mbs,fzd,0,2,2x2 side,2x2,ppt
+mbs,fzs,0.5,2,2x2 side,2x2,ppt
+mbs,fbd,0,2,2x2 side,2x2,ppt
+mbs,fbs,0.5,2,2x2 side,2x2,ppt
+z,mzd,0,2,2x2 side,2x2,ppt
+z,mzs,0,2,2x2 side,2x2,ppt
+z,mbd,0,2,2x2 side,2x2,ppt
+z,mbs,0,2,2x2 side,2x2,ppt
+z,z,0,2,2x2 side,2x2,ppt
+z,b,0,2,2x2 side,2x2,ppt
+z,fzd,0,2,2x2 side,2x2,ppt
+z,fzs,0,2,2x2 side,2x2,ppt
+z,fbd,0,2,2x2 side,2x2,ppt
+z,fbs,0,2,2x2 side,2x2,ppt
+b,mzd,0,2,2x2 side,2x2,ppt
+b,mzs,0,2,2x2 side,2x2,ppt
+b,mbd,0,2,2x2 side,2x2,ppt
+b,mbs,0,2,2x2 side,2x2,ppt
+b,z,0,2,2x2 side,2x2,ppt
+b,b,0,2,2x2 side,2x2,ppt
+b,fzd,0,2,2x2 side,2x2,ppt
+b,fzs,0,2,2x2 side,2x2,ppt
+b,fbd,0,2,2x2 side,2x2,ppt
+b,fbs,0,2,2x2 side,2x2,ppt
+fzd,mzd,0.5,2,2x2 side,2x2,ppt
+fzd,mzs,0,2,2x2 side,2x2,ppt
+fzd,mbd,0.5,2,2x2 side,2x2,ppt
+fzd,mbs,0,2,2x2 side,2x2,ppt
+fzd,z,0,2,2x2 side,2x2,ppt
+fzd,b,0,2,2x2 side,2x2,ppt
+fzd,fzd,1,2,2x2 side,2x2,ppt
+fzd,fzs,0.5,2,2x2 side,2x2,ppt
+fzd,fbd,1,2,2x2 side,2x2,ppt
+fzd,fbs,0.5,2,2x2 side,2x2,ppt
+fzs,mzd,0,2,2x2 side,2x2,ppt
+fzs,mzs,0.5,2,2x2 side,2x2,ppt
+fzs,mbd,0,2,2x2 side,2x2,ppt
+fzs,mbs,0.5,2,2x2 side,2x2,ppt
+fzs,z,0,2,2x2 side,2x2,ppt
+fzs,b,0,2,2x2 side,2x2,ppt
+fzs,fzd,0.5,2,2x2 side,2x2,ppt
+fzs,fzs,1,2,2x2 side,2x2,ppt
+fzs,fbd,0.5,2,2x2 side,2x2,ppt
+fzs,fbs,1,2,2x2 side,2x2,ppt
+fbd,mzd,0.5,2,2x2 side,2x2,ppt
+fbd,mzs,0,2,2x2 side,2x2,ppt
+fbd,mbd,0.5,2,2x2 side,2x2,ppt
+fbd,mbs,0,2,2x2 side,2x2,ppt
+fbd,z,0,2,2x2 side,2x2,ppt
+fbd,b,0,2,2x2 side,2x2,ppt
+fbd,fzd,1,2,2x2 side,2x2,ppt
+fbd,fzs,0.5,2,2x2 side,2x2,ppt
+fbd,fbd,1,2,2x2 side,2x2,ppt
+fbd,fbs,0.5,2,2x2 side,2x2,ppt
+fbs,mzd,0,2,2x2 side,2x2,ppt
+fbs,mzs,0.5,2,2x2 side,2x2,ppt
+fbs,mbd,0,2,2x2 side,2x2,ppt
+fbs,mbs,0.5,2,2x2 side,2x2,ppt
+fbs,z,0,2,2x2 side,2x2,ppt
+fbs,b,0,2,2x2 side,2x2,ppt
+fbs,fzd,0.5,2,2x2 side,2x2,ppt
+fbs,fzs,1,2,2x2 side,2x2,ppt
+fbs,fbd,0.5,2,2x2 side,2x2,ppt
+fbs,fbs,1,2,2x2 side,2x2,ppt
+mzd,mzd,1,3,2x2 gen,2x2,ppt
+mzd,mzs,0.25,3,2x2 gen,2x2,ppt
+mzd,mbd,0.5,3,2x2 gen,2x2,ppt
+mzd,mbs,0.25,3,2x2 gen,2x2,ppt
+mzd,z,0,3,2x2 gen,2x2,ppt
+mzd,b,0,3,2x2 gen,2x2,ppt
+mzd,fzd,0.75,3,2x2 gen,2x2,ppt
+mzd,fzs,0,3,2x2 gen,2x2,ppt
+mzd,fbd,0.25,3,2x2 gen,2x2,ppt
+mzd,fbs,0,3,2x2 gen,2x2,ppt
+mzs,mzd,0.25,3,2x2 gen,2x2,ppt
+mzs,mzs,1,3,2x2 gen,2x2,ppt
+mzs,mbd,0.25,3,2x2 gen,2x2,ppt
+mzs,mbs,0.5,3,2x2 gen,2x2,ppt
+mzs,z,0,3,2x2 gen,2x2,ppt
+mzs,b,0,3,2x2 gen,2x2,ppt
+mzs,fzd,0,3,2x2 gen,2x2,ppt
+mzs,fzs,0.75,3,2x2 gen,2x2,ppt
+mzs,fbd,0,3,2x2 gen,2x2,ppt
+mzs,fbs,0.25,3,2x2 gen,2x2,ppt
+mbd,mzd,0.5,3,2x2 gen,2x2,ppt
+mbd,mzs,0.25,3,2x2 gen,2x2,ppt
+mbd,mbd,1,3,2x2 gen,2x2,ppt
+mbd,mbs,0.25,3,2x2 gen,2x2,ppt
+mbd,z,0,3,2x2 gen,2x2,ppt
+mbd,b,0,3,2x2 gen,2x2,ppt
+mbd,fzd,0.25,3,2x2 gen,2x2,ppt
+mbd,fzs,0,3,2x2 gen,2x2,ppt
+mbd,fbd,0.75,3,2x2 gen,2x2,ppt
+mbd,fbs,0,3,2x2 gen,2x2,ppt
+mbs,mzd,0.25,3,2x2 gen,2x2,ppt
+mbs,mzs,0.5,3,2x2 gen,2x2,ppt
+mbs,mbd,0.25,3,2x2 gen,2x2,ppt
+mbs,mbs,1,3,2x2 gen,2x2,ppt
+mbs,z,0,3,2x2 gen,2x2,ppt
+mbs,b,0,3,2x2 gen,2x2,ppt
+mbs,fzd,0,3,2x2 gen,2x2,ppt
+mbs,fzs,0.25,3,2x2 gen,2x2,ppt
+mbs,fbd,0,3,2x2 gen,2x2,ppt
+mbs,fbs,0.75,3,2x2 gen,2x2,ppt
+z,mzd,0,3,2x2 gen,2x2,ppt
+z,mzs,0,3,2x2 gen,2x2,ppt
+z,mbd,0,3,2x2 gen,2x2,ppt
+z,mbs,0,3,2x2 gen,2x2,ppt
+z,z,0,3,2x2 gen,2x2,ppt
+z,b,0,3,2x2 gen,2x2,ppt
+z,fzd,0,3,2x2 gen,2x2,ppt
+z,fzs,0,3,2x2 gen,2x2,ppt
+z,fbd,0,3,2x2 gen,2x2,ppt
+z,fbs,0,3,2x2 gen,2x2,ppt
+b,mzd,0,3,2x2 gen,2x2,ppt
+b,mzs,0,3,2x2 gen,2x2,ppt
+b,mbd,0,3,2x2 gen,2x2,ppt
+b,mbs,0,3,2x2 gen,2x2,ppt
+b,z,0,3,2x2 gen,2x2,ppt
+b,b,0,3,2x2 gen,2x2,ppt
+b,fzd,0,3,2x2 gen,2x2,ppt
+b,fzs,0,3,2x2 gen,2x2,ppt
+b,fbd,0,3,2x2 gen,2x2,ppt
+b,fbs,0,3,2x2 gen,2x2,ppt
+fzd,mzd,0.75,3,2x2 gen,2x2,ppt
+fzd,mzs,0,3,2x2 gen,2x2,ppt
+fzd,mbd,0.25,3,2x2 gen,2x2,ppt
+fzd,mbs,0,3,2x2 gen,2x2,ppt
+fzd,z,0,3,2x2 gen,2x2,ppt
+fzd,b,0,3,2x2 gen,2x2,ppt
+fzd,fzd,1,3,2x2 gen,2x2,ppt
+fzd,fzs,0.25,3,2x2 gen,2x2,ppt
+fzd,fbd,0.5,3,2x2 gen,2x2,ppt
+fzd,fbs,0.25,3,2x2 gen,2x2,ppt
+fzs,mzd,0,3,2x2 gen,2x2,ppt
+fzs,mzs,0.75,3,2x2 gen,2x2,ppt
+fzs,mbd,0,3,2x2 gen,2x2,ppt
+fzs,mbs,0.25,3,2x2 gen,2x2,ppt
+fzs,z,0,3,2x2 gen,2x2,ppt
+fzs,b,0,3,2x2 gen,2x2,ppt
+fzs,fzd,0.25,3,2x2 gen,2x2,ppt
+fzs,fzs,1,3,2x2 gen,2x2,ppt
+fzs,fbd,0.25,3,2x2 gen,2x2,ppt
+fzs,fbs,0.5,3,2x2 gen,2x2,ppt
+fbd,mzd,0.25,3,2x2 gen,2x2,ppt
+fbd,mzs,0,3,2x2 gen,2x2,ppt
+fbd,mbd,0.75,3,2x2 gen,2x2,ppt
+fbd,mbs,0,3,2x2 gen,2x2,ppt
+fbd,z,0,3,2x2 gen,2x2,ppt
+fbd,b,0,3,2x2 gen,2x2,ppt
+fbd,fzd,0.5,3,2x2 gen,2x2,ppt
+fbd,fzs,0.25,3,2x2 gen,2x2,ppt
+fbd,fbd,1,3,2x2 gen,2x2,ppt
+fbd,fbs,0.25,3,2x2 gen,2x2,ppt
+fbs,mzd,0,3,2x2 gen,2x2,ppt
+fbs,mzs,0.25,3,2x2 gen,2x2,ppt
+fbs,mbd,0,3,2x2 gen,2x2,ppt
+fbs,mbs,0.75,3,2x2 gen,2x2,ppt
+fbs,z,0,3,2x2 gen,2x2,ppt
+fbs,b,0,3,2x2 gen,2x2,ppt
+fbs,fzd,0.25,3,2x2 gen,2x2,ppt
+fbs,fzs,0.5,3,2x2 gen,2x2,ppt
+fbs,fbd,0.25,3,2x2 gen,2x2,ppt
+fbs,fbs,1,3,2x2 gen,2x2,ppt
+mzd,mzd,1,4,2x2 opp,2x2,ppt
+mzd,mzs,0,4,2x2 opp,2x2,ppt
+mzd,mbd,0.6666666666666666,4,2x2 opp,2x2,ppt
+mzd,mbs,0,4,2x2 opp,2x2,ppt
+mzd,z,0,4,2x2 opp,2x2,ppt
+mzd,b,0,4,2x2 opp,2x2,ppt
+mzd,fzd,0.3333333333333333,4,2x2 opp,2x2,ppt
+mzd,fzs,0.6666666666666666,4,2x2 opp,2x2,ppt
+mzd,fbd,0.6666666666666666,4,2x2 opp,2x2,ppt
+mzd,fbs,0.3333333333333333,4,2x2 opp,2x2,ppt
+mzs,mzd,0,4,2x2 opp,2x2,ppt
+mzs,mzs,1,4,2x2 opp,2x2,ppt
+mzs,mbd,0,4,2x2 opp,2x2,ppt
+mzs,mbs,0.6666666666666666,4,2x2 opp,2x2,ppt
+mzs,z,0,4,2x2 opp,2x2,ppt
+mzs,b,0,4,2x2 opp,2x2,ppt
+mzs,fzd,0.3333333333333333,4,2x2 opp,2x2,ppt
+mzs,fzs,0,4,2x2 opp,2x2,ppt
+mzs,fbd,0.3333333333333333,4,2x2 opp,2x2,ppt
+mzs,fbs,0.6666666666666666,4,2x2 opp,2x2,ppt
+mbd,mzd,0.6666666666666666,4,2x2 opp,2x2,ppt
+mbd,mzs,0,4,2x2 opp,2x2,ppt
+mbd,mbd,1,4,2x2 opp,2x2,ppt
+mbd,mbs,0,4,2x2 opp,2x2,ppt
+mbd,z,0,4,2x2 opp,2x2,ppt
+mbd,b,0,4,2x2 opp,2x2,ppt
+mbd,fzd,0.3333333333333333,4,2x2 opp,2x2,ppt
+mbd,fzs,1,4,2x2 opp,2x2,ppt
+mbd,fbd,0.3333333333333333,4,2x2 opp,2x2,ppt
+mbd,fbs,0.3333333333333333,4,2x2 opp,2x2,ppt
+mbs,mzd,0,4,2x2 opp,2x2,ppt
+mbs,mzs,0.6666666666666666,4,2x2 opp,2x2,ppt
+mbs,mbd,0,4,2x2 opp,2x2,ppt
+mbs,mbs,1,4,2x2 opp,2x2,ppt
+mbs,z,0,4,2x2 opp,2x2,ppt
+mbs,b,0,4,2x2 opp,2x2,ppt
+mbs,fzd,0.6666666666666666,4,2x2 opp,2x2,ppt
+mbs,fzs,0,4,2x2 opp,2x2,ppt
+mbs,fbd,0.3333333333333333,4,2x2 opp,2x2,ppt
+mbs,fbs,0.3333333333333333,4,2x2 opp,2x2,ppt
+z,mzd,0,4,2x2 opp,2x2,ppt
+z,mzs,0,4,2x2 opp,2x2,ppt
+z,mbd,0,4,2x2 opp,2x2,ppt
+z,mbs,0,4,2x2 opp,2x2,ppt
+z,z,0,4,2x2 opp,2x2,ppt
+z,b,0,4,2x2 opp,2x2,ppt
+z,fzd,0,4,2x2 opp,2x2,ppt
+z,fzs,0,4,2x2 opp,2x2,ppt
+z,fbd,0,4,2x2 opp,2x2,ppt
+z,fbs,0,4,2x2 opp,2x2,ppt
+b,mzd,0,4,2x2 opp,2x2,ppt
+b,mzs,0,4,2x2 opp,2x2,ppt
+b,mbd,0,4,2x2 opp,2x2,ppt
+b,mbs,0,4,2x2 opp,2x2,ppt
+b,z,0,4,2x2 opp,2x2,ppt
+b,b,0,4,2x2 opp,2x2,ppt
+b,fzd,0,4,2x2 opp,2x2,ppt
+b,fzs,0,4,2x2 opp,2x2,ppt
+b,fbd,0,4,2x2 opp,2x2,ppt
+b,fbs,0,4,2x2 opp,2x2,ppt
+fzd,mzd,0.3333333333333333,4,2x2 opp,2x2,ppt
+fzd,mzs,0.3333333333333333,4,2x2 opp,2x2,ppt
+fzd,mbd,0.3333333333333333,4,2x2 opp,2x2,ppt
+fzd,mbs,0.6666666666666666,4,2x2 opp,2x2,ppt
+fzd,z,0,4,2x2 opp,2x2,ppt
+fzd,b,0,4,2x2 opp,2x2,ppt
+fzd,fzd,1,4,2x2 opp,2x2,ppt
+fzd,fzs,0.3333333333333333,4,2x2 opp,2x2,ppt
+fzd,fbd,0.6666666666666666,4,2x2 opp,2x2,ppt
+fzd,fbs,0,4,2x2 opp,2x2,ppt
+fzs,mzd,0.6666666666666666,4,2x2 opp,2x2,ppt
+fzs,mzs,0,4,2x2 opp,2x2,ppt
+fzs,mbd,1,4,2x2 opp,2x2,ppt
+fzs,mbs,0,4,2x2 opp,2x2,ppt
+fzs,z,0,4,2x2 opp,2x2,ppt
+fzs,b,0,4,2x2 opp,2x2,ppt
+fzs,fzd,0.3333333333333333,4,2x2 opp,2x2,ppt
+fzs,fzs,1,4,2x2 opp,2x2,ppt
+fzs,fbd,0.3333333333333333,4,2x2 opp,2x2,ppt
+fzs,fbs,0.3333333333333333,4,2x2 opp,2x2,ppt
+fbd,mzd,0.6666666666666666,4,2x2 opp,2x2,ppt
+fbd,mzs,0.3333333333333333,4,2x2 opp,2x2,ppt
+fbd,mbd,0.3333333333333333,4,2x2 opp,2x2,ppt
+fbd,mbs,0.3333333333333333,4,2x2 opp,2x2,ppt
+fbd,z,0,4,2x2 opp,2x2,ppt
+fbd,b,0,4,2x2 opp,2x2,ppt
+fbd,fzd,0.6666666666666666,4,2x2 opp,2x2,ppt
+fbd,fzs,0.3333333333333333,4,2x2 opp,2x2,ppt
+fbd,fbd,1,4,2x2 opp,2x2,ppt
+fbd,fbs,0,4,2x2 opp,2x2,ppt
+fbs,mzd,0.3333333333333333,4,2x2 opp,2x2,ppt
+fbs,mzs,0.6666666666666666,4,2x2 opp,2x2,ppt
+fbs,mbd,0.3333333333333333,4,2x2 opp,2x2,ppt
+fbs,mbs,0.3333333333333333,4,2x2 opp,2x2,ppt
+fbs,z,0,4,2x2 opp,2x2,ppt
+fbs,b,0,4,2x2 opp,2x2,ppt
+fbs,fzd,0,4,2x2 opp,2x2,ppt
+fbs,fzs,0.3333333333333333,4,2x2 opp,2x2,ppt
+fbs,fbd,0,4,2x2 opp,2x2,ppt
+fbs,fbs,1,4,2x2 opp,2x2,ppt
+mzd,mzd,1,5,3x1 fb,3x1,ppt
+mzd,mzs,1,5,3x1 fb,3x1,ppt
+mzd,mbd,0.5,5,3x1 fb,3x1,ppt
+mzd,mbs,0.5,5,3x1 fb,3x1,ppt
+mzd,z,0,5,3x1 fb,3x1,ppt
+mzd,b,0,5,3x1 fb,3x1,ppt
+mzd,fzd,0.5,5,3x1 fb,3x1,ppt
+mzd,fzs,0.5,5,3x1 fb,3x1,ppt
+mzd,fbd,0.16666666666666666,5,3x1 fb,3x1,ppt
+mzd,fbs,0.16666666666666666,5,3x1 fb,3x1,ppt
+mzs,mzd,1,5,3x1 fb,3x1,ppt
+mzs,mzs,1,5,3x1 fb,3x1,ppt
+mzs,mbd,0.5,5,3x1 fb,3x1,ppt
+mzs,mbs,0.5,5,3x1 fb,3x1,ppt
+mzs,z,0,5,3x1 fb,3x1,ppt
+mzs,b,0,5,3x1 fb,3x1,ppt
+mzs,fzd,0.5,5,3x1 fb,3x1,ppt
+mzs,fzs,0.5,5,3x1 fb,3x1,ppt
+mzs,fbd,0.16666666666666666,5,3x1 fb,3x1,ppt
+mzs,fbs,0.16666666666666666,5,3x1 fb,3x1,ppt
+mbd,mzd,0.5,5,3x1 fb,3x1,ppt
+mbd,mzs,0.5,5,3x1 fb,3x1,ppt
+mbd,mbd,1,5,3x1 fb,3x1,ppt
+mbd,mbs,1,5,3x1 fb,3x1,ppt
+mbd,z,0,5,3x1 fb,3x1,ppt
+mbd,b,0,5,3x1 fb,3x1,ppt
+mbd,fzd,0.5,5,3x1 fb,3x1,ppt
+mbd,fzs,0.5,5,3x1 fb,3x1,ppt
+mbd,fbd,0.16666666666666666,5,3x1 fb,3x1,ppt
+mbd,fbs,0.16666666666666666,5,3x1 fb,3x1,ppt
+mbs,mzd,0.5,5,3x1 fb,3x1,ppt
+mbs,mzs,0.5,5,3x1 fb,3x1,ppt
+mbs,mbd,1,5,3x1 fb,3x1,ppt
+mbs,mbs,1,5,3x1 fb,3x1,ppt
+mbs,z,0,5,3x1 fb,3x1,ppt
+mbs,b,0,5,3x1 fb,3x1,ppt
+mbs,fzd,0.5,5,3x1 fb,3x1,ppt
+mbs,fzs,0.5,5,3x1 fb,3x1,ppt
+mbs,fbd,0.16666666666666666,5,3x1 fb,3x1,ppt
+mbs,fbs,0.16666666666666666,5,3x1 fb,3x1,ppt
+z,mzd,0,5,3x1 fb,3x1,ppt
+z,mzs,0,5,3x1 fb,3x1,ppt
+z,mbd,0,5,3x1 fb,3x1,ppt
+z,mbs,0,5,3x1 fb,3x1,ppt
+z,z,0,5,3x1 fb,3x1,ppt
+z,b,0,5,3x1 fb,3x1,ppt
+z,fzd,0,5,3x1 fb,3x1,ppt
+z,fzs,0,5,3x1 fb,3x1,ppt
+z,fbd,0,5,3x1 fb,3x1,ppt
+z,fbs,0,5,3x1 fb,3x1,ppt
+b,mzd,0,5,3x1 fb,3x1,ppt
+b,mzs,0,5,3x1 fb,3x1,ppt
+b,mbd,0,5,3x1 fb,3x1,ppt
+b,mbs,0,5,3x1 fb,3x1,ppt
+b,z,0,5,3x1 fb,3x1,ppt
+b,b,0,5,3x1 fb,3x1,ppt
+b,fzd,0,5,3x1 fb,3x1,ppt
+b,fzs,0,5,3x1 fb,3x1,ppt
+b,fbd,0,5,3x1 fb,3x1,ppt
+b,fbs,0,5,3x1 fb,3x1,ppt
+fzd,mzd,0.5,5,3x1 fb,3x1,ppt
+fzd,mzs,0.5,5,3x1 fb,3x1,ppt
+fzd,mbd,0.5,5,3x1 fb,3x1,ppt
+fzd,mbs,0.5,5,3x1 fb,3x1,ppt
+fzd,z,0,5,3x1 fb,3x1,ppt
+fzd,b,0,5,3x1 fb,3x1,ppt
+fzd,fzd,1,5,3x1 fb,3x1,ppt
+fzd,fzs,0.8333333333333334,5,3x1 fb,3x1,ppt
+fzd,fbd,0.16666666666666666,5,3x1 fb,3x1,ppt
+fzd,fbs,0,5,3x1 fb,3x1,ppt
+fzs,mzd,0.5,5,3x1 fb,3x1,ppt
+fzs,mzs,0.5,5,3x1 fb,3x1,ppt
+fzs,mbd,0.5,5,3x1 fb,3x1,ppt
+fzs,mbs,0.5,5,3x1 fb,3x1,ppt
+fzs,z,0,5,3x1 fb,3x1,ppt
+fzs,b,0,5,3x1 fb,3x1,ppt
+fzs,fzd,0.8333333333333334,5,3x1 fb,3x1,ppt
+fzs,fzs,1,5,3x1 fb,3x1,ppt
+fzs,fbd,0.3333333333333333,5,3x1 fb,3x1,ppt
+fzs,fbs,0.16666666666666666,5,3x1 fb,3x1,ppt
+fbd,mzd,0.16666666666666666,5,3x1 fb,3x1,ppt
+fbd,mzs,0.16666666666666666,5,3x1 fb,3x1,ppt
+fbd,mbd,0.16666666666666666,5,3x1 fb,3x1,ppt
+fbd,mbs,0.16666666666666666,5,3x1 fb,3x1,ppt
+fbd,z,0,5,3x1 fb,3x1,ppt
+fbd,b,0,5,3x1 fb,3x1,ppt
+fbd,fzd,0.16666666666666666,5,3x1 fb,3x1,ppt
+fbd,fzs,0.3333333333333333,5,3x1 fb,3x1,ppt
+fbd,fbd,1,5,3x1 fb,3x1,ppt
+fbd,fbs,0.8333333333333334,5,3x1 fb,3x1,ppt
+fbs,mzd,0.16666666666666666,5,3x1 fb,3x1,ppt
+fbs,mzs,0.16666666666666666,5,3x1 fb,3x1,ppt
+fbs,mbd,0.16666666666666666,5,3x1 fb,3x1,ppt
+fbs,mbs,0.16666666666666666,5,3x1 fb,3x1,ppt
+fbs,z,0,5,3x1 fb,3x1,ppt
+fbs,b,0,5,3x1 fb,3x1,ppt
+fbs,fzd,0,5,3x1 fb,3x1,ppt
+fbs,fzs,0.16666666666666666,5,3x1 fb,3x1,ppt
+fbs,fbd,0.8333333333333334,5,3x1 fb,3x1,ppt
+fbs,fbs,1,5,3x1 fb,3x1,ppt
+mzd,mzd,1,6,3x1 fz,3x1,ppt
+mzd,mzs,0.6666666666666666,6,3x1 fz,3x1,ppt
+mzd,mbd,1,6,3x1 fz,3x1,ppt
+mzd,mbs,0.5,6,3x1 fz,3x1,ppt
+mzd,z,0,6,3x1 fz,3x1,ppt
+mzd,b,0,6,3x1 fz,3x1,ppt
+mzd,fzd,0.16666666666666666,6,3x1 fz,3x1,ppt
+mzd,fzs,0,6,3x1 fz,3x1,ppt
+mzd,fbd,0.8333333333333334,6,3x1 fz,3x1,ppt
+mzd,fbs,0.3333333333333333,6,3x1 fz,3x1,ppt
+mzs,mzd,0.6666666666666666,6,3x1 fz,3x1,ppt
+mzs,mzs,1,6,3x1 fz,3x1,ppt
+mzs,mbd,0.6666666666666666,6,3x1 fz,3x1,ppt
+mzs,mbs,0.8333333333333334,6,3x1 fz,3x1,ppt
+mzs,z,0,6,3x1 fz,3x1,ppt
+mzs,b,0,6,3x1 fz,3x1,ppt
+mzs,fzd,0,6,3x1 fz,3x1,ppt
+mzs,fzs,0.16666666666666666,6,3x1 fz,3x1,ppt
+mzs,fbd,0.5,6,3x1 fz,3x1,ppt
+mzs,fbs,0.6666666666666666,6,3x1 fz,3x1,ppt
+mbd,mzd,1,6,3x1 fz,3x1,ppt
+mbd,mzs,0.6666666666666666,6,3x1 fz,3x1,ppt
+mbd,mbd,1,6,3x1 fz,3x1,ppt
+mbd,mbs,0.5,6,3x1 fz,3x1,ppt
+mbd,z,0,6,3x1 fz,3x1,ppt
+mbd,b,0,6,3x1 fz,3x1,ppt
+mbd,fzd,0.16666666666666666,6,3x1 fz,3x1,ppt
+mbd,fzs,0,6,3x1 fz,3x1,ppt
+mbd,fbd,0.8333333333333334,6,3x1 fz,3x1,ppt
+mbd,fbs,0.3333333333333333,6,3x1 fz,3x1,ppt
+mbs,mzd,0.5,6,3x1 fz,3x1,ppt
+mbs,mzs,0.8333333333333334,6,3x1 fz,3x1,ppt
+mbs,mbd,0.5,6,3x1 fz,3x1,ppt
+mbs,mbs,1,6,3x1 fz,3x1,ppt
+mbs,z,0,6,3x1 fz,3x1,ppt
+mbs,b,0,6,3x1 fz,3x1,ppt
+mbs,fzd,0,6,3x1 fz,3x1,ppt
+mbs,fzs,0.16666666666666666,6,3x1 fz,3x1,ppt
+mbs,fbd,0.3333333333333333,6,3x1 fz,3x1,ppt
+mbs,fbs,0.6666666666666666,6,3x1 fz,3x1,ppt
+z,mzd,0,6,3x1 fz,3x1,ppt
+z,mzs,0,6,3x1 fz,3x1,ppt
+z,mbd,0,6,3x1 fz,3x1,ppt
+z,mbs,0,6,3x1 fz,3x1,ppt
+z,z,0,6,3x1 fz,3x1,ppt
+z,b,0,6,3x1 fz,3x1,ppt
+z,fzd,0,6,3x1 fz,3x1,ppt
+z,fzs,0,6,3x1 fz,3x1,ppt
+z,fbd,0,6,3x1 fz,3x1,ppt
+z,fbs,0,6,3x1 fz,3x1,ppt
+b,mzd,0,6,3x1 fz,3x1,ppt
+b,mzs,0,6,3x1 fz,3x1,ppt
+b,mbd,0,6,3x1 fz,3x1,ppt
+b,mbs,0,6,3x1 fz,3x1,ppt
+b,z,0,6,3x1 fz,3x1,ppt
+b,b,0,6,3x1 fz,3x1,ppt
+b,fzd,0,6,3x1 fz,3x1,ppt
+b,fzs,0,6,3x1 fz,3x1,ppt
+b,fbd,0,6,3x1 fz,3x1,ppt
+b,fbs,0,6,3x1 fz,3x1,ppt
+fzd,mzd,0.16666666666666666,6,3x1 fz,3x1,ppt
+fzd,mzs,0,6,3x1 fz,3x1,ppt
+fzd,mbd,0.16666666666666666,6,3x1 fz,3x1,ppt
+fzd,mbs,0,6,3x1 fz,3x1,ppt
+fzd,z,0,6,3x1 fz,3x1,ppt
+fzd,b,0,6,3x1 fz,3x1,ppt
+fzd,fzd,1,6,3x1 fz,3x1,ppt
+fzd,fzs,0.6666666666666666,6,3x1 fz,3x1,ppt
+fzd,fbd,0.3333333333333333,6,3x1 fz,3x1,ppt
+fzd,fbs,0.3333333333333333,6,3x1 fz,3x1,ppt
+fzs,mzd,0,6,3x1 fz,3x1,ppt
+fzs,mzs,0.16666666666666666,6,3x1 fz,3x1,ppt
+fzs,mbd,0,6,3x1 fz,3x1,ppt
+fzs,mbs,0.16666666666666666,6,3x1 fz,3x1,ppt
+fzs,z,0,6,3x1 fz,3x1,ppt
+fzs,b,0,6,3x1 fz,3x1,ppt
+fzs,fzd,0.6666666666666666,6,3x1 fz,3x1,ppt
+fzs,fzs,1,6,3x1 fz,3x1,ppt
+fzs,fbd,0.16666666666666666,6,3x1 fz,3x1,ppt
+fzs,fbs,0.5,6,3x1 fz,3x1,ppt
+fbd,mzd,0.8333333333333334,6,3x1 fz,3x1,ppt
+fbd,mzs,0.5,6,3x1 fz,3x1,ppt
+fbd,mbd,0.8333333333333334,6,3x1 fz,3x1,ppt
+fbd,mbs,0.3333333333333333,6,3x1 fz,3x1,ppt
+fbd,z,0,6,3x1 fz,3x1,ppt
+fbd,b,0,6,3x1 fz,3x1,ppt
+fbd,fzd,0.3333333333333333,6,3x1 fz,3x1,ppt
+fbd,fzs,0.16666666666666666,6,3x1 fz,3x1,ppt
+fbd,fbd,1,6,3x1 fz,3x1,ppt
+fbd,fbs,0.5,6,3x1 fz,3x1,ppt
+fbs,mzd,0.3333333333333333,6,3x1 fz,3x1,ppt
+fbs,mzs,0.6666666666666666,6,3x1 fz,3x1,ppt
+fbs,mbd,0.3333333333333333,6,3x1 fz,3x1,ppt
+fbs,mbs,0.6666666666666666,6,3x1 fz,3x1,ppt
+fbs,z,0,6,3x1 fz,3x1,ppt
+fbs,b,0,6,3x1 fz,3x1,ppt
+fbs,fzd,0.3333333333333333,6,3x1 fz,3x1,ppt
+fbs,fzs,0.5,6,3x1 fz,3x1,ppt
+fbs,fbd,0.5,6,3x1 fz,3x1,ppt
+fbs,fbs,1,6,3x1 fz,3x1,ppt
+mzd,mzd,1,7,3x1 mb,3x1,ppt
+mzd,mzs,0.8,7,3x1 mb,3x1,ppt
+mzd,mbd,0.4,7,3x1 mb,3x1,ppt
+mzd,mbs,0.4,7,3x1 mb,3x1,ppt
+mzd,z,0,7,3x1 mb,3x1,ppt
+mzd,b,0,7,3x1 mb,3x1,ppt
+mzd,fzd,0.4,7,3x1 mb,3x1,ppt
+mzd,fzs,0.4,7,3x1 mb,3x1,ppt
+mzd,fbd,0.6,7,3x1 mb,3x1,ppt
+mzd,fbs,0.6,7,3x1 mb,3x1,ppt
+mzs,mzd,0.8,7,3x1 mb,3x1,ppt
+mzs,mzs,1,7,3x1 mb,3x1,ppt
+mzs,mbd,0.6,7,3x1 mb,3x1,ppt
+mzs,mbs,0.6,7,3x1 mb,3x1,ppt
+mzs,z,0,7,3x1 mb,3x1,ppt
+mzs,b,0,7,3x1 mb,3x1,ppt
+mzs,fzd,0.2,7,3x1 mb,3x1,ppt
+mzs,fzs,0.2,7,3x1 mb,3x1,ppt
+mzs,fbd,0.4,7,3x1 mb,3x1,ppt
+mzs,fbs,0.4,7,3x1 mb,3x1,ppt
+mbd,mzd,0.4,7,3x1 mb,3x1,ppt
+mbd,mzs,0.6,7,3x1 mb,3x1,ppt
+mbd,mbd,1,7,3x1 mb,3x1,ppt
+mbd,mbs,1,7,3x1 mb,3x1,ppt
+mbd,z,0,7,3x1 mb,3x1,ppt
+mbd,b,0,7,3x1 mb,3x1,ppt
+mbd,fzd,0.2,7,3x1 mb,3x1,ppt
+mbd,fzs,0.2,7,3x1 mb,3x1,ppt
+mbd,fbd,0,7,3x1 mb,3x1,ppt
+mbd,fbs,0,7,3x1 mb,3x1,ppt
+mbs,mzd,0.4,7,3x1 mb,3x1,ppt
+mbs,mzs,0.6,7,3x1 mb,3x1,ppt
+mbs,mbd,1,7,3x1 mb,3x1,ppt
+mbs,mbs,1,7,3x1 mb,3x1,ppt
+mbs,z,0,7,3x1 mb,3x1,ppt
+mbs,b,0,7,3x1 mb,3x1,ppt
+mbs,fzd,0.2,7,3x1 mb,3x1,ppt
+mbs,fzs,0.2,7,3x1 mb,3x1,ppt
+mbs,fbd,0,7,3x1 mb,3x1,ppt
+mbs,fbs,0,7,3x1 mb,3x1,ppt
+z,mzd,0,7,3x1 mb,3x1,ppt
+z,mzs,0,7,3x1 mb,3x1,ppt
+z,mbd,0,7,3x1 mb,3x1,ppt
+z,mbs,0,7,3x1 mb,3x1,ppt
+z,z,0,7,3x1 mb,3x1,ppt
+z,b,0,7,3x1 mb,3x1,ppt
+z,fzd,0,7,3x1 mb,3x1,ppt
+z,fzs,0,7,3x1 mb,3x1,ppt
+z,fbd,0,7,3x1 mb,3x1,ppt
+z,fbs,0,7,3x1 mb,3x1,ppt
+b,mzd,0,7,3x1 mb,3x1,ppt
+b,mzs,0,7,3x1 mb,3x1,ppt
+b,mbd,0,7,3x1 mb,3x1,ppt
+b,mbs,0,7,3x1 mb,3x1,ppt
+b,z,0,7,3x1 mb,3x1,ppt
+b,b,0,7,3x1 mb,3x1,ppt
+b,fzd,0,7,3x1 mb,3x1,ppt
+b,fzs,0,7,3x1 mb,3x1,ppt
+b,fbd,0,7,3x1 mb,3x1,ppt
+b,fbs,0,7,3x1 mb,3x1,ppt
+fzd,mzd,0.4,7,3x1 mb,3x1,ppt
+fzd,mzs,0.2,7,3x1 mb,3x1,ppt
+fzd,mbd,0.2,7,3x1 mb,3x1,ppt
+fzd,mbs,0.2,7,3x1 mb,3x1,ppt
+fzd,z,0,7,3x1 mb,3x1,ppt
+fzd,b,0,7,3x1 mb,3x1,ppt
+fzd,fzd,1,7,3x1 mb,3x1,ppt
+fzd,fzs,1,7,3x1 mb,3x1,ppt
+fzd,fbd,0.8,7,3x1 mb,3x1,ppt
+fzd,fbs,0.8,7,3x1 mb,3x1,ppt
+fzs,mzd,0.4,7,3x1 mb,3x1,ppt
+fzs,mzs,0.2,7,3x1 mb,3x1,ppt
+fzs,mbd,0.2,7,3x1 mb,3x1,ppt
+fzs,mbs,0.2,7,3x1 mb,3x1,ppt
+fzs,z,0,7,3x1 mb,3x1,ppt
+fzs,b,0,7,3x1 mb,3x1,ppt
+fzs,fzd,1,7,3x1 mb,3x1,ppt
+fzs,fzs,1,7,3x1 mb,3x1,ppt
+fzs,fbd,0.8,7,3x1 mb,3x1,ppt
+fzs,fbs,0.8,7,3x1 mb,3x1,ppt
+fbd,mzd,0.6,7,3x1 mb,3x1,ppt
+fbd,mzs,0.4,7,3x1 mb,3x1,ppt
+fbd,mbd,0,7,3x1 mb,3x1,ppt
+fbd,mbs,0,7,3x1 mb,3x1,ppt
+fbd,z,0,7,3x1 mb,3x1,ppt
+fbd,b,0,7,3x1 mb,3x1,ppt
+fbd,fzd,0.8,7,3x1 mb,3x1,ppt
+fbd,fzs,0.8,7,3x1 mb,3x1,ppt
+fbd,fbd,1,7,3x1 mb,3x1,ppt
+fbd,fbs,1,7,3x1 mb,3x1,ppt
+fbs,mzd,0.6,7,3x1 mb,3x1,ppt
+fbs,mzs,0.4,7,3x1 mb,3x1,ppt
+fbs,mbd,0,7,3x1 mb,3x1,ppt
+fbs,mbs,0,7,3x1 mb,3x1,ppt
+fbs,z,0,7,3x1 mb,3x1,ppt
+fbs,b,0,7,3x1 mb,3x1,ppt
+fbs,fzd,0.8,7,3x1 mb,3x1,ppt
+fbs,fzs,0.8,7,3x1 mb,3x1,ppt
+fbs,fbd,1,7,3x1 mb,3x1,ppt
+fbs,fbs,1,7,3x1 mb,3x1,ppt
+mzd,mzd,1,8,3x1 mz,3x1,ppt
+mzd,mzs,0.25,8,3x1 mz,3x1,ppt
+mzd,mbd,1,8,3x1 mz,3x1,ppt
+mzd,mbs,0.25,8,3x1 mz,3x1,ppt
+mzd,z,0,8,3x1 mz,3x1,ppt
+mzd,b,0,8,3x1 mz,3x1,ppt
+mzd,fzd,0.5,8,3x1 mz,3x1,ppt
+mzd,fzs,0.25,8,3x1 mz,3x1,ppt
+mzd,fbd,0.25,8,3x1 mz,3x1,ppt
+mzd,fbs,0,8,3x1 mz,3x1,ppt
+mzs,mzd,0.25,8,3x1 mz,3x1,ppt
+mzs,mzs,1,8,3x1 mz,3x1,ppt
+mzs,mbd,0.25,8,3x1 mz,3x1,ppt
+mzs,mbs,1,8,3x1 mz,3x1,ppt
+mzs,z,0,8,3x1 mz,3x1,ppt
+mzs,b,0,8,3x1 mz,3x1,ppt
+mzs,fzd,0.25,8,3x1 mz,3x1,ppt
+mzs,fzs,0.5,8,3x1 mz,3x1,ppt
+mzs,fbd,0.5,8,3x1 mz,3x1,ppt
+mzs,fbs,0.75,8,3x1 mz,3x1,ppt
+mbd,mzd,1,8,3x1 mz,3x1,ppt
+mbd,mzs,0.25,8,3x1 mz,3x1,ppt
+mbd,mbd,1,8,3x1 mz,3x1,ppt
+mbd,mbs,0.25,8,3x1 mz,3x1,ppt
+mbd,z,0,8,3x1 mz,3x1,ppt
+mbd,b,0,8,3x1 mz,3x1,ppt
+mbd,fzd,0.5,8,3x1 mz,3x1,ppt
+mbd,fzs,0.25,8,3x1 mz,3x1,ppt
+mbd,fbd,0.25,8,3x1 mz,3x1,ppt
+mbd,fbs,0,8,3x1 mz,3x1,ppt
+mbs,mzd,0.25,8,3x1 mz,3x1,ppt
+mbs,mzs,1,8,3x1 mz,3x1,ppt
+mbs,mbd,0.25,8,3x1 mz,3x1,ppt
+mbs,mbs,1,8,3x1 mz,3x1,ppt
+mbs,z,0,8,3x1 mz,3x1,ppt
+mbs,b,0,8,3x1 mz,3x1,ppt
+mbs,fzd,0.25,8,3x1 mz,3x1,ppt
+mbs,fzs,0.5,8,3x1 mz,3x1,ppt
+mbs,fbd,0.5,8,3x1 mz,3x1,ppt
+mbs,fbs,0.75,8,3x1 mz,3x1,ppt
+z,mzd,0,8,3x1 mz,3x1,ppt
+z,mzs,0,8,3x1 mz,3x1,ppt
+z,mbd,0,8,3x1 mz,3x1,ppt
+z,mbs,0,8,3x1 mz,3x1,ppt
+z,z,0,8,3x1 mz,3x1,ppt
+z,b,0,8,3x1 mz,3x1,ppt
+z,fzd,0,8,3x1 mz,3x1,ppt
+z,fzs,0,8,3x1 mz,3x1,ppt
+z,fbd,0,8,3x1 mz,3x1,ppt
+z,fbs,0,8,3x1 mz,3x1,ppt
+b,mzd,0,8,3x1 mz,3x1,ppt
+b,mzs,0,8,3x1 mz,3x1,ppt
+b,mbd,0,8,3x1 mz,3x1,ppt
+b,mbs,0,8,3x1 mz,3x1,ppt
+b,z,0,8,3x1 mz,3x1,ppt
+b,b,0,8,3x1 mz,3x1,ppt
+b,fzd,0,8,3x1 mz,3x1,ppt
+b,fzs,0,8,3x1 mz,3x1,ppt
+b,fbd,0,8,3x1 mz,3x1,ppt
+b,fbs,0,8,3x1 mz,3x1,ppt
+fzd,mzd,0.5,8,3x1 mz,3x1,ppt
+fzd,mzs,0.25,8,3x1 mz,3x1,ppt
+fzd,mbd,0.5,8,3x1 mz,3x1,ppt
+fzd,mbs,0.25,8,3x1 mz,3x1,ppt
+fzd,z,0,8,3x1 mz,3x1,ppt
+fzd,b,0,8,3x1 mz,3x1,ppt
+fzd,fzd,1,8,3x1 mz,3x1,ppt
+fzd,fzs,0.25,8,3x1 mz,3x1,ppt
+fzd,fbd,0.75,8,3x1 mz,3x1,ppt
+fzd,fbs,0.5,8,3x1 mz,3x1,ppt
+fzs,mzd,0.25,8,3x1 mz,3x1,ppt
+fzs,mzs,0.5,8,3x1 mz,3x1,ppt
+fzs,mbd,0.25,8,3x1 mz,3x1,ppt
+fzs,mbs,0.5,8,3x1 mz,3x1,ppt
+fzs,z,0,8,3x1 mz,3x1,ppt
+fzs,b,0,8,3x1 mz,3x1,ppt
+fzs,fzd,0.25,8,3x1 mz,3x1,ppt
+fzs,fzs,1,8,3x1 mz,3x1,ppt
+fzs,fbd,0.5,8,3x1 mz,3x1,ppt
+fzs,fbs,0.75,8,3x1 mz,3x1,ppt
+fbd,mzd,0.25,8,3x1 mz,3x1,ppt
+fbd,mzs,0.5,8,3x1 mz,3x1,ppt
+fbd,mbd,0.25,8,3x1 mz,3x1,ppt
+fbd,mbs,0.5,8,3x1 mz,3x1,ppt
+fbd,z,0,8,3x1 mz,3x1,ppt
+fbd,b,0,8,3x1 mz,3x1,ppt
+fbd,fzd,0.75,8,3x1 mz,3x1,ppt
+fbd,fzs,0.5,8,3x1 mz,3x1,ppt
+fbd,fbd,1,8,3x1 mz,3x1,ppt
+fbd,fbs,0.75,8,3x1 mz,3x1,ppt
+fbs,mzd,0,8,3x1 mz,3x1,ppt
+fbs,mzs,0.75,8,3x1 mz,3x1,ppt
+fbs,mbd,0,8,3x1 mz,3x1,ppt
+fbs,mbs,0.75,8,3x1 mz,3x1,ppt
+fbs,z,0,8,3x1 mz,3x1,ppt
+fbs,b,0,8,3x1 mz,3x1,ppt
+fbs,fzd,0.5,8,3x1 mz,3x1,ppt
+fbs,fzs,0.75,8,3x1 mz,3x1,ppt
+fbs,fbd,0.75,8,3x1 mz,3x1,ppt
+fbs,fbs,1,8,3x1 mz,3x1,ppt

@@ -1,0 +1,53 @@
+---
+title: "preprocessing"
+author: "Maisy Hallam"
+date: "2026-02-17"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Preprocessing experiment data
+
+First, import all participants' data, concatenate all files, and remove all identifiable information from the data (i.e. Prolific IDs).
+
+(NOTE: The data available on OSF has already been concatenated and anonymised. You do not have access to the raw, non-anonymous data, so you cannot run the following chunk.)
+
+```{r}
+base_dir <- 'data/raw/participants/' # a directory that contains a CSV file for each participant
+
+all_files <- paste0(base_dir, list.files(base_dir, recursive = TRUE))
+
+ppt_data <- read_csv(all_files) %>% # read in all files from this directory
+  filter(random_id != 'random_id') %>% # get rid of duplicate headers, i.e. where the value of 'random_id' is 'random_id'
+  select(-c(prolific_id)) # and remove prolific IDs
+```
+
+The anonymised `ppt_data` dataframe is saved to our `raw` data directory.
+
+(If you've downloaded from OSF, this is the only raw data you have available.)
+
+```{r}
+write_csv(ppt_data, 'data/raw/anonymised_data.csv')
+```
+
+
+Next, before we analyse this data, we want to remove data from participants who failed an attention check.
+
+We also want to remove all rows that contain attention check data, since we won't need those for analysis.
+
+```{r}
+failed <- filter(ppt_data,feature1 == 'attn' & correct == 'N')$random_id
+
+clean_data <- ppt_data %>% 
+  filter(!random_id %in% failed & feature1 != 'attn') # remove the data of anyone who failed the attention check, also remove all attention check data in general
+```
+
+Now we can save this new dataframe `clean_data` to our `preprocessed` data directory.
+
+```{r}
+write_csv(clean_data,'data/preprocessed/experiment_data.csv')
+```
+

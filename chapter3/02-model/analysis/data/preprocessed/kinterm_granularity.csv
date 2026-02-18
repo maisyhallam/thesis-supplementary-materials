@@ -1,0 +1,467 @@
+language,glottocode,family,prop,n_kintypes,data_type
+Kagulu,kagu1239,Atlantic-Congo,0.3333333333333333,42,veridical
+Vaeakau-Taumako,pile1238,Austronesian,0.25,48,veridical
+Mbyá Guaraní,mbya1239,Tupian,0.22916666666666663,48,veridical
+Araki,arak1252,Austronesian,0.3125,48,veridical
+Mbuun,mpuo1241,Atlantic-Congo,0.2619047619047619,42,veridical
+Tanala,tana1285,Austronesian,0.30434782608695654,46,veridical
+'Are'are,area1240,Austronesian,0.2857142857142857,42,veridical
+Dyirbal,dyir1250,Pama-Nyungan,0.6041666666666666,48,veridical
+Wiradhuri,wira1262,Pama-Nyungan,0.4047619047619048,42,veridical
+Chavacano,chav1241,Indo-European,0.375,48,veridical
+Suku,suku1259,Atlantic-Congo,0.32608695652173914,46,veridical
+Toba,toba1269,NA,0.3333333333333333,48,veridical
+Pampanga,pamp1243,Austronesian,0.2916666666666667,48,veridical
+Marind,nucl1622,NA,0.3541666666666667,48,veridical
+Kinshasa Lingala,ling1263,Atlantic-Congo,0.32608695652173914,46,veridical
+Rejang,reja1240,Austronesian,0.25,44,veridical
+Albanian,alba1267,Indo-European,0.375,48,veridical
+Eastern Armenian,nucl1235,Indo-European,0.375,48,veridical
+North Slavey,nort2942,NA,0.40425531914893614,47,veridical
+Navajo,nava1243,NA,0.42857142857142855,42,veridical
+Mwotlap,motl1237,Austronesian,0.20833333333333337,48,veridical
+Rotokas,roto1249,NA,0.3541666666666667,48,veridical
+Hanunoo,hanu1241,Austronesian,0.22916666666666663,48,veridical
+To'abaita,toab1237,Austronesian,0.1276595744680851,47,veridical
+Comanche,coma1245,Uto-Aztecan,0.3636363636363637,44,veridical
+Tehuelche,tehu1242,NA,0.3125,48,veridical
+Ninam,nina1238,NA,0.21739130434782608,46,veridical
+Tzeltal,tzel1254,NA,0.3720930232558139,43,veridical
+Zulu,zulu1248,Atlantic-Congo,0.3333333333333333,48,veridical
+Irish,iris1253,Indo-European,0.4375,48,veridical
+Sindhi,sind1272,Indo-European,0.6875,48,veridical
+Frisian,fris1239,Indo-European,0.3333333333333333,48,veridical
+Nivaclé,niva1238,NA,0.32608695652173914,46,veridical
+Nama (Papua New Guinea),nama1266,NA,0.2916666666666667,48,veridical
+Grass Koiari,gras1249,Koiarian,0.2553191489361702,47,veridical
+Kwasio,kwas1243,Atlantic-Congo,0.3125,48,veridical
+Galela,gale1259,North Halmahera,0.375,48,veridical
+Teiwa,teiw1235,NA,0.3181818181818182,44,veridical
+Cahuilla,cahu1264,Uto-Aztecan,0.5319148936170213,47,veridical
+Mescalero-Chiricahua Apache,mesc1238,NA,0.2708333333333333,48,veridical
+Nyakyusa-Ngonde,nyak1260,Atlantic-Congo,0.43478260869565216,46,veridical
+Korafe,kora1295,Nuclear Trans New Guinea,0.2916666666666667,48,veridical
+Cebuano,cebu1242,Austronesian,0.2708333333333333,48,veridical
+Sunwadia,mari1426,Austronesian,0.16666666666666666,48,veridical
+Yawa,nucl1454,Yawa-Saweru,0.25,48,veridical
+Savosavo,savo1255,Savosavo,0.16666666666666666,48,veridical
+Panare,enap1235,Cariban,0.3541666666666667,48,veridical
+Ems-Weser Frisian,sate1242,Indo-European,0.2916666666666667,48,veridical
+Waimaha,waim1255,NA,0.5625,48,veridical
+South Tuvaluan,sout2865,Austronesian,0.25,48,veridical
+Serbian Standard,serb1264,Indo-European,0.3958333333333333,48,veridical
+North Saami,nort2671,Uralic,0.5416666666666666,48,veridical
+Kamba (Kenya),kamb1297,Atlantic-Congo,0.3125,48,veridical
+Archi,arch1244,Nakh-Daghestanian,0.3541666666666667,48,veridical
+Hehe,hehe1240,Atlantic-Congo,0.47619047619047616,42,veridical
+Czech,czec1258,Indo-European,0.3333333333333333,48,veridical
+Old Aramaic-Sam'alian,olda1245,Afro-Asiatic,0.3863636363636363,44,veridical
+Edopi,edop1238,Lakes Plain,0.16666666666666666,48,veridical
+Batanga,bata1285,Atlantic-Congo,0.8541666666666666,48,veridical
+Wawonii,wawo1239,Austronesian,0.20833333333333337,48,veridical
+Telefol,tele1256,Nuclear Trans New Guinea,0.4166666666666667,48,veridical
+Gane,gane1237,Austronesian,0.43478260869565216,46,veridical
+Jurúna,juru1256,Tupian,0.380952380952381,42,veridical
+Soga,soga1242,Atlantic-Congo,0.375,48,veridical
+Cocopa,coco1261,NA,0.6428571428571429,42,veridical
+Yombe,yomb1244,Atlantic-Congo,0.3181818181818182,44,veridical
+Western Tawbuid,west2559,Austronesian,0.2708333333333333,48,veridical
+Dadibi,dadi1250,Teberan,0.22916666666666663,48,veridical
+Kalamang,kara1499,NA,0.4791666666666667,48,veridical
+Kunzakh,kunz1243,Nakh-Daghestanian,0.375,48,veridical
+Iban,iban1264,Austronesian,0.25,48,veridical
+Cocama-Cocamilla,coca1259,Tupian,0.2708333333333333,48,veridical
+Seri,seri1257,NA,0.3333333333333333,42,veridical
+Colloquial Malay,mala1479,Austronesian,0.22916666666666663,48,veridical
+Asu (Tanzania),asut1235,Atlantic-Congo,0.4583333333333333,48,veridical
+Momu-Fas,fass1245,Baibai-Fas,0.2708333333333333,48,veridical
+Portuguese,port1283,Indo-European,0.3181818181818182,44,veridical
+Netsilik,nets1241,Eskimo-Aleut,0.3541666666666667,48,veridical
+Sanskrit,sans1269,Indo-European,0.6458333333333334,48,veridical
+Puelche,puel1244,NA,0.375,48,veridical
+Xibe,xibe1242,NA,0.5416666666666666,48,veridical
+Myene,myen1241,Atlantic-Congo,0.425531914893617,47,veridical
+Awiakay,awia1234,Arafundi,0.375,48,veridical
+Aguaruna,agua1253,NA,0.3333333333333333,48,veridical
+Masaaba,masa1299,Atlantic-Congo,0.4318181818181818,44,veridical
+Uma Juman,umaj1240,Austronesian,0.2708333333333333,48,veridical
+Nimboran,nucl1633,Nimboranic,0.2708333333333333,48,veridical
+Lipan Apache,lipa1241,NA,0.2916666666666667,48,veridical
+Tuvalu,tuva1244,Austronesian,0.3333333333333333,48,veridical
+Jamaican Creole English,jama1262,Indo-European,0.3958333333333333,48,veridical
+Roviana,rovi1238,Austronesian,0.25,48,veridical
+Chokwe,chok1245,Atlantic-Congo,0.30952380952380953,42,veridical
+Latvian,latv1249,Indo-European,0.4583333333333333,48,veridical
+Kala Lagaw Ya,kala1377,Pama-Nyungan,0.20833333333333337,48,veridical
+Western Pantar,lamm1241,NA,0.4090909090909091,44,veridical
+Brunei-Sabah Malay,saba1263,Austronesian,0.25,48,veridical
+Mouk,mouk1240,Austronesian,0.3333333333333333,42,veridical
+Herero,here1253,Atlantic-Congo,0.3720930232558139,43,veridical
+Inxokvari,inxo1238,Nakh-Daghestanian,0.3958333333333333,48,veridical
+Yabem,yabe1254,Austronesian,0.375,48,veridical
+Hausa,haus1257,Afro-Asiatic,0.3541666666666667,48,veridical
+Ancient Greek,anci1242,Indo-European,0.375,48,veridical
+Kwamera,kwam1252,Austronesian,0.2916666666666667,48,veridical
+Luba-Lulua,luba1249,Atlantic-Congo,0.29545454545454547,44,veridical
+Nogai,noga1249,Turkic,0.3333333333333333,48,veridical
+Yámana,yama1264,NA,0.3333333333333333,48,veridical
+Ende (Papua New Guinea),ende1235,NA,0.3541666666666667,48,veridical
+Kalkutung,kalk1246,Pama-Nyungan,0.3333333333333333,48,veridical
+Tikopia,tiko1237,Austronesian,0.22916666666666663,48,veridical
+Italian,ital1282,Indo-European,0.2708333333333333,48,veridical
+Itbayat,ivat1242,Austronesian,0.22916666666666663,48,veridical
+Araweté,araw1273,Tupian,0.40425531914893614,47,veridical
+Karadjeri,kara1476,Pama-Nyungan,0.3333333333333333,42,veridical
+Jicarilla Apache,jica1244,NA,0.3333333333333333,48,veridical
+Chipewyan,chip1261,NA,0.3541666666666667,48,veridical
+Icari,icar1234,Nakh-Daghestanian,0.3333333333333333,48,veridical
+Wirangu,wira1265,Pama-Nyungan,0.4090909090909091,44,veridical
+Dieri,dier1241,Pama-Nyungan,0.4130434782608696,46,veridical
+Kyaka,kyak1244,Nuclear Trans New Guinea,0.25,48,veridical
+Yaka (Central African Republic),yaka1272,Atlantic-Congo,0.24444444444444444,45,veridical
+Ahin-Kayapa Kalanguya,ahin1234,Austronesian,0.25,48,veridical
+Eastern Yiddish,east2295,Indo-European,0.375,48,veridical
+Macedonian,mace1250,Indo-European,0.4375,48,veridical
+Ayoreo,ayor1240,NA,0.3958333333333333,48,veridical
+Ngaanyatjarra,ngaa1240,Pama-Nyungan,0.3333333333333333,48,veridical
+Eastern Panjabi,panj1256,Indo-European,0.6666666666666666,48,veridical
+Bila,bila1255,Atlantic-Congo,0.4166666666666667,48,veridical
+Ding,ding1239,Atlantic-Congo,0.3333333333333333,48,veridical
+Moronene,moro1287,Austronesian,0.16666666666666666,48,veridical
+Muna,muna1247,Austronesian,0.22916666666666663,48,veridical
+Paicî,paic1239,Austronesian,0.375,48,veridical
+Erzya,erzy1239,Uralic,0.6041666666666666,48,veridical
+Fijian,fiji1243,Austronesian,0.3125,48,veridical
+Hawaiian,hawa1245,Austronesian,0.3333333333333333,48,veridical
+Northern Mansi,mans1258,Uralic,0.3333333333333333,48,veridical
+Yalarnnga,yala1262,Pama-Nyungan,0.3333333333333333,48,veridical
+Belarusian,bela1254,Indo-European,0.3333333333333333,48,veridical
+Gogo,gogo1263,Atlantic-Congo,0.3695652173913043,46,veridical
+Pukapuka,puka1242,Austronesian,0.25,48,veridical
+Tamil,tami1289,Dravidian,0.75,48,veridical
+Bagvalal,bagv1239,Nakh-Daghestanian,0.3958333333333333,48,veridical
+Uab Meto,uabm1237,Austronesian,0.380952380952381,42,veridical
+Mangareva,mang1401,Austronesian,0.2916666666666667,48,veridical
+Tiv,tivv1240,Atlantic-Congo,0.20454545454545456,44,veridical
+Kómnjo,komn1238,NA,0.25,48,veridical
+Indonesian Bajau,indo1317,Austronesian,0.3541666666666667,48,veridical
+Doutai,dout1240,Lakes Plain,0.16666666666666666,48,veridical
+Hunzib,hunz1247,Nakh-Daghestanian,0.3541666666666667,48,veridical
+Lauje,lauj1238,Austronesian,0.25,48,veridical
+Ampibabo,ampi1237,Austronesian,0.25,48,veridical
+Luguru,lugu1238,Atlantic-Congo,0.34782608695652173,46,veridical
+Waurá,waur1244,Arawakan,0.3541666666666667,48,veridical
+Ingrian,ingr1248,Uralic,0.3636363636363637,44,veridical
+Avar,avar1256,Nakh-Daghestanian,0.3958333333333333,48,veridical
+Southern Cook Island Maori,raro1241,Austronesian,0.2727272727272727,44,veridical
+Seke (Vanuatu),seke1241,Austronesian,0.22916666666666663,48,veridical
+Marathi,mara1378,Indo-European,0.5833333333333334,48,veridical
+Lahnda,lahn1241,Indo-European,0.5434782608695652,46,veridical
+Matukar,matu1261,Austronesian,0.22916666666666663,48,veridical
+Yugambal,yuga1244,Pama-Nyungan,0.34782608695652173,46,veridical
+Walloon,wall1255,Indo-European,0.3181818181818182,44,veridical
+Kikuyu,kiku1240,Atlantic-Congo,0.3617021276595745,47,veridical
+Bukat,buka1261,Austronesian,0.1875,48,veridical
+Bandjalangic,band1339,Pama-Nyungan,0.4583333333333333,48,veridical
+Samoan,samo1305,Austronesian,0.2619047619047619,42,veridical
+Serbian-Croatian-Bosnian,sout1528,Indo-European,0.4375,48,veridical
+Patani,pata1260,Austronesian,0.3125,48,veridical
+Shi,shii1238,Atlantic-Congo,0.4047619047619048,42,veridical
+Dhuwal-Dhuwala,dhuw1248,Pama-Nyungan,0.3863636363636363,44,veridical
+Kaurna,kaur1267,Pama-Nyungan,0.4222222222222222,45,veridical
+Chimariko,chim1301,NA,0.30952380952380953,42,veridical
+Sanapaná,sana1298,NA,0.30434782608695654,46,veridical
+South Slavey,sout2959,NA,0.5,44,veridical
+Ganggalida,gang1267,NA,0.5476190476190477,42,veridical
+Huli,huli1244,Nuclear Trans New Guinea,0.2708333333333333,48,veridical
+Wambayan,wamb1258,NA,0.4772727272727273,44,veridical
+Meriam,meri1244,NA,0.22916666666666663,48,veridical
+Ekonda Mongo,ekon1238,Atlantic-Congo,0.32608695652173914,46,veridical
+Ingush,ingu1240,Nakh-Daghestanian,0.3958333333333333,48,veridical
+Middle High German,midd1343,Indo-European,0.4047619047619048,42,veridical
+Buhid,buhi1245,Austronesian,0.25,48,veridical
+Budukh,budu1248,Nakh-Daghestanian,0.3333333333333333,48,veridical
+Paiwan,paiw1248,Austronesian,0.10416666666666669,48,veridical
+Dampelas,damp1237,Austronesian,0.25,48,veridical
+Cinta Larga,cint1239,Tupian,0.2826086956521739,46,veridical
+Takuu,taku1257,Austronesian,0.2391304347826087,46,veridical
+Namakura,nama1268,Austronesian,0.2916666666666667,48,veridical
+Ida'an,idaa1241,Austronesian,0.20833333333333337,48,veridical
+Bannoni,bann1247,Austronesian,0.16666666666666666,48,veridical
+Dondo,dond1249,Austronesian,0.2916666666666667,48,veridical
+Iau,iauu1242,Lakes Plain,0.1875,48,veridical
+Alangan,alan1249,Austronesian,0.22916666666666663,48,veridical
+Danish,dani1285,Indo-European,0.3958333333333333,48,veridical
+Marwari (India),marw1260,Indo-European,0.6585365853658537,41,veridical
+Sirionó,siri1273,Tupian,0.2391304347826087,46,veridical
+O'du,oduu1239,Austroasiatic,0.2608695652173913,46,veridical
+Mokpwe,mokp1239,Atlantic-Congo,0.3333333333333333,48,veridical
+Nyoro,nyor1246,Atlantic-Congo,0.375,48,veridical
+Urdu,urdu1245,Indo-European,0.6875,48,veridical
+Shina (Nakh-Daghestan),shin1265,Nakh-Daghestanian,0.3333333333333333,48,veridical
+Murriny Patha,murr1258,NA,0.2916666666666667,48,veridical
+Sogeram,soge1235,Nuclear Trans New Guinea,0.30434782608695654,46,veridical
+Buli,buli1256,Austronesian,0.2916666666666667,48,veridical
+Shila,shil1264,Atlantic-Congo,0.3181818181818182,44,veridical
+Warlpiri,warl1254,Pama-Nyungan,0.3958333333333333,48,veridical
+Kapingamarangi,kapi1249,Austronesian,0.10416666666666669,48,veridical
+Lengua,leng1262,NA,0.30952380952380953,42,veridical
+Talaandig-Binukid,binu1244,Austronesian,0.3125,48,veridical
+Kwoma,kwom1262,NA,0.25,48,veridical
+Swedish,swed1254,Indo-European,0.4166666666666667,48,veridical
+Pumé,pume1238,NA,0.3541666666666667,48,veridical
+Balinese,bali1278,Austronesian,0.2708333333333333,48,veridical
+/Gwi,gwii1239,NA,0.2708333333333333,48,veridical
+North Azerbaijani,nort2697,Turkic,0.3333333333333333,48,veridical
+Japanese,nucl1643,NA,0.3333333333333333,48,veridical
+West Futuna,west2515,Austronesian,0.2916666666666667,48,veridical
+Bario,bari1288,Austronesian,0.16666666666666666,48,veridical
+Hid,hidd1238,Nakh-Daghestanian,0.3958333333333333,48,veridical
+German,stan1295,Indo-European,0.3333333333333333,48,veridical
+Bats,bats1242,Nakh-Daghestanian,0.3541666666666667,48,veridical
+Ibanag,iban1267,Austronesian,0.22916666666666663,48,veridical
+Anuta,anut1237,Austronesian,0.2708333333333333,48,veridical
+Bacanese Malay,baca1243,Austronesian,0.32608695652173914,46,veridical
+Luvale,luva1239,Atlantic-Congo,0.2727272727272727,44,veridical
+Lingua Geral Paulista,tupi1274,Tupian,0.3333333333333333,48,veridical
+Kambera,kamb1299,Austronesian,0.3125,48,veridical
+Taje,taje1237,Austronesian,0.25,48,veridical
+Andi,andi1255,Nakh-Daghestanian,0.3958333333333333,48,veridical
+Judeo-Tat,jude1256,Indo-European,0.3541666666666667,48,veridical
+Maguindanao,magu1243,Austronesian,0.2127659574468085,47,veridical
+Ha,haaa1252,Atlantic-Congo,0.42857142857142855,42,veridical
+Central Melanau,cent2101,Austronesian,0.2916666666666667,48,veridical
+Tombulu,tomb1243,Austronesian,0.3541666666666667,48,veridical
+Phende,phen1239,Atlantic-Congo,0.25,48,veridical
+Central Cagayan Agta,cent2084,Austronesian,0.25,48,veridical
+Batak Toba,bata1289,Austronesian,0.375,48,veridical
+Southeast Ambrym,sout2859,Austronesian,0.2926829268292683,41,veridical
+Northern Emberá,nort2972,NA,0.3541666666666667,48,veridical
+Kimaama,kima1246,Kolopom,0.1875,48,veridical
+Digo,digo1243,Atlantic-Congo,0.380952380952381,42,veridical
+Sardinian,sard1257,Indo-European,0.3170731707317073,41,veridical
+Makonde,mako1251,Atlantic-Congo,0.25,48,veridical
+Tenharim-Parintintin-Diahoi,tenh1241,Tupian,0.3409090909090909,44,veridical
+Kumbainggar,kumb1268,Pama-Nyungan,0.47619047619047616,42,veridical
+Bungku,bung1269,Austronesian,0.20833333333333337,48,veridical
+Western Low Navarrese,west1508,NA,0.2916666666666667,48,veridical
+Gigatl,giga1238,Nakh-Daghestanian,0.3958333333333333,48,veridical
+Western Apache,west2615,NA,0.3333333333333333,48,veridical
+Polish,poli1260,Indo-European,0.5416666666666666,48,veridical
+Luangiua,onto1237,Austronesian,0.16666666666666666,48,veridical
+Lo-Toga,loto1240,Austronesian,0.2272727272727273,44,veridical
+Western Armenian,homs1234,Indo-European,0.3958333333333333,48,veridical
+Mele-Fila,mele1250,Austronesian,0.2708333333333333,48,veridical
+Tolaki,tola1247,Austronesian,0.1875,48,veridical
+Western Bukidnon Manobo,west2555,Austronesian,0.1875,48,veridical
+Kashmiri,kash1277,Indo-European,0.5833333333333334,48,veridical
+Igbo,nucl1417,Atlantic-Congo,0.3863636363636363,44,veridical
+Mocoví,moco1246,NA,0.2916666666666667,48,veridical
+Kumyk,kumy1244,Turkic,0.3541666666666667,48,veridical
+Tajio,taji1246,Austronesian,0.25,48,veridical
+Tausug,taus1251,Austronesian,0.20833333333333337,48,veridical
+Iraya,iray1237,Austronesian,0.25,48,veridical
+Yakan,yaka1277,Austronesian,0.20833333333333337,48,veridical
+Prai,phai1238,Austroasiatic,0.2978723404255319,47,veridical
+Komba,komb1273,Nuclear Trans New Guinea,0.3125,48,veridical
+Dari,dari1249,Indo-European,0.5208333333333334,48,veridical
+Russian,russ1263,Indo-European,0.375,48,veridical
+Taumako,taum1237,Austronesian,0.2708333333333333,48,veridical
+Aghul,aghu1253,Nakh-Daghestanian,0.2708333333333333,48,veridical
+Spanish,stan1288,Indo-European,0.375,48,veridical
+Midob,mido1240,NA,0.4666666666666667,45,veridical
+Slovenian,slov1268,Indo-European,0.3333333333333333,48,veridical
+Mapudungun,mapu1245,NA,0.3125,48,veridical
+Rennell-Bellona,renn1242,Austronesian,0.26666666666666666,45,veridical
+Breton,bret1244,Indo-European,0.3333333333333333,48,veridical
+Aklanon,akla1241,Austronesian,0.2916666666666667,48,veridical
+Guugu Yimidhirr,gugu1255,Pama-Nyungan,0.5416666666666666,48,veridical
+Tomini,tomi1243,Austronesian,0.25,48,veridical
+Onobasulu,onob1238,Bosavi,0.16666666666666666,48,veridical
+Javanese,java1254,Austronesian,0.3541666666666667,48,veridical
+Modole,modo1249,North Halmahera,0.2272727272727273,44,veridical
+Nsong,song1299,Atlantic-Congo,0.2272727272727273,44,veridical
+Bukusu,buku1249,Atlantic-Congo,0.3125,48,veridical
+Paluai,balu1257,Austronesian,0.2708333333333333,48,veridical
+Waorani,waor1240,NA,0.37777777777777777,45,veridical
+Telugu,telu1262,Dravidian,0.4583333333333333,48,veridical
+Iloko,ilok1237,Austronesian,0.3125,48,veridical
+Hungarian,hung1274,Uralic,0.3541666666666667,48,veridical
+Kariyarra,kari1304,Pama-Nyungan,0.4375,48,veridical
+Western Panjabi,west2386,Indo-European,0.3958333333333333,48,veridical
+Rundi,rund1242,Atlantic-Congo,0.4565217391304347,46,veridical
+Lamba,lamb1271,Atlantic-Congo,0.32608695652173914,46,veridical
+Aneityum,anei1239,Austronesian,0.2708333333333333,48,veridical
+Eipomek,eipo1242,Nuclear Trans New Guinea,0.2727272727272727,44,veridical
+Neve'ei,vinm1237,Austronesian,0.4186046511627907,43,veridical
+Yele,yele1255,Yele,0.2916666666666667,48,veridical
+Kazym-Berezover-Suryskarer Khanty,khan1273,Uralic,0.375,48,veridical
+Yugumbir,yugu1249,Pama-Nyungan,0.4166666666666667,48,veridical
+Hiligaynon,hili1240,Austronesian,0.22916666666666663,48,veridical
+Wulguru,wulg1239,Pama-Nyungan,0.4047619047619048,42,veridical
+Kui (India),kuii1252,Dravidian,0.5714285714285714,42,veridical
+Old English (ca. 450-1100),olde1238,Indo-European,0.4047619047619048,42,veridical
+Andalal-Gxdatl,anda1281,Nakh-Daghestanian,0.3958333333333333,48,veridical
+Shasta,shas1239,NA,0.35714285714285715,42,veridical
+Tok Pisin,tokp1240,Indo-European,0.17391304347826086,46,veridical
+Eel River Athabaskan,wail1244,NA,0.43478260869565216,46,veridical
+Tasiko,tasi1237,Austronesian,0.18181818181818185,44,veridical
+Chirag,chir1284,Nakh-Daghestanian,0.3333333333333333,48,veridical
+Nakanai,naka1262,Austronesian,0.2708333333333333,48,veridical
+Dakaka,daka1243,Austronesian,0.2727272727272727,44,veridical
+Northwest Maidu,nort2951,NA,0.4390243902439024,41,veridical
+Talise,tali1259,Austronesian,0.16666666666666666,48,veridical
+Bengali,beng1280,Indo-European,0.6875,48,veridical
+Afrikaans,afri1274,Indo-European,0.2916666666666667,48,veridical
+Nalik,nali1244,Austronesian,0.34146341463414637,41,veridical
+Boano (Sulawesi),boan1243,Austronesian,0.25,44,veridical
+Moselle Franconian,luxe1241,Indo-European,0.3125,48,veridical
+Bilibil,bilb1241,Austronesian,0.20833333333333337,48,veridical
+Komo (Democratic Republic of Congo),komo1260,Atlantic-Congo,0.3541666666666667,48,veridical
+Awetí,awet1244,Tupian,0.2916666666666667,48,veridical
+Barí,bari1297,NA,0.3541666666666667,48,veridical
+Shipibo-Conibo,ship1254,Pano-Tacanan,0.3958333333333333,48,veridical
+Kamayurá,kama1373,Tupian,0.3541666666666667,48,veridical
+Modern Greek,mode1248,Indo-European,0.3333333333333333,48,veridical
+Standard Lebanese Arabic,stan1323,Afro-Asiatic,0.4375,48,veridical
+Mongo,mong1338,Atlantic-Congo,0.3333333333333333,48,veridical
+Dhuwal,dhuw1249,Pama-Nyungan,0.4166666666666667,48,veridical
+Batlux,batl1238,Nakh-Daghestanian,0.3541666666666667,48,veridical
+Langi,lang1320,Atlantic-Congo,0.34782608695652173,46,veridical
+Modern Ossetic,osse1243,Indo-European,0.5,48,veridical
+Chamorro,cham1312,Austronesian,0.3333333333333333,48,veridical
+Giryama,giry1241,Atlantic-Congo,0.4565217391304347,46,veridical
+Biri,biri1256,Pama-Nyungan,0.3863636363636363,44,veridical
+Slovak,slov1269,Indo-European,0.3541666666666667,48,veridical
+Tuyuca,tuyu1244,NA,0.3695652173913043,46,veridical
+Lunda,lund1266,Atlantic-Congo,0.3636363636363637,44,veridical
+Ukrainian,ukra1253,Indo-European,0.4772727272727273,44,veridical
+Hewa,hewa1241,Sepik,0.2916666666666667,48,veridical
+Ibaloi,ibal1244,Austronesian,0.1875,48,veridical
+Northeast Maidu,nort2952,NA,0.3958333333333333,48,veridical
+Indonesian,indo1316,Austronesian,0.25,48,veridical
+East Futuna,east2447,Austronesian,0.22916666666666663,48,veridical
+Godoberi,ghod1238,Nakh-Daghestanian,0.375,48,veridical
+Nunamiut,nort2944,Eskimo-Aleut,0.3125,48,veridical
+Malacca-Batavia Portuguese Creole,mala1533,Indo-European,0.3333333333333333,48,veridical
+Adang,adan1251,NA,0.20833333333333337,48,veridical
+Kuanua,kuan1248,Austronesian,0.22916666666666663,48,veridical
+Tonga (Tonga Islands),tong1325,Austronesian,0.3125,48,veridical
+Ratagnon,rata1245,Austronesian,0.25,48,veridical
+Western Farsi,west2369,Indo-European,0.625,48,veridical
+Touo,touo1238,Touo,0.3125,48,veridical
+Wapishana,wapi1253,Arawakan,0.3541666666666667,48,veridical
+Kemtuik,kemt1242,Nimboranic,0.3958333333333333,48,veridical
+Pendau,pend1242,Austronesian,0.25,48,veridical
+Kiput,kipu1237,Austronesian,0.2727272727272727,44,veridical
+Mafea,mafe1237,Austronesian,0.25,44,veridical
+Watut,watu1246,Austronesian,0.25,48,veridical
+Martu Wangka,mart1256,Pama-Nyungan,0.2916666666666667,48,veridical
+Bunganditj,bung1264,Pama-Nyungan,0.391304347826087,46,veridical
+Ngulu,ngul1246,Atlantic-Congo,0.3111111111111111,45,veridical
+Haya,haya1250,Atlantic-Congo,0.3333333333333333,48,veridical
+Kartujarra,kart1247,Pama-Nyungan,0.3409090909090909,44,veridical
+Torres Strait Creole,torr1261,Indo-European,0.25,48,veridical
+Tabla,tabl1243,Sentanic,0.2708333333333333,48,veridical
+Sundanese,sund1252,Austronesian,0.3541666666666667,48,veridical
+Dutch,dutc1256,Indo-European,0.2916666666666667,48,veridical
+Mbala,mbal1257,Atlantic-Congo,0.2765957446808511,47,veridical
+Chamalal,cham1309,Nakh-Daghestanian,0.3958333333333333,48,veridical
+Luiseno-Juaneño,luis1253,Uto-Aztecan,0.5952380952380952,42,veridical
+Bezhta,bezh1248,Nakh-Daghestanian,0.4166666666666667,48,veridical
+Basque,basq1248,NA,0.3333333333333333,48,veridical
+Numbami,numb1247,Austronesian,0.3541666666666667,48,veridical
+Lithuanian,lith1251,Indo-European,0.3958333333333333,48,veridical
+Aché,ache1246,Tupian,0.2916666666666667,48,veridical
+Rotuman,rotu1241,Austronesian,0.3333333333333333,48,veridical
+Wayuu,wayu1243,Arawakan,0.22916666666666663,48,veridical
+Nyulnyul,nyul1247,NA,0.34782608695652173,46,veridical
+Mundurukú,mund1330,Tupian,0.4130434782608696,46,veridical
+Isnag,isna1241,Austronesian,0.22916666666666663,48,veridical
+French,stan1290,Indo-European,0.375,48,veridical
+Maithili,mait1250,Indo-European,0.6666666666666666,48,veridical
+Tswana,tswa1253,Atlantic-Congo,0.5,42,veridical
+Maba (Indonesia),maba1278,Austronesian,0.2916666666666667,48,veridical
+Cupeño,cupe1243,Uto-Aztecan,0.5,48,veridical
+Catalan,stan1289,Indo-European,0.3333333333333333,48,veridical
+Toda,toda1252,Dravidian,0.5238095238095238,42,veridical
+Kashaya,kash1280,NA,0.4375,48,veridical
+Tagalog,taga1270,Austronesian,0.23404255319148937,47,veridical
+Komi-Zyrian,komi1268,Uralic,0.375,48,veridical
+Icelandic,icel1247,Indo-European,0.4583333333333333,48,veridical
+Pitta Pitta,pitt1247,Pama-Nyungan,0.3958333333333333,48,veridical
+Lardil,lard1243,NA,0.1875,48,veridical
+Ancux,ancu1238,Nakh-Daghestanian,0.375,48,veridical
+Äiwoo,ayiw1239,Austronesian,0.3125,48,veridical
+Eastern Bolivian Guaraní,east2555,Tupian,0.3636363636363637,44,veridical
+Latin,lati1261,Indo-European,0.4583333333333333,48,veridical
+Suruí,suru1262,Tupian,0.29545454545454547,44,veridical
+Wangkajunga,wang1288,Pama-Nyungan,0.29545454545454547,44,veridical
+Tocantins Asurini,toca1235,Tupian,0.4130434782608696,46,veridical
+Tucano,tuca1252,NA,0.6744186046511628,43,veridical
+Hano,hano1246,Austronesian,0.25,48,veridical
+Cimbala-Cizali,sans1272,Atlantic-Congo,0.2826086956521739,46,veridical
+Banjar,banj1239,Austronesian,0.25,48,veridical
+Southeastern Tepehuan,sout2976,Uto-Aztecan,0.30434782608695654,46,veridical
+Tokelau,toke1240,Austronesian,0.2916666666666667,48,veridical
+Sikaiana,sika1261,Austronesian,0.16666666666666666,48,veridical
+Macushi,macu1259,Cariban,0.3617021276595745,47,veridical
+Isirawa,isir1237,Greater Kwerba,0.4375,48,veridical
+Hindi,hind1269,Indo-European,0.6875,48,veridical
+Bena (Tanzania),bena1262,Atlantic-Congo,0.4090909090909091,44,veridical
+Maquiritari,maqu1238,Cariban,0.2826086956521739,46,veridical
+Gujarati,guja1252,Indo-European,0.625,48,veridical
+Maybrat-Karon,maib1239,Maybrat-Karon,0.2272727272727273,44,veridical
+Siona-Tetete,sion1247,NA,0.3333333333333333,42,veridical
+Tsonga,tson1249,Atlantic-Congo,0.3333333333333333,48,veridical
+Auslan,aust1271,NA,0.3125,48,veridical
+Kuku-Yalanji,kuku1273,Pama-Nyungan,0.3958333333333333,48,veridical
+Māori,maor1246,Austronesian,0.3125,48,veridical
+Hinuq,hinu1240,Nakh-Daghestanian,0.3958333333333333,48,veridical
+Bulgarian,bulg1262,Indo-European,0.4166666666666667,48,veridical
+Casiguran-Nagtipunan Agta,casi1235,Austronesian,0.20833333333333337,48,veridical
+Tonsea,tons1240,Austronesian,0.3181818181818182,44,veridical
+Bontok,bont1247,Austronesian,0.16666666666666666,48,veridical
+Guajá,guaj1256,Tupian,0.2916666666666667,48,veridical
+Pilagá,pila1245,NA,0.2916666666666667,48,veridical
+Duna,duna1248,NA,0.22916666666666663,48,veridical
+Bera,bera1259,Atlantic-Congo,0.3863636363636363,44,veridical
+Turkish,nucl1301,Turkic,0.3541666666666667,48,veridical
+Tadyawan,tady1237,Austronesian,0.25,48,veridical
+Odia,oriy1255,Indo-European,0.6808510638297872,47,veridical
+Central Sama,cent2092,Austronesian,0.20833333333333337,48,veridical
+Ga'dang,gada1258,Austronesian,0.1875,48,veridical
+Northern Kurdish,nort2641,Indo-European,0.5208333333333334,48,veridical
+Amanab,aman1265,Border,0.375,48,veridical
+Welsh,wels1247,Indo-European,0.3333333333333333,48,veridical
+Meru,meru1245,Atlantic-Congo,0.4545454545454546,44,veridical
+West Coast Bajau,west2560,Austronesian,0.25,48,veridical
+Minigir,mini1251,Austronesian,0.16666666666666666,48,veridical
+Akhvakh,akhv1239,Nakh-Daghestanian,0.3958333333333333,48,veridical
+East Kewa,east2516,Nuclear Trans New Guinea,0.2708333333333333,48,veridical
+Norwegian Bokmål,norw1259,Indo-European,0.3125,48,veridical
+Selk'nam,onaa1245,NA,0.3541666666666667,48,veridical
+Takia,taki1248,Austronesian,0.1875,48,veridical
+Madurese,nucl1460,Austronesian,0.2708333333333333,48,veridical
+Ma'anyan,maan1238,Austronesian,0.25,48,veridical
+Neverver,ling1265,Austronesian,0.4090909090909091,44,veridical
+Mori Bawah,mori1268,Austronesian,0.20833333333333337,48,veridical
+Sawai,sawa1247,Austronesian,0.2916666666666667,48,veridical
+Northern Tosk Albanian,tosk1239,Indo-European,0.3333333333333333,48,veridical
+Cubeo,cube1242,NA,0.36585365853658536,41,veridical
+Romanian,roma1327,Indo-European,0.3125,48,veridical
+Bit,bitt1240,Austroasiatic,0.3191489361702128,47,veridical
+Totoli,toto1304,Austronesian,0.2916666666666667,48,veridical
+Teguima,opat1246,Uto-Aztecan,0.5116279069767442,43,veridical
+Central Kurdish,cent1972,Indo-European,0.375,48,veridical
+English,stan1293,Indo-European,0.3125,48,veridical
+Kankanaey,kank1243,Austronesian,0.2272727272727273,44,veridical
+Emau,emau1237,Austronesian,0.2727272727272727,44,veridical
+Pashto,pash1269,Indo-European,0.4791666666666667,48,veridical
+Tooro,toor1238,Atlantic-Congo,0.3636363636363637,44,veridical
+Fang (Equatorial Guinea),fang1246,Atlantic-Congo,0.3333333333333333,42,veridical
+Paraguayan Guaraní,para1311,Tupian,0.44680851063829785,47,veridical
+Mairasi,nucl1594,Mairasic,0.16666666666666666,48,veridical
+Thao,thao1240,Austronesian,0.21428571428571427,42,veridical
+Galibi Carib,gali1262,Cariban,0.3902439024390244,41,veridical
+Puluwatese,pulu1242,Austronesian,0.21739130434782608,46,veridical

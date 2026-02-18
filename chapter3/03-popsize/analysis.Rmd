@@ -1,0 +1,640 @@
+---
+title: "models"
+author: "Maisy Hallam"
+date: "2025-07-25"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(ape)
+library(nlme)
+library(caper)
+library(geiger)
+library(phytools)
+library(brms)
+library(lmerTest)
+library(bayesplot)
+```
+
+```{r}
+# PLOT THEMES AND COLOURS
+ 
+fam_colours = c(
+'Atlantic-Congo' = '#7A9B76',
+'Austronesian' = '#D93843',
+'Indo-European' = '#F09C1D'
+)
+```
+
+# Does kin term granularity co-vary with population size?
+
+This document contains a series of phylogenetic Bayesian models predicting kin term granularity from population size across Indo-European, Austronesian, and Atlantic-Congo languages.
+
+It also includes analyses of phylogenetic signal (measured with Pagels lambda) for kin term granularity.
+
+First, let's import the kin term granularity and population size data, which have been merged during preprocessing. We'll also centre our `log_pop` variable, ready for modelling.
+
+```{r}
+gran_pop <- read_csv('data/preprocessed/granularity_population.csv')
+
+gran_pop <- gran_pop %>% mutate(log_pop_c = scale(log_pop))
+```
+
+If we look at the summary stats, we have 344 languages for which we have both kin term granularity data and population size data.
+
+```{r}
+gran_pop %>% summarise(
+  mean = mean(prop),
+  sd = sd(prop),
+  median = median(prop),
+  n = n()
+)
+```
+
+However, if we summarise by language family, we find that only three language families have a substantial amount of data: Atlantic-Congo, Austronesian, and Indo-European.
+
+```{r}
+gran_pop$language_family <- factor(gran_pop$family)
+
+summary(gran_pop)
+```
+
+So we will focus on these three language families in our analysis, and break the data down by language family.
+
+To illustrate why we need phylogenetic methods for this analysis, take a look at what the data looks like when we combine these three language families. It appears there is a slight correlation between our two variables of interest: kin term granularity, and logged population size.
+
+```{r}
+gran_pop %>% filter(language_family %in% c('Atlantic-Congo','Austronesian','Indo-European')) %>%
+ggplot(aes(x = prop, y = log_pop)) +
+  scale_fill_manual(values = fam_colours) +
+  geom_jitter(aes(fill = language_family),colour = 'black', stroke = 0.05, size = 2.5, shape = 21, alpha = 0.8, width = 0.2, height = 0.2) +
+  geom_abline(intercept = 0, slope = 0.1) +
+  lims(x = c(0,1)) +
+  labs(x = 'Kin term granularity', y = 'Log population size') +
+  scale_x_continuous(labels = c(0,0.25,0.5,0.75,1)) +
+  # facet_wrap(~language_family) +
+  theme(legend.position = 'none',
+        plot.margin = margin(c(0,0,0,0)))
+```
+
+Compare this to when we split the data up into language families, where there is no clear correlation at all.
+
+```{r}
+gran_pop %>% filter(language_family %in% c('Atlantic-Congo','Austronesian','Indo-European')) %>%
+ggplot(aes(x = prop, y = log_pop)) +
+  scale_fill_manual(values = fam_colours) +
+  geom_jitter(aes(fill = language_family),colour = 'black', stroke = 0.05, size = 2.5, shape = 21, alpha = 0.8, height = 0.4, width = 0.4) +
+  labs(x = 'Kin term granularity', y = 'Log population size') +
+  lims(x = c(0,1)) +
+  # scale_x_continuous(labels = c(0,0.25,0.5,0.75,1)) +
+  facet_wrap(~language_family) +
+  theme(legend.position = 'none',
+        plot.margin = margin(c(0,0,0,0)),
+        axis.text.x = element_text(size = 8))
+```
+
+In what follows, we will perform a series of phylogenetically-informed beta regression models.
+
+First, we need to import the phylogenetic trees. These are summary trees from Bouckaert et al (2012), Grey et al (2009) and Grollemund et al (2012).
+
+We also import dataframes containing the taxa of these trees - the names of the languages at the tips.
+
+```{r}
+# import trees
+ie_tree <- read.nexus('data/trees/bouckaertetal2012.trees') %>% ladderize()
+au_tree <- read.nexus('data/trees/greyetal.trees') %>% ladderize()
+ac_tree <- read.nexus('data/trees/grollemundetal.trees') %>% ladderize()
+
+#import taxa
+ie_taxa <- read_csv('data/trees/bouckaertetal2012taxa.csv')
+au_taxa <- read_csv('data/trees/greyetaltaxa.csv')
+ac_taxa <- read_csv('data/trees/grollemundetaltaxa.csv')
+```
+Each tree contains hierarchical information about how languages in that family are related to one another, and this data can be plotted:
+
+```{r}
+plot(ie_tree)
+```
+In order to run the analysis, we need to make sure that the data in our dataframe `gran_pop` matches the data in the tree, and that the data in the tree matches the data in `gran_pop`. This is a strangely laborious task, so the following cell does it all for us, and I won't explain each step in detail - it is just a series of filtering processes.
+
+```{r}
+# filter full data by taxa
+ie_df <- merge(ie_taxa, gran_pop, by = "glottocode") %>% distinct(glottocode, .keep_all = TRUE) %>% filter(prop < 1)
+au_df <- merge(au_taxa, gran_pop, by = "glottocode") %>% distinct(glottocode, .keep_all = TRUE) %>% filter(prop < 1)
+ac_df <- merge(ac_taxa, gran_pop, by = "glottocode") %>% distinct(glottocode, .keep_all = TRUE) %>% filter(prop < 1)
+
+# what taxa are in the df and on the phylogeny?
+ie_common_taxa <- intersect(ie_tree$tip.label,ie_df$taxon)
+au_common_taxa <- intersect(au_tree$tip.label,au_df$taxon)
+ac_common_taxa <- intersect(ac_tree$tip.label,ac_df$taxon)
+
+# prune the phylogenies so they have the same taxa as our data
+ie_phy <- drop.tip(ie_tree, setdiff(ie_tree$tip.label, ie_common_taxa))
+au_phy <- drop.tip(au_tree, setdiff(au_tree$tip.label, au_common_taxa))
+ac_phy <- drop.tip(ac_tree, setdiff(ac_tree$tip.label, ac_common_taxa))
+
+```
+
+At this point we could plot our trees again, just to see how many languages we have had to drop to match our `gran_pop` data:
+
+```{r}
+plot(ie_phy)
+```
+We can now use the data from the phylogenies to build correlation matrices - this puts the phylogeny in a data format that BRMS understands, and allows us to essentially use the phylogeny as a random effect in a Bayesian regression model.
+
+```{r}
+# build correlation matrix of the phylogenies to use as a random effect
+# BRMS needs correlation matrix, NOT covariance matrix
+ie_cov <- ape::vcv(ie_phy, corr = TRUE)
+au_cov <- ape::vcv(au_phy, corr = TRUE)
+ac_cov <- ape::vcv(ac_phy, corr = TRUE)
+
+au_cov <- ifelse(au_cov == 0, au_cov + 0.000001, au_cov) # add a small constant to remove absolute 0 values for BRMS
+```
+
+Let's set aside our trees for a minute and talk Bayesian models.
+
+## Choosing a likelihood
+
+Since our data are proportion data (bounded between 0 and 1) but with no absolute 0 or 1 values, we will use a Beta likelihood.
+
+## Setting priors
+
+For a beta model, we need to set priors for:
+
+* The intercept (i.e. the lexicon size of the average population size)
+* The slope (i.e. effect of population size)
+* The phi parameter (the dispersion of the data around the mean within the beta distribution)
+* The group level standard deviation (i.e. phylogenetic standard deviation)
+
+We will set weakly regularising priors, as we do not have clear predictions about the effect of any of these parameters. We do have the lambda values for the phylogenetic signal of lexicon size, but to keep all three models' priors the same, we will set these to weakly regularising also (and the data itself will guide the model's predictions).
+
+The intercept represents the mean lexicon size. So we want the intercept to be able to take practically any value, as long as it is a possible lexicon size (i.e. it must be between 0 and 1). Beta models use a logit link, so we are working on the log-odds scale here. The following function will turn log-odds to probability, so we can choose a prior that assigns approximately equal mass to all possible lexicon size values: in this case, a normal distribution with mu = 0 log odds and sd = 1.5 log odds.
+
+```{r}
+plot_logodds_to_prob <- function(logodds_data, distrib_str){
+  # logodds_data: vector of numbers in log-odds space
+  # distrib_str: a string description of the log-odds distribution (for plot title)
+  
+  facet_labels <- c(
+    log_odds = 'In log-odds space',
+    prob     = 'In probability space'
+  )
+  tibble(log_odds = logodds_data) %>%
+    mutate(prob = plogis(log_odds)) %>% 
+    pivot_longer(cols=everything(), names_to = 'scale', values_to = 'sim') %>% 
+    ggplot(aes(x=sim)) +
+    facet_wrap(~ scale, scales = 'free',
+               labeller = as_labeller(facet_labels)) +
+    geom_density(fill='grey', alpha=.5) +
+    labs(
+      title = paste(
+        distrib_str, 
+        'in log-odds space and transformed to probability space'
+      ),
+      x = element_blank(),
+      y = 'Probability density'
+    ) +
+    theme(axis.ticks.y = element_blank(),
+          axis.text.y = element_blank(),
+          panel.grid = element_blank()) +
+    NULL
+}
+
+
+# Example usage:
+plot_logodds_to_prob(rnorm(100000, -0, 1), 'Normal(0, 1)') # too peaked
+
+plot_logodds_to_prob(rnorm(100000, 0, 1.5), 'Normal(0, 1)') # evenly distributed
+```
+
+So we'll set the intercept prior to:
+
+```{r}
+intercept <- prior(normal(0,1.5), class = "Intercept")
+```
+
+Then, to keep the model priors fairly weak, we will set the remaining priors to keep the distribution of possible values as flat as possible.
+
+```{r}
+slope <- prior(normal(0, 1), class = "b", coef = "log_pop_c")
+phi <- prior(normal(0, 10), class = "phi")
+phylo <- prior(normal(0,1.5), class = "sd", group = 'taxon')
+```
+
+Let's run prior predictive checks to show that the distribution is fairly uniform (for the Indo-European dataset as a test):
+
+```{r}
+pp_fit <- brm(prop ~ log_pop_c + (1| gr(taxon, cov = c)),
+                 data = ie_df,
+                 data2 = list(c = ie_cov),
+                 family = "beta",
+                 prior = c(intercept,slope,phi,phylo),
+  sample_prior = 'only')
+```
+
+Let's plot the model fit - note the model above generates plausible data using ONLY our priors, not taking into account the actual data. We are just checking that our priors are reasonable and generate plausible predictions.
+
+```{r}
+pp_check(pp_fit, type = 'stat',stat = 'mean', prefix = 'ppd')
+```
+
+
+For comparison, see what happens when we make the slope prior larger - the output gets skewed towards 0 and 1:
+
+```{r}
+pp_fit_bigslope <- brm(prop ~ log_pop_c + (1| gr(taxon, cov = c)),
+                 data = ie_df,
+                 data2 = list(c = ie_cov),
+                 family = "beta",
+                 prior = c(intercept,
+                           prior(normal(0, 10), class = "b", coef =   "log_pop_c"),
+                           phi,phylo),
+  sample_prior = 'only')
+
+pp_check(pp_fit_bigslope, type = 'stat',stat = 'mean', prefix = 'ppd')
+```
+
+
+And decreasing the phi prior makes the distribution less flat:
+
+```{r}
+pp_fit_smallphi <- brm(prop ~ log_pop_c + (1| gr(taxon, cov = c)),
+                 data = ie_df,
+                 data2 = list(c = ie_cov),
+                 family = "beta",
+                 prior = c(intercept,
+                           slope,
+                           prior(normal(0,1), class = 'phi'),
+                           phylo),
+  sample_prior = 'only')
+
+pp_check(pp_fit_smallphi, type = 'stat',stat = 'mean', prefix = 'ppd')
+```
+
+
+And increasing the phylo prior makes the distributions peakier around 0.5:
+
+```{r}
+pp_fit_bigphylo <- brm(prop ~ log_pop_c + (1| gr(taxon, cov = c)),
+                 data = ie_df,
+                 data2 = list(c = ie_cov),
+                 family = "beta",
+                 prior = c(intercept,
+                           slope,
+                           phi,
+                           prior(normal(0,10), class = "sd", group = 'taxon')),
+  sample_prior = 'only')
+
+pp_check(pp_fit_bigphylo, type = 'stat',stat = 'mean', prefix = 'ppd')
+```
+
+So we select priors that keep the distribution mostly uniform across values - this means our priors do not give the model much information about what effect sizes we expect. These will be driven by the data itself moreso than the priors.
+
+## Fitting the models
+
+We'll use the same priors for all three language families.
+
+```{r}
+# Indo European
+
+ie_fit <- brm(prop ~ log_pop_c + (1| gr(taxon, cov = c)),
+                 data = ie_df,
+                 data2 = list(c = ie_cov),
+                 family = "beta",
+                 prior = c(
+                    intercept, slope, phi, phylo
+                    ))
+```
+
+```{r}
+# Atlantic-Congo
+
+ac_fit <- brm(prop ~ log_pop_c + (1| gr(taxon, cov = c)),
+                 data = ac_df,
+                 data2 = list(c = ac_cov),
+                 family = "beta",
+                 prior = c(
+                    intercept, slope, phi, phylo
+                    ))
+```
+
+```{r}
+# Austronesian
+
+au_fit <- brm(prop ~ log_pop_c + (1| gr(taxon, cov = c)),
+                 data = au_df,
+                 data2 = list(c = au_cov),
+                 family = "beta",
+                 prior = c(
+                    intercept, slope, phi, phylo
+                    ))
+```
+
+Let's check the trace plots to make sure the models converged:
+
+```{r}
+bayesplot::mcmc_trace(ie_fit,
+           pars = c('b_Intercept','b_log_pop_c'))
+
+bayesplot::mcmc_trace(ac_fit,
+           pars = c('b_Intercept','b_log_pop_c'))
+
+bayesplot::mcmc_trace(au_fit,
+           pars = c('b_Intercept','b_log_pop_c'))
+```
+
+All Rhat values = 1.00, which is another sign of convergence.
+
+```{r}
+summary(ie_fit)
+
+summary(ac_fit)
+
+summary(au_fit)
+```
+
+Posterior predictive checks show that the means of our observed data (the dark vertical line) is smack in the middle of the posterior predictive distribution of means - suggesting that the model architecture reflects the generative process behind the data well.
+
+```{r}
+pp_check(ie_fit, type = 'stat', stat = mean)
+
+pp_check(ac_fit, type = 'stat', stat = mean)
+
+pp_check(au_fit, type = 'stat', stat = mean)
+```
+
+## Interpreting the models' outputs
+
+Intercept:
+
+IE:
+In log-odds space, the estimated kinship granularity when population size = 0 (i.e. the average population size) is -0.17 (95% CrI: [-0.53,0.20]) This means that the posterior mean is -0.26 log odds and 95% of the posterior distribution lies between -0.62 log odds and 0.10 log odds.
+
+AC:
+
+AU:
+
+```{r}
+bayesplot::mcmc_dens(ie_fit, pars = 'b_Intercept')
+
+bayesplot::mcmc_dens(ac_fit, pars = 'b_Intercept')
+
+bayesplot::mcmc_dens(au_fit, pars = 'b_Intercept')
+```
+
+Log-pop-C:
+
+IE:
+The mean effect of population size is 0 log odds (95% CrI: [-0.07,0.08]), i.e. for one log increase in population size, granularity increases by 0 log odds on average. The model thinks that an increase or decrease in lexicon size is approximately equally likely, since the CrI spans both positive and negative values.
+
+AC:
+
+AU:
+
+```{r}
+bayesplot::mcmc_dens(ie_fit, pars = 'b_log_pop_c') +
+  labs(title = 'Posterior distribution of b_log_pop_c for Indo-European languages') +
+  geom_vline(xintercept = 0, linetype = 'dashed')
+
+bayesplot::mcmc_dens(ac_fit, pars = 'b_log_pop_c') +
+  labs(title = 'Posterior distribution of b_log_pop_c for Atlantic-Congo languages') +
+  geom_vline(xintercept = 0, linetype = 'dashed')
+
+bayesplot::mcmc_dens(au_fit, pars = 'b_log_pop_c') +
+  labs(title = 'Posterior distribution of b_log_pop_c for Austronesian languages') +
+  geom_vline(xintercept = 0, linetype = 'dashed')
+```
+
+So the model thinks that both negative and positive values are plausible values for the change in granularity given an increase in population size. In other words, there is no effect of population size on the size of the kinship lexicon, even when we take into account language relatedness.
+
+```{r}
+bayesplot::mcmc_areas(ie_fit,
+                      pars = c('b_Intercept','b_log_pop_c'),
+                      prob = 0.95,
+                      stat = mean) +
+  geom_vline(xintercept = 0, linetype = 'dashed') +
+  labs(x = 'Log-odds', title = 'Indo-European')
+
+bayesplot::mcmc_areas(ac_fit,
+                      pars = c('b_Intercept','b_log_pop_c'),
+                      prob = 0.95,
+                      stat = mean) +
+  geom_vline(xintercept = 0, linetype = 'dashed') +
+  labs(x = 'Log-odds', title = 'Atlantic-Congo')
+
+bayesplot::mcmc_areas(au_fit,
+                      pars = c('b_Intercept','b_log_pop_c'),
+                      prob = 0.95,
+                      stat = mean) +
+  geom_vline(xintercept = 0, linetype = 'dashed') +
+  labs(x = 'Log-odds', title = 'Austronesian')
+```
+
+We fit Bayesian linear models with a Beta likelihood, predicting kin term granularity (as a proportion of terms over types) as a function of population size. The model used weakly regularising priors that we selected based on prior predictive checks.
+
+The model estimates no effect of population size on granularity (Indo-European: B = 0 log-odds, 95% CrI[-0.07,0.08]; Atlantic-Congo: ; Austronesian: ). The 95% CrI contains positive and negative values, and the posterior distribution is centred at 0, meaning that the model allocates as much probability to an increase in lexicon size as it does a decrease in lexicon size for a single log increase in population size.
+
+The model output suggests that the model cannot be sure that population size leads to a direct increase in granularity. We take this uncertainty to suggest that there is not a reliable directional effect of speaker population on the number of kin terms in a language.
+
+# APPENDIX: OTHER CORRELATES OF NETWORK STRUCTURE
+
+
+Import kin term granularity data.
+
+```{r}
+gran <- read_csv('data/preprocessed/kinterm_granularity.csv') %>% rename(Glottocode = glottocode) # to match the following dataframes
+```
+
+Import D-PLACE data on subsistence, household size, family size, and settlement type.
+And merge them with `gran`.
+
+```{r}
+subsistence <- read_csv('data/preprocessed/subsistence_type.csv') %>% merge(gran, by = 'Glottocode')
+
+household <- read_csv('data/preprocessed/household_size.csv') %>% merge(gran, by = 'Glottocode')
+
+family_size <- read_csv('data/preprocessed/family_size.csv') %>% merge(gran, by = 'Glottocode')
+
+settlement <- read_csv('data/preprocessed/settlement_type.csv') %>% merge(gran, by = 'Glottocode')
+
+settlement
+
+```
+
+## Agricultural societies are larger, so will have finer-grain kinship terms
+
+```{r}
+subsistence %>% filter(!is.na(Subsistence_Type) & !is.na(language_family)) %>%
+  group_by(Subsistence_Type) %>%
+  mutate(mean = mean(prop),
+         sd = sd(prop),
+         n = n(),
+         se = sd / sqrt(n),
+         upper = mean + (se * 1.96),
+         lower = mean - (se * 1.96)) %>%
+  ggplot(aes(x = Subsistence_Type, y = prop, fill = Subsistence_Type)) +
+  scale_fill_manual(name = 'Subsistence type', values = c('#f6ecd0','#708090')) +
+  geom_violin(alpha = 0.8, trim = FALSE) +
+  geom_point(aes(y = mean), shape = 18, size = 2) +
+  geom_errorbar(aes(ymin = lower, ymax = upper), width = 0.1, linewidth = 0.5) +
+  labs(x = 'Subsistence type', 
+       y = 'Kin term granularity') +
+  lims(y = c(0,1)) +
+  theme(legend.position = 'none')
+
+ggsave('../../plots/subsistence_thesis.pdf', device = cairo_pdf, unit = 'cm', width = 10, height = 8)
+```
+If we split the data by language family, though, it is quickly obvious that there is not enough data here to perform inferential statistics: there is not enough by-family variation to analyse this data phylogenetically.
+
+```{r}
+subsistence %>% filter(!is.na(Subsistence_Type) & !is.na(language_family)) %>%
+  ggplot(aes(x = prop, fill = Subsistence_Type)) +
+  scale_fill_manual(name = 'Subsistence type', values = c('#f6ecd0','#708090')) +
+  geom_histogram(colour = 'black', linewidth = 0.1) +
+  labs(x = 'Kin term granularity') +
+  lims(x = c(0,1)) +
+  facet_wrap(~language_family) +
+  theme(legend.position = 'top',
+        plot.margin = margin(c(0,10,0,0)),
+        panel.spacing = unit(1, "lines"))
+
+ggsave('../../plots/subsistence_fam_thesis.pdf', device = cairo_pdf, unit = 'cm', height = 12, width = 18)
+```
+
+Looking at the summary statistics, we can see that there is not much difference between the two distributions - agriculture does not indicate a larger inventory of kin terms.
+
+```{r}
+subsistence %>% group_by(Subsistence_Type) %>%
+  summarise(
+    mean = mean(prop),
+    sd = sd(prop),
+    range = paste0('[',round(range(prop)[1],2),' - ',round(range(prop)[2],2),']'),
+    n = n(),
+    se = sd / sqrt(n),
+    upper = mean + (se * 1.96),
+    lower = mean - (se * 1.96))
+```
+
+## SOCIETIES WHO LIVE IN LARGER SETTLEMENTS WILL HAVE FINER-GRAIN KIN TERMS
+
+```{r}
+settlement %>% filter(!is.na(settlement_type) & !is.na(language_family)) %>%
+  group_by(settlement_type) %>%
+  mutate(mean = mean(prop),
+         sd = sd(prop),
+         n = n(),
+         se = sd / sqrt(n),
+         upper = mean + (se * 1.96),
+         lower = mean - (se * 1.96),
+         settlement_type = factor(settlement_type, levels = c('Nomadic/Impermanent', 'Small settlements', 'Large settlements'))) %>%
+  ggplot(aes(x = settlement_type, y = prop, fill = settlement_type)) +
+  scale_fill_manual(name = 'Settlement type', values = c('#f6ecd0','#708090','#e06666')) +
+  geom_violin(alpha = 0.8, trim = FALSE) +
+  geom_point(aes(y = mean), shape = 18, size = 2) +
+  geom_errorbar(aes(ymin = lower, ymax = upper), width = 0.1) +
+  labs(x = 'Settlement type', 
+       y = 'Kin term granularity') +
+  lims(y = c(0,1)) +
+  theme(legend.position = 'none')
+
+ggsave('../../plots/settlement_thesis.pdf', device = cairo_pdf, unit = 'cm', width = 10, height = 8)
+```
+
+
+```{r}
+settlement %>% filter(!is.na(settlement_type) & !is.na(language_family) & language_family != 'Yele') %>%
+  mutate(settlement_type = factor(settlement_type, levels = c('Nomadic/Impermanent','Small settlements','Large settlements'))) %>%
+  ggplot(aes(x = prop, fill = settlement_type)) +
+  scale_fill_manual(name = 'Settlement type', values = c('#f6ecd0','#708090','#e06666')) +
+  geom_histogram(colour = 'black', linewidth = 0.1) +
+  labs(x = 'Kin term granularity') +
+  lims(x = c(0,1)) +
+  facet_wrap(~language_family) +
+  theme(legend.position = 'top',
+        panel.spacing = unit(1, "lines"))
+
+ggsave('../../plots/settlement_fam_thesis.pdf', device = cairo_pdf, unit = 'cm', height = 12, width = 18)
+```
+
+Cautiously, we could do a frequentist regression model on this data, with language family as a random effect:
+
+```{r}
+library(glmmTMB)
+
+filtered_settlement <- filter(settlement, language_family %in% c('Atlantic-Congo', 'Austronesian', 'Indo-European')) %>% mutate(settlement_type = factor(settlement_type, levels = c('Nomadic/Impermanent','Small settlements', 'Large settlements')))
+
+settlement_fit <- glmmTMB(prop ~ settlement_type + (1|language_family), data = filtered_settlement, family = beta_family())
+
+summary(settlement_fit)
+
+emmeans::emmeans(settlement_fit, pairwise ~ settlement_type)
+```
+
+The results suggest that there is no difference in kin term granularity predicted by the size of the settlements people live in.
+
+```{r}
+settlement %>% filter(language_family == 'Atlantic-Congo') %>% group_by(settlement_type) %>%
+  summarise(
+    mean = mean(prop),
+    sd = sd(prop),
+    range = range(prop),
+    n = n(),
+    se = sd / sqrt(n),
+    upper = mean + (se * 1.96),
+    lower = mean - (se * 1.96))
+```
+
+
+# SOCIETIES WITH A LARGER AVERAGE HOUSEHOLD SIZE WILL HAVE FINER-GRAIN KIN TERMS
+
+```{r}
+household %>% filter(!is.na(language_family)) %>%
+  ggplot(aes(x = prop, y = HouseholdSize)) +
+  geom_point(shape = 21, fill = '#f6ecd0', colour = 'black', size = 2) +
+  labs(x = 'Kin term granularity', y = 'Average household size') +
+  lims(x = c(0,1)) +
+  facet_wrap(~language_family) +
+  theme(panel.spacing = unit(1, "lines"))
+
+ggsave('../../plots/household_fam_thesis.pdf', device = cairo_pdf, unit = 'cm', height = 8, width = 14)
+```
+
+```{r}
+household %>% filter(!is.na(language_family)) %>%
+  ggplot(aes(x = prop, y = HouseholdSize)) +
+  geom_point(shape = 21, fill = '#f6ecd0', colour = 'black', size = 2) +
+  labs(x = 'Kin term granularity', y = 'Average household size') +
+  lims(x = c(0,1))
+
+ggsave('../../plots/household_thesis.pdf', device = cairo_pdf, unit = 'cm', height = 6.5, width = 7)
+```
+
+
+## SOCIETIES WITH LARGER AVERAGE FAMILY SIZE WILL HAVE FINER-GRAIN KIN TERMS
+
+```{r}
+family_size %>% filter(!is.na(language_family)) %>%
+  ggplot(aes(x = prop, y = FamilySize)) +
+  geom_point() +
+  geom_point(shape = 21, fill = '#f6ecd0', colour = 'black', size = 2) +
+  labs(x = 'Kin term granularity', y = 'Average family size') +
+  lims(x = c(0,1)) +
+  facet_wrap(~language_family) +
+  theme(panel.spacing = unit(1, "lines"))
+
+ggsave('../../plots/family_fam_thesis.pdf', device = cairo_pdf, unit = 'cm', height = 8, width = 14)
+```
+
+```{r}
+family_size %>% filter(!is.na(language_family)) %>%
+  ggplot(aes(x = prop, y = FamilySize)) +
+  geom_point(shape = 21, fill = '#f6ecd0', colour = 'black', size =2) +
+  labs(x = 'Kin term granularity', y = 'Average family size') +
+  lims(x = c(0,1))
+
+ggsave('../../plots/family_thesis.pdf', device = cairo_pdf, unit = 'cm', height = 6.5, width = 7)
+```
+

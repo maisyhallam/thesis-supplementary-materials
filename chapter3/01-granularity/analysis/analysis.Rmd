@@ -1,0 +1,193 @@
+---
+title: "analysis"
+author: "Maisy Hallam"
+date: "2026-02-17"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+```
+
+# Describing cross-linguistic variation in kin term granularity
+
+The goal of this analysis is to describe the extent of variation in kin term granularity; that is, how many unique kin terms languages have to denote a fixed set of 48 types of relative.
+
+We have compiled this data from the Kinbank data already:
+
+```{r}
+gran <- read_csv('data/preprocessed/kinterm_granularity.csv')
+```
+`gran` contains six columns:
+
+* `language` is the language name
+* `language_family` is the language family
+* `glottocode` is the glottocode for that language
+* `prop` is the kin term granularity: the proportion of kin terms over kin types.
+* `count` is the raw number of kin terms in that language.
+* `n_kintypes` is the number of kin types that were available in that language's dataset (out of a possible 48).
+
+
+Using the data we can plot the distribution of kin term granularity values across languages:
+
+```{r}
+gran %>%
+  mutate(
+    mean = mean(prop),
+    sd = sd(prop),
+    n = n()
+  ) %>%
+  ggplot() +
+  geom_histogram(aes(x = prop), colour = 'black', fill = '#f6ecd0',linewidth = 0.1, bins = 60) +
+  geom_vline(aes(xintercept = mean), linetype = 'dashed',linewidth = 0.2) +
+  annotate("text", x = 0.85, y = 10, label = 'Batanga',family = 'Charter', size = 3) +
+  annotate("text", x = 0.1, y = 11, label = 'Paiwan',family = 'Charter', size = 3) +
+  annotate("text", x = 0.25, y = 48, label = 'English',family = 'Charter', size = 3) +
+  annotate("segment", x = 0.1, xend = 0.1, y = 8, yend = 3, linewidth = 0.1) +
+  annotate("segment", x = 0.85, xend = 0.85, y = 7, yend = 2, linewidth = 0.1) +
+  annotate("segment", x = 0.25, xend = 0.30, y = 45, yend = 30, linewidth = 0.1) +
+  lims(x = c(0,1)) +
+  labs(x = 'Kin term granularity',
+       y = 'count') +
+  theme(legend.position = 'none',
+        plot.margin = margin(c(7,0,0,0)),
+        axis.text = element_text(size = 8))
+
+ggsave('plots/veridical.pdf', device = cairo_pdf, width = 14, height = 5, unit = 'cm')
+```
+
+```{r}
+gran %>% filter(language == 'English')
+```
+
+
+And we can report the summary statistics that describe this distribution:
+
+```{r}
+gran %>% summarise(
+  mean = mean(prop),
+  sd = sd(prop),
+  range = paste0('[',round(range(prop)[1],4),' - ',round(range(prop)[2],4),']'))
+```
+
+However, this doesn't capture the obvious skew in the data - a large proportion of languages have a granularity below 0.5. We can anecdotally show that the distribution is left-skewed by calculating the proportion of languages below 0.5:
+
+```{r}
+count(gran %>% filter(prop < 0.5)) / count(gran)
+```
+More than 90% of languages have a granularity below 0.5, suggesting that kinship terminology is typically coarse-grain rather than fine-grain.
+
+
+If we split the data by language family, we see that different families have different distributions of kin term granularity.
+
+```{r}
+gran %>% group_by(family) %>% filter(!is.na(family)) %>%
+  mutate(
+    mean = mean(prop),
+    sd = sd(prop),
+    n = n()
+  ) %>%
+    filter(n > 1) %>%
+  ggplot() +
+  geom_histogram(aes(x = prop), fill = '#f6ecd0', bins = 30, colour = 'black',linewidth = 0.1, alpha = 0.8) +
+  lims(x = c(0,1)) +
+  labs(x = 'Kin term granularity',
+       y = 'count') +
+  facet_wrap(~family) +
+  theme(legend.position = 'none',
+        plot.margin = margin(c(0,10,0,0)),
+        axis.text.x = element_text(size = 8),
+        panel.spacing = unit(1, "lines"))
+
+ggsave('plots/lex_size_all_fam.pdf', device = cairo_pdf, unit = 'cm', height = 12, width = 18)
+```
+
+Zooming in on our three largest language families, this difference is a bit clearer:
+
+```{r}
+
+fam_colours = c(
+'Atlantic-Congo' = '#7A9B76',
+'Austronesian' = '#D93843',
+'Indo-European' = '#F09C1D'
+)
+
+labels <- gran %>% filter(family %in% c('Atlantic-Congo', 'Austronesian','Indo-European')) %>% group_by(family) %>%
+  summarise(
+    n = n()
+  )
+
+annotations <- data.frame(
+  family = c('Atlantic-Congo','Atlantic-Congo', 'Atlantic-Congo','Austronesian','Austronesian','Austronesian', 'Indo-European', 'Indo-European','Indo-European'),
+  language = c('Tiv', 'Zulu', 'Batanga', 'Paiwan', 'Indonesian', 'Gane', 'Italian', 'Danish', 'Hindi'),
+  lab_x = c(0.05, 0.28, 0.8, 0.1, 0.6, 0.7, 0.18, 0.25, 0.68),
+  lab_y = c(7, 28, 10, 20, 31, 7, 14, 23, 16),
+  line_x = c(0.1, 0.28, 0.83, 0.08, 0.5, 0.6, 0.2, 0.25, 0.67),
+  line_xend = c(0.2,0.33,0.83,0.08,0.25,0.43,0.27,0.37,0.67),
+  line_y = c(5, 24, 6, 17, 28, 6, 10, 20, 13),
+  line_yend = c(2, 18, 2, 4, 23, 2, 3, 12, 9)
+  
+)
+
+gran %>% filter(family %in% c('Atlantic-Congo', 'Austronesian','Indo-European')) %>% group_by(family) %>%
+  mutate(
+    mean = mean(prop),
+    sd = sd(prop),
+    n = n()
+  ) %>%
+  ggplot() +
+  geom_histogram(aes(x = prop, fill = family), bins = 25, colour = 'black',linewidth = 0.1, alpha = 0.8) +
+  geom_text(
+  data    = annotations,
+  mapping = aes(x = lab_x, y = lab_y, label = language), family = 'Charter', size = 3) +
+  geom_segment(
+    data = annotations, mapping = aes(x = line_x, y = line_y, xend = line_xend, yend = line_yend), linewidth = 0.01
+  ) +
+  scale_fill_manual(name = 'Family', values = fam_colours) +
+  geom_vline(aes(xintercept = mean), linetype = 'dashed',linewidth = 0.2) +
+  geom_label(data = labels, aes(x = 0.75, y = 38, label = paste0('n = ', n), family = 'Charter'), size = 3) +
+  lims(x = c(0,1)) +
+  labs(x = 'Kin term granularity',
+       y = 'count') +
+  facet_wrap(~family) +
+  theme(legend.position = 'none',
+        plot.margin = margin(c(0,0,0,0)),
+        axis.text.x = element_text(size = 8))
+
+ggsave('plots/lex_size_fam.pdf', device = cairo_pdf, unit = 'cm', width = 15, height = 5)
+```
+
+```{r}
+gran %>% filter(family == 'Austronesian', !language %in% c('Tok Pisin','Torres Strait Creole')) %>% filter(prop == median(prop))
+
+# ac min = tiv 0.2
+# ac max = batanga 0.85
+# ac median zulu 0.33
+# 
+# au min = paiwan 0.1
+# au max = gane 0.43
+# au median indonesian 0.25
+# 
+# ie median danish 0.39
+# ie min Italian 0.27
+# ie max hindi 0.68
+```
+
+
+And we can check the summary statistics for these three as well, as well as what proportion of languages have a granularity below 0.5:
+
+```{r}
+gran %>% filter(family %in% c('Atlantic-Congo', 'Austronesian','Indo-European')) %>%
+  group_by(family) %>%
+  summarise(
+  mean = mean(prop),
+  sd = sd(prop),
+  range = paste0('[',round(range(prop)[1],4),' - ',round(range(prop)[2],4),']'),
+  proportion_coarse = sum(prop < 0.5) / n()
+)
+
+```
+
+Once again, we see that the granularities are skewed towards coarse-grain rather than fine-grain systems.
+

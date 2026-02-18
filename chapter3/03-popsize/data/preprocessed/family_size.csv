@@ -1,0 +1,340 @@
+Name,Glottocode,Family_Size
+Punan,west2563,6.09
+Vedda,vedd1240,3.64
+Worrorra,worr1237,NA
+Kija,kitj1240,NA
+Lardil,lard1243,NA
+Kaiadilt,kaya1319,3.34
+Karajarri,kara1476,NA
+Mamu,mamu1253,NA
+Kariyarra,kari1304,NA
+Warunggu,waru1264,NA
+Djaru,jaru1254,2.4
+Walbiri,warl1254,2
+Hill Pandaram,mala1468,NA
+Ngatjan,ngad1260,NA
+Mardudjara,mart1256,1.54
+Ildawongga,wanm1242,1.66
+Pintubi,pint1250,1.27
+Undanbi,waka1274,NA
+Jinibarra,yaga1256,NA
+Karuwali,karr1236,NA
+Alyawara,alya1239,2.37
+Ngatatjara,ngaa1240,1.78
+Badjalang,midd1357,NA
+Agta (Casiguran),casi1235,4.76
+Pitjandjara,pitj1243,1.44
+Diyari,dier1241,NA
+Southern Aranda,lowe1436,NA
+Jankundjara,yank1247,1.46
+Northern Aranda,east2379,1.5
+Yuwaalaraay,gami1243,NA
+Nakako,pitj1243,1.33
+Ooldea,anta1253,NA
+Paakintji,darl1243,NA
+Kaurna,kaur1267,NA
+Agta (Isabela),agta1234,NA
+Ngiyambaa,wang1291,NA
+Yaraldi,narr1259,NA
+Mirniny,ngad1258,NA
+Tjapwurong,djab1234,4.46
+Bunurong,woiw1237,1.23
+Kurnai,gana1278,NA
+Tasmanians (southeastern),sout1439,NA
+Tasmanians (northwestern),port1278,NA
+Agta (Cagayan),cent2084,3.93
+Seri,seri1257,3.07
+Cahuilla (Desert),cahu1264,NA
+Cupeño,cupe1243,NA
+Kiliwa,kili1268,NA
+Kumeyaay,kumi1248,NA
+Southern Valley Yokuts,vall1251,NA
+Serrano,serr1255,NA
+Chenchu,chen1255,4.85
+Luiseño,luis1253,NA
+Wukchumni,tule1245,NA
+Tübalulabal,tuba1278,2.62
+Nomlaki,noml1242,NA
+Northern Foothills Yokuts,nort2937,NA
+Patwin,patw1250,NA
+Tongva,tong1329,NA
+Western Mono,mono1275,NA
+Eastern Pomo,east2545,NA
+Clear Lake Pomo,east2545,NA
+Mlabri,mlab1235,4.88
+Wintu,nucl1651,NA
+Chumash,cruz1243,NA
+Chimariko,chim1301,NA
+Nisenan,nise1244,NA
+Salinan,sali1253,NA
+Kashaya Pomo,kash1280,NA
+Sinkyone,wail1244,NA
+Lassik,wail1244,NA
+Coast Miwok,coas1301,NA
+Mattole-Bear River,matt1238,NA
+Paliyans,pali1274,3.43
+Lake Miwok,lake1258,NA
+Yuki,yuki1243,NA
+Wappo,wapp1239,NA
+Northern Pomo,nort2966,NA
+Yana,yana1271,NA
+Central Sierra Miwok,cent2140,NA
+Takelma,take1257,NA
+Coast Yuki,yuki1243,NA
+Tolowa,tolo1259,NA
+Shasta,shas1239,NA
+Birhor,birh1242,5.97
+Hupa,hupa1239,NA
+Tututni,tutu1242,NA
+Karuk,karo1304,NA
+Atsugewi,atsu1245,NA
+Wiyot,wiyo1248,NA
+Maidu,nort2952,NA
+Yurok,yuro1248,NA
+Achumawi,achu1247,NA
+Modoc,klam1254,NA
+Klamath,klam1254,NA
+Kadar,kada1242,3.95
+Guaicura,guai1237,NA
+Chichimeca,chic1272,NA
+Tümpisa Shoshone (Death Valley),pana1305,NA
+Karankawa,kara1289,NA
+Coahuilteco,coah1252,NA
+Tümpisa Shoshone (Panamint),pana1305,1.34
+Yavapai,yava1252,NA
+Koso,pana1305,NA
+Hualapai,wala1270,1.98
+Kawaiisu,kawa1283,NA
+Palawan Batak,bata1301,4.88
+Cholanaikkan,jenn1240,2.84
+Tümpisa Shoshone (Saline),pana1305,NA
+Antarianunts,utee1244,NA
+Eastern Mono,mono1275,3.54
+Kawich Mountain Shoshoni,west2622,NA
+Southern Paiute (Kaibab and Las Vegas),sout2969,NA
+Mono Lake Northern Paiute,sout2967,NA
+Tunava (Deep Springs),mono1275,NA
+Agaiduka,nort2955,3.43
+Kuyuidokado,sout2967,NA
+Timponogas,utee1244,NA
+Nayaka,jenn1240,NA
+Toedokado,sout2967,NA
+Tunava (Fish Lake),mono1275,3
+Wadatkuht,sout2967,NA
+Hukundika,nort2955,NA
+Gosiute,gosi1242,NA
+Spring Valley Shoshoni,west2622,NA
+White Knife Shoshoni,west2622,2.28
+Railroad Valley Shoshoni,west2622,NA
+Mahaguaduka,west2622,NA
+North Fork Mono,mono1275,NA
+Ainu,ainu1240,NA
+Tubaduka,west2622,3.65
+Southern Ute,utee1244,NA
+Bear Creek Northern Paiute,nort1551,NA
+Antelope Valley Shoshoni,west2622,2.86
+Washo,wash1253,NA
+Kidutokado,nort1551,NA
+Wind River Eastern Shoshone,nort2955,NA
+Wadaduka,west2622,NA
+Bohogue,nort2955,5.23
+Orogens,oroq1238,NA
+Uintah Ute,utee1244,2.08
+Wadadokado,nort1551,NA
+Tukudika,nort2955,NA
+Wiyambituka,west2622,NA
+Uncompahgre Ute,utee1244,NA
+Ket,kett1243,NA
+Lipan Apache,lipa1241,NA
+Comanche,coma1245,NA
+Chiricahua,mesc1238,NA
+Kiowa,kiow1266,NA
+Kiowa Apache,kiow1264,NA
+Cheyenne,chey1247,5.91
+Arapaho,arap1274,NA
+Crow,crow1244,NA
+Teton,lako1247,NA
+Nivkh,gily1242,5.54
+Kutenai,kute1249,NA
+Bannock,bann1248,NA
+Gros Ventre,gros1243,NA
+Bungi,west1510,NA
+Piegan,pieg1239,NA
+Blackfoot,pieg1239,NA
+Assiniboine,assi1247,NA
+Plains Cree,plai1258,NA
+Kainai,bloo1239,NA
+Yukaghir,nort2745,3.01
+Sarcee,sars1236,NA
+Squamish,squa1248,NA
+Alsea,alse1251,NA
+Nganasan,ngan1291,NA
+Puyallup,sout2965,5.6
+Twana,twan1247,NA
+Chehalis,lowe1427,NA
+Nuu chah nulth,nuuc1236,NA
+Lower Chinook,chin1286,NA
+Coos,coos1249,NA
+Lillooet,lill1248,NA
+Lummi,lumm1243,NA
+Quinault,quin1251,NA
+Stó:lō,chil1281,NA
+Ungazikmit,cent2128,3.18
+Cowichan,cowi1241,NA
+Tillamook,till1254,NA
+Comox,isla1276,NA
+Heiltsuk,bell1263,NA
+Quileute,quil1240,NA
+Klallam,clal1241,NA
+Makah,maka1318,NA
+Haisla,hais1244,NA
+Kwakwaka'wakw,kwak1269,NA
+Tsimshian,nucl1649,NA
+Haida,nort2938,NA
+Nuxalk,bell1243,NA
+South Tlingit,tlin1245,NA
+Gitxsan,gitx1241,NA
+Koniag,koni1262,NA
+Eyak,eyak1241,NA
+Kuskowagmut,kusk1241,NA
+Chugach,chug1254,NA
+Aleut,east2533,NA
+Nunivak,kusk1241,NA
+Anak Dalam,kubu1239,NA
+Tenino,teni1238,NA
+Umatilla,umat1237,NA
+Wenatchi,wena1241,NA
+Klikitat,nucl1237,NA
+Wishram,wasc1239,NA
+Coeur d’Alene,coeu1236,5.87
+Sinkaitk,sout2963,5.46
+Syilx,sout2963,NA
+Sanpoil,sanp1257,NA
+Nez Perce,nezp1238,NA
+Nlaka'pamux,thom1243,NA
+Kalispel,kali1309,6.08
+Eastern Ojibwa,east2542,4.29
+Katikitegon,uppe1274,NA
+Mi'kmaq,mikm1235,2.75
+Bitterroot Salish,kali1309,NA
+Rainy River Ojibwe,rain1239,5
+Northern Saulteaux,alba1270,NA
+Shuswap,shus1248,NA
+Pekangekum,lacs1238,NA
+Round Lake Ojibwa,seve1241,NA
+Alkatcho,sout2958,NA
+Nipigon,cent2136,NA
+Mistissini Cree,sout2978,4.82
+North Albany Ojibwa,wini1244,NA
+Waswanipi Cree,sout2978,2.12
+Wegamon Ojibwa,seve1241,NA
+Montagnais,mont1268,3.33
+Sekani,seka1250,NA
+Beaver,beav1236,5.17
+DeneTha,sout2959,NA
+Kaska,kask1239,4.66
+Tahltan,tahl1239,NA
+Chilcotin,chil1280,NA
+Dakelh,carr1249,NA
+Paraujano,para1316,NA
+Mountain Dene,nort2942,3.18
+Hän,hann1241,NA
+Hare,nort2942,NA
+Attawapiskat Cree,swam1239,4.07
+Koyukon,koyu1237,2.95
+Dene,chip1261,5.09
+Kutchin,gwic1235,8.21
+Deg Xit'an,dege1248,NA
+Délįne,nort2942,NA
+Nabesna,uppe1437,3.82
+Shiriana,nina1238,NA
+Waskaganish,sout2978,2.34
+Tlicho,dogr1252,NA
+Dena'ina,tana1289,NA
+Tutchone,nort2941,5.11
+Holikachuk,holi1241,NA
+Naskapi,nask1242,4.78
+Norton Sound Inuit,kusk1241,NA
+Akurio,akur1238,NA
+Kobuk Inuit,kobu1239,4
+Kotzebue Sound Inuit,kotz1238,5
+Labrador Inuit,labr1244,1.93
+Kuujjuarapik,queb1248,NA
+Caribou Inuit,cari1277,4.52
+Noatak Inuit,nort2945,5.83
+Nunamiut,nort2944,3.94
+Inuvialuit,sigl1242,NA
+Sivokamiut Inuit,cent2128,NA
+Pumé,pume1238,3.85
+Inupiat,nort2944,3.83
+Copper Inuit,copp1244,5.26
+Utkuhikhalingmiut,nets1241,4.68
+Aivilingmiut Inuit,cari1277,4.26
+Iglulik Inuit,west2618,6.56
+Kalaallit (West Greenland),kala1399,3.35
+Nunatsiarmiut,baff1240,3.14
+Netsilik,nets1241,5.88
+Tasiilaq,tunu1234,NA
+Tareumiut,nort2944,NA
+Guahibo,guah1255,3.42
+Inughuit (Northern Greenland),pola1254,2.92
+Shompen,shom1245,5.33
+Nukak,nuka1242,4.7
+Bororo,boro1282,NA
+Guató,guat1253,4.37
+Sirionó,siri1273,4.03
+Yuqui,yuqu1240,4.2
+Nambikwara,sout2994,4.86
+Calusa,calu1239,NA
+Aché,ache1246,7.63
+Aimoré,kren1239,NA
+Héta,xeta1241,5
+Onge,onge1236,3.27
+Aweikoma,xokl1240,3.97
+Tehuelche,tehu1242,5
+Chono,chon1248,NA
+Alacaluf,qawa1238,2.79
+Ona,onaa1245,NA
+Yahgan,yama1264,NA
+Jarawa,jara1245,NA
+Aka,base1242,5.63
+Bayaka,beka1240,5.08
+Bambote,holo1240,4.05
+Baka,baka1272,3.64
+Efe,efee1239,NA
+Mbuti,bila1255,7.06
+Mikea,masi1268,NA
+Hukwe,kxoe1243,NA
+Hai//om,haio1238,NA
+Hadza,hadz1240,3.67
+Ayta (Pinatubo),boto1242,2.72
+Dorobo,okie1245,3.31
+Sekele,vase1234,NA
+!Kung,juho1239,3.09
+Naron,naro1249,NA
+G/wi,gwii1239,NA
+Kua,kuaa1238,NA
+!Ko,huaa1248,2.65
+/'Auni-Khomani,nuuu1241,NA
+//Xegwi,xegw1238,NA
+/Xam,xamm1241,NA
+Andamanese,akab1249,2.92
+Kaurareg,kala1377,NA
+Larikia,lara1258,NA
+Gunwinygu,gunw1252,2.88
+Mirrngadja,djin1252,2.62
+Burarra,gunn1247,NA
+Gidjingali,gunn1248,2.32
+"Yolngu, Dhuwal",dhuw1249,NA
+Yiiji,wuna1249,NA
+Semang,kens1248,5.21
+Wikmunkan,wikm1247,NA
+Kaakutju,gaga1251,NA
+Nunggubuyu,nung1290,NA
+Yintjingga,ayab1239,NA
+Yir Yoront,jirj1239,3.4
+Tiwi,tiwi1244,2.43
+Kuku (Yalanji),kuku1273,2.04
+Anindilyagwa,anin1240,1.67
+Walmbaria,flin1247,NA
+Mulluk,mull1237,NA

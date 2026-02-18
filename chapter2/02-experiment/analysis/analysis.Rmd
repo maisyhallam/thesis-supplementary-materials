@@ -1,0 +1,392 @@
+---
+title: "analysis"
+author: "Maisy Hallam"
+date: "2026-02-18"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(ggtext)
+library(extrafont)
+library(ggExtra)
+library(patchwork)
+library(lme4)
+library(broom)
+library(emmeans)
+library(binom)
+```
+
+```{r}
+# PLOT THEMES AND COLOURS
+
+extrafont::loadfonts()
+
+theme_set(theme_bw(base_size = 10))
+theme_update(axis.line.x = element_line(color = "black"),
+    axis.line.y = element_line(color = 'black'),
+    text = element_text(family = "Charter"),
+    plot.margin = margin(c(0,0,0,0)),
+    axis.text = element_text(size = 8),
+    panel.background = element_rect(fill = 'transparent'),
+    plot.background = element_rect(fill = 'transparent', color = 'NA'))
+```
+
+Import experiment data.
+
+```{r}
+# participant z scores compared to their bespoke baseline
+ppt_z <- read_csv('data/by_participant_z.csv') %>% mutate(system = factor(system))
+
+# participant 'accuracy' - whether their generalisations increased predictive structure
+acc <- read_csv('data/accuracy.csv') %>% mutate(system = factor(system), random_id = factor(random_id), correct_01 = factor(correct))
+
+# whether or not the participants encoded gender distinctions between gender distinct pairs of referents
+gender <- read_csv('data/gender_distinctions.csv') %>% mutate(gender = factor(distinction))
+
+# proportion with which each referent was labelled the same as each other referent
+distance <- read_csv('data/participant_distance.csv')
+
+perf_distance <- read_csv('data/ideal_distance.csv')
+```
+
+# Section 4: does predictive structure emerge during generalisation?
+
+```{r}
+acc %>% group_by(random_id,system) %>%
+  summarise(prop_correct = sum(correct/n())) %>%
+  filter(prop_correct == 1)
+```
+
+```{r}
+ppt_z %>% filter(z < -1.96) %>% merge(acc) %>%
+  group_by(random_id,system) %>%
+  summarise(
+    new_term = ifelse(chosen_term != gen1_term & chosen_term != gen2_term, 1, 0),
+    n = n(),
+    proportion = sum(new_term) / n()) %>%
+  summarise(
+    any_new_term = ifelse(proportion > 0, 1,0)) %>% unique() %>%
+  group_by() %>%
+  mutate(full_prop = sum(any_new_term) / 106)
+
+```
+
+```{r}
+ppt_z %>% filter(z > -1.96) %>% merge(acc) %>%
+  group_by(random_id,system) %>%
+  summarise(
+    new_term = ifelse(chosen_term != gen1_term & chosen_term != gen2_term, 1, 0),
+    n = n(),
+    proportion = sum(new_term) / n()) %>%
+  summarise(
+    any_new_term = ifelse(proportion > 0, 1,0)) %>% unique() %>%
+  group_by() %>%
+  mutate(full_prop = sum(any_new_term) / 179)
+```
+
+
+### Figure 11. Proportion of predictive generalisations made by participants across all eight trials.
+
+
+Predictive generalisations across all trials (left-hand plot):
+
+```{r}
+all_accuracy_plt <- acc %>%
+  
+  group_by(random_id,system) %>%
+  
+  # get the proportion of 'correct' generalisations for each participant per system type
+  summarise(
+    prop_correct = sum(correct) / n(),
+    n_trials = n(),
+    system = factor(system),
+    system = system) %>%
+  
+  unique() %>%
+  
+  group_by() %>%
+  
+  # get cross-participant means and confidence intervals for each system type
+  mutate(
+    mean_propn_expected = mean(prop_correct),
+    sd = sd(prop_correct),
+    n = n(),
+    se = sd/sqrt(n),
+    lower95 = mean_propn_expected - 1.96 * se,
+    upper95 = mean_propn_expected + 1.96 * se
+  ) %>%
+  
+  ggplot(aes(x = 1, y = prop_correct)) +
+  geom_hline(yintercept = 0.25,linetype = 'dashed') +
+
+  geom_violin(fill= '#D0453B', colour = '#D0453B', alpha = 0.8, trim = FALSE) +
+  geom_errorbar(aes(ymin = lower95, ymax = upper95), width = 0.05, linewidth = 0.01,colour = 'black', alpha = 0.7) +
+
+  geom_point(aes(y = mean_propn_expected), alpha = 0.7, shape = 18) +
+  labs(
+       x = 'All participants',
+       y = 'Proportion of \n predictive generalisations'
+       ) +
+  ylim(c(0,1)) +
+  theme(legend.position = 'none',
+        axis.text.x = element_blank())
+
+all_accuracy_plt
+```
+
+Predictive generalisations by system type (left-hand plot):
+
+```{r}
+# group each system by which Type it belongs to for axis labels
+acc <- acc %>%
+  mutate(
+    system_type = case_when(
+      system == 0 ~ 'Type I',
+      system %in% c(1,2,3) ~ 'Type II',
+      system %in% c(4,5,6,7) ~ 'Type III'),
+    system_type = factor(system_type, levels = c('Type I','Type II','Type III'))
+    )
+
+type_acc_plt <- acc %>%  
+  group_by(random_id, system, system_type) %>%
+  
+  # get proportion per participant per system
+  summarise(
+    prop_correct = sum(correct) / n(),
+    n_trials = n()) %>%
+  
+  group_by(system_type) %>%
+  
+  # get means and confidence intervals across participants (within system type)
+  summarise(
+    prop_correct = prop_correct,
+    mean_propn_expected = mean(prop_correct),
+    sd = sd(prop_correct),
+    n = n(),
+    se = sd/sqrt(n),
+    lower95 = mean_propn_expected - 1.96 * se,
+    upper95 = mean_propn_expected + 1.96 * se,
+    system_group = factor(system_type, levels = c('Type I','Type II','Type III'))
+  ) %>%
+  
+  ggplot(aes(x = system_type, y = prop_correct)) +
+  scale_fill_manual(name = 'System type', labels = c('Type I','Type II','Type III'),values=c('#D0453B','#E96922','#66748F')) +
+  scale_colour_manual(name = 'System type', labels = c('Type I','Type II','Type III'),values= c('#D0453B','#E96922','#66748F')) +
+    geom_hline(yintercept = 0.25,linetype = 'dashed') +
+
+  geom_violin(aes(fill= system_type, colour = system_type), alpha = 0.8, trim = FALSE) +
+  geom_errorbar(aes(ymin = lower95, ymax = upper95),colour = 'black',width = 0.05,linewidth = 0.01) +
+  geom_point(aes(y = mean_propn_expected),alpha = 0.7, shape = 18) +
+  labs(x = 'System type',
+       y = '') +
+  ylim(c(0,1)) +
+  theme(legend.position = 'none')
+```
+
+
+Combine the plots with `patchwork`.
+
+```{r}
+acc_type_plts <- all_accuracy_plt + type_acc_plt + plot_layout(widths = c(1, 4))
+
+acc_type_plts
+
+# ggsave('plots/type_accuracy.pdf', acc_type_plts, width = 5.3, height = 2.5, device = cairo_pdf)
+```
+
+### Figure 12. Distribution of symmetric conditional entropy z-scores for each system type 
+
+```{r}
+systems <- c('0' = 'Type I',
+             '1' = 'Type II<sub>side</sub>',
+             '2' = 'Type II<sub>gen</sub>',
+             '3' = 'Type II<sub>opp</sub>',
+             '4' = 'Type III<sub>fb</sub>',
+             '5' = 'Type III<sub>mb</sub>',
+             '6' = 'Type III<sub>fz</sub>',
+             '7' = 'Type III<sub>mz</sub>')
+
+
+ppt_z %>% group_by(system) %>% mutate(insignificant = ifelse(z < 1.96 & z > -1.96,z,NA), significant = ifelse(z > 1.96 | z < -1.96,z,NA), max = ifelse(true_value == min(true_value), z, NA)) %>% 
+  ggplot() +
+  geom_histogram(aes(x = insignificant), fill = 'grey',colour = '#666',size = 0.3,bins = 30) +
+  geom_histogram(aes(x = significant), fill = '#ddafa9', colour = '#d95f50', size = 0.3,bins = 30) +
+  scale_x_continuous(breaks = c(-4,-1.96,0,1.96,4)) +
+  labs(x = 'Symmetric conditional entropy (z-transformed)') +
+    geom_vline(xintercept = 0,linetype = 'dashed',size = 0.2) +
+  facet_wrap(~system, labeller = as_labeller(systems),nrow = 2) +
+  theme(
+    legend.position = 'none',
+    strip.text = ggtext::element_markdown())
+
+# ggsave('plots/participant_z.pdf',height = 3, width = 5.25, device = cairo_pdf)
+```
+
+
+Calculate percentages of significant symmetric conditional entropy.
+
+```{r}
+#37.2%
+count(ppt_z %>% filter(z < -1.96)) / count(ppt_z) # percentage of participants with significantly low symmetric conditional entropy
+```
+
+### Figure 14.
+
+
+```{r}
+all_distance <- rbind(distance,perf_distance)
+```
+
+```{r}
+# set facet labels
+facet_names <- c(
+  '1' = 'Type~I',
+'2' = 'Type~II[side]',
+'3' = 'Type~II[gen]',
+'4' = 'Type~II[opp]',
+'5' = 'Type~III[fb]',
+'6' = 'Type~III[fz]',
+'7' = 'Type~III[mb]',
+'8' = 'Type~III[mz]',
+'9' = 'Type~I',
+'10' = 'Type~II[side]',
+'11' = 'Type~II[gen]',
+'12' = 'Type~II[opp]',
+'13' = 'Type~III[fb]',
+'14' = 'Type~III[fz]',
+'15' = 'Type~III[mb]',
+'16' = 'Type~III[mz]'
+)
+```
+
+
+
+```{r}
+colours = c('navy','darkred','navy','darkred','navy','darkred','navy','darkred','navy','darkred')
+
+all_distance <- all_distance %>% mutate(
+  system = factor(system, levels = c('1','2','3','4','5','6','7','8','9','10','11','12','13','14','15','16')))
+
+heatmaps <- all_distance %>%
+  ggplot(aes(x = x, y = y, fill = z)) +
+  geom_tile() +
+  scale_fill_gradient(low="white", high="black") +
+  labs(x = '', y = '') +
+  theme(axis.text.x = element_text(colour = colours,angle = 90, vjust = 0.5, hjust = 1),
+        axis.text.y = element_text(colour = colours),
+        legend.position = 'none') +
+  facet_wrap(~system,nrow = 2, labeller = as_labeller(facet_names, label_parsed))
+
+
+heatmaps
+
+
+# ggsave('plots/all_heatmaps.pdf', heatmaps, width = 8.5,height = 3.1, device = cairo_pdf)
+```
+
+```{r}
+all_distance
+```
+
+
+### Regression models
+
+Did participants generalise predictively?
+
+```{r}
+acc_mdl <- glmer(correct_01 ~ 1 + (1|random_id) + (1|system), family = 'binomial', data = acc)
+
+summary(acc_mdl)
+```
+
+
+Did System Type affect whether participants generalised predictively?
+
+```{r}
+acc_type_mdl <- glmer(correct_01 ~ system_type + (1|random_id), family = 'binomial', data = acc)
+
+emmeans(acc_type_mdl, list(pairwise~"system_type"),adjust = 'bonferroni')
+```
+
+
+Did participants generalise more predictively when they had gender distinctions in their input compared to non-gender or no distinctions?
+
+```{r}
+
+acc <- acc %>%
+  mutate(
+    system_group = case_when(
+      system == 0 ~ 'None',
+      system %in% c(2,3) ~ 'Gender',
+      system %in% c(1,4,5,6,7) ~ 'Non-Gender'
+    )
+  )
+
+acc <- acc %>% mutate(system_group = factor(system_group, levels = c('None','Gender','Non-Gender')))
+              
+acc_syst_mdl <- glmer(correct_01 ~ system_group + (1|random_id), family = 'binomial', data = acc)
+
+emmeans(acc_syst_mdl, list(pairwise~"system_group"),adjust = 'bonferroni')
+
+```
+
+Did participants encode more gender distinctions when they had gender distinctions in their input compared to non-gender or no distinctions?
+
+```{r}
+# merge gender distinctions data with symmetric conditional entropy data
+gender_gen <- gender %>% merge(acc, by = c('random_id','block'))
+
+levels(gender_gen$gender)
+
+gender_syst_mdl <- glmer(gender ~ system_group + (1|random_id) + (1|system_group), family = 'binomial', data = gender_gen)
+
+emmeans(gender_syst_mdl, list(pairwise~"system_group"),adjust = 'bonferroni')
+```
+
+
+
+Do participants generalise less predictively if they saw gender distinct generalisers?
+
+```{r}
+# add a column to `acc` telling us whether the given G0 terms ('generalisers') were gender distinct or not.
+
+boys = c('mbs','mzs','fbs','fzs','b')
+girls = c('mbd','mzd','fbd','fzd','z')
+
+
+gender_gen <- gender_gen %>% mutate(
+  generalisers = case_when(
+    gen1 %in% boys & gen2 %in% girls ~ 1,
+    gen1 %in% girls & gen2 %in% boys ~ 1,
+    gen1 %in% boys & gen2 %in% boys  ~ 0,
+    gen1 %in% girls & gen2 %in% girls ~ 0
+  ),
+  generalisers = factor(generalisers))
+
+
+levels(gender_gen$generalisers)
+
+
+```
+
+```{r}
+acc_gen_mdl <- glmer(correct_01 ~ generalisers + (1|random_id) + (1|system.x), family = 'binomial', data = gender_gen)
+
+
+summary(acc_gen_mdl)
+```
+
+
+Do participants encode more gender distinctions if they saw gender distinct G0 terms?
+
+
+```{r}
+gender_generalisers_mdl <- glmer(gender ~ generalisers + (1|random_id) + (1|system.x), family = 'binomial', data = gender_gen)
+
+summary(gender_generalisers_mdl)
+```
+
+
+
