@@ -66,33 +66,36 @@ So we will focus on these three language families in our analysis, and break the
 To illustrate why we need phylogenetic methods for this analysis, take a look at what the data looks like when we combine these three language families. It appears there is a slight correlation between our two variables of interest: kin term granularity, and logged population size.
 
 ```{r}
-gran_pop %>% filter(language_family %in% c('Atlantic-Congo','Austronesian','Indo-European')) %>%
+gran_pop %>% filter(family %in% c('Atlantic-Congo','Austronesian','Indo-European')) %>%
 ggplot(aes(x = prop, y = log_pop)) +
   scale_fill_manual(values = fam_colours) +
-  geom_jitter(aes(fill = language_family),colour = 'black', stroke = 0.05, size = 2.5, shape = 21, alpha = 0.8, width = 0.2, height = 0.2) +
+  geom_jitter(aes(fill = family),colour = 'black', stroke = 0.05, size = 2.5, shape = 21, alpha = 0.8, width = 0.2, height = 0.2) +
   geom_abline(intercept = 0, slope = 0.1) +
   lims(x = c(0,1)) +
   labs(x = 'Kin term granularity', y = 'Log population size') +
   scale_x_continuous(labels = c(0,0.25,0.5,0.75,1)) +
-  # facet_wrap(~language_family) +
   theme(legend.position = 'none',
         plot.margin = margin(c(0,0,0,0)))
+
+ggsave('plots/gran_pop.pdf', device = cairo_pdf, unit = 'cm', height = 8, width = 8)
 ```
 
 Compare this to when we split the data up into language families, where there is no clear correlation at all.
 
 ```{r}
-gran_pop %>% filter(language_family %in% c('Atlantic-Congo','Austronesian','Indo-European')) %>%
+gran_pop %>% filter(family %in% c('Atlantic-Congo','Austronesian','Indo-European')) %>%
 ggplot(aes(x = prop, y = log_pop)) +
   scale_fill_manual(values = fam_colours) +
-  geom_jitter(aes(fill = language_family),colour = 'black', stroke = 0.05, size = 2.5, shape = 21, alpha = 0.8, height = 0.4, width = 0.4) +
+  geom_jitter(aes(fill = family),colour = 'black', stroke = 0.05, size = 2.5, shape = 21, alpha = 0.8, height = 0.4, width = 0.4) +
   labs(x = 'Kin term granularity', y = 'Log population size') +
   lims(x = c(0,1)) +
   # scale_x_continuous(labels = c(0,0.25,0.5,0.75,1)) +
-  facet_wrap(~language_family) +
+  facet_wrap(~family) +
   theme(legend.position = 'none',
         plot.margin = margin(c(0,0,0,0)),
         axis.text.x = element_text(size = 8))
+
+ggsave('plots/gran_pop_fam.pdf', device = cairo_pdf, unit = 'cm', height = 7, width = 16)
 ```
 
 In what follows, we will perform a series of phylogenetically-informed beta regression models.

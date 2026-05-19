@@ -21,7 +21,7 @@ library(ggtext)
 theme_set(theme_bw(base_size = 10))
 theme_update(axis.line.x = element_line(color = "black"),
     axis.line.y = element_line(color = 'black'),
-    text = element_text(family = "Charter"),
+    text = element_text(family = "Montserrat"),
     plot.margin = margin(c(0,0,0,0)),
     axis.text = element_text(size = 8),
     panel.background = element_rect(fill = 'transparent'),
@@ -221,8 +221,8 @@ df %>%
   geom_hline(yintercept = 0.5, linetype = 'dashed') +
   geom_errorbar(aes(ymin = lower95, ymax = upper95), width = 0.05,colour = 'black') +
   geom_point(shape = 21, stroke = 1, colour = 'black',fill = 'black', size = 5) +
-  geom_richtext(data = label_pos, aes(x = x, y = y1, label = label1,fill = colours1),label.colour = 'NA',fontface = 'bold', family = 'Charter',size = 3) +
-  geom_richtext(data = label_pos, aes(x = x, y = y2, label = label2,fill = colours2),label.colour = 'NA',fontface = 'bold', family = 'Charter',size = 3) +
+  geom_richtext(data = label_pos, aes(x = x, y = y1, label = label1,fill = colours1),label.colour = 'NA',fontface = 'bold', family = 'Montserrat',size = 4) +
+  geom_richtext(data = label_pos, aes(x = x, y = y2, label = label2,fill = colours2),label.colour = 'NA',fontface = 'bold', family = 'Montserrat',size = 4) +
   scale_fill_identity() +
   lims(y = c(0,1)) +
   labs(
@@ -230,6 +230,8 @@ df %>%
     y = 'Proportion of trials') +
   theme(legend.position = 'none',
         axis.text.x = element_blank())
+
+ggsave('../../../../../talk-figures/sem-experiment.png', height = 4)
 
 # ggsave('plots/pairwise_comparisons.pdf', width = 14, height = 8, device = cairo_pdf, unit = 'cm')
 ```

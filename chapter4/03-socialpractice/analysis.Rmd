@@ -14,6 +14,18 @@ library(emmeans)
 library(patchwork)
 ```
 
+```{r}
+theme_set(theme_bw(base_size = 10))
+theme_update(axis.line.x = element_line(color = "black"),
+    axis.line.y = element_line(color = 'black'),
+    text = element_text(family = "Montserrat"),
+    plot.margin = margin(c(0,0,0,0)),
+    axis.text = element_text(size = 8),
+    panel.background = element_rect(fill = 'transparent'),
+    plot.background = element_rect(fill = 'transparent', color = 'NA'))
+```
+
+
 # Are kin term semantics predicted by social practice?
 
 To model whether kin term semantics vary with social practice, here I will test whether the rank of a particular feature can be predicted by a social practice variable.
@@ -353,6 +365,21 @@ bl <- descent_lineality %>% filter(!is.na(Descent_Type)) %>% mutate(Descent_Type
         plot.title = element_text(size = 7))
 
 bl
+
+descent_lineality %>% 
+  filter(!is.na(Descent_Type)) %>% 
+  mutate(Descent_Type = factor(Descent_Type, levels = c('bilateral','unilineal')),
+         n = n()) %>%
+  group_by(Descent_Type, Rank) %>%
+  mutate(
+    prop_n = n() / n
+  ) %>%
+ggplot(aes(fill = Descent_Type)) +
+  scale_fill_manual(name = 'Descent Type', values = colours) +
+  geom_point(aes(x = Rank), stat = 'count', shape = 23, size = 5)
+
+
+
 ```
 
 A plot for Descent Type and GCR:

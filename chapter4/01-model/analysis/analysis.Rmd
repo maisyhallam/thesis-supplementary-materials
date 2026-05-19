@@ -78,7 +78,6 @@ For plotting purposes, we'll want this dataframe in a longform format, so let's 
 ```{r}
 df_long <- df %>% pivot_longer(cols = c(generation, gender, lineal, gcr, seniority, speaker_gender),names_to = 'feature',values_to = 'weight')
 
-df_long
 ```
 
 # LANGUAGES DIFFER IN WHICH FEATURES THEY ENCODE
@@ -124,7 +123,18 @@ axis_labels = c(
   'gcr' = 'conn.'
 )
 
-random_sample %>%
+features <-
+  c(
+    'generation' = 'Generation',
+    'gender' = 'Gender',
+    'speaker_gender' = 'Speaker\n gender',
+    'lineal' = 'Lineality',
+    'gcr' = 'GCR',
+    'seniority' = 'Seniority'
+  )
+
+random_sample %>% mutate(
+  feature = factor(feature, levels = c('generation','gender','lineal','gcr','seniority','speaker_gender'))) %>%
   ggplot(aes(y = weight, x = feature, fill = feature)) +
   scale_fill_manual(name = '', labels = features, values = colours) +
   scale_x_discrete(labels = axis_labels) +
@@ -163,16 +173,6 @@ df_long <- df_long %>% mutate(
 Now, we can plot the distribution of weights on each feature.
 
 ```{r}
-features <-
-  c(
-    'generation' = 'Generation',
-    'gender' = 'Gender',
-    'speaker_gender' = 'Speaker\n gender',
-    'lineal' = 'Lineality',
-    'gcr' = 'GCR',
-    'seniority' = 'Seniority'
-  )
-
 df_long %>%
   ggplot(aes(x = weight, y = feature, fill = feature,colour=feature,height = ..ndensity..)) +
   scale_y_discrete(labels = features,limits = rev) +

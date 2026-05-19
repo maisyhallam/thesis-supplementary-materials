@@ -10,6 +10,21 @@ knitr::opts_chunk$set(echo = TRUE)
 library(tidyverse)
 ```
 
+```{r}
+# PLOT THEMES AND COLOURS
+
+# extrafont::loadfonts()
+
+theme_set(theme_bw(base_size = 10))
+theme_update(axis.line.x = element_line(color = "black"),
+    axis.line.y = element_line(color = 'black'),
+    text = element_text(family = "Charter"),
+    plot.margin = margin(c(0,0,0,0)),
+    axis.text = element_text(size = 8),
+    panel.background = element_rect(fill = 'transparent'),
+    plot.background = element_rect(fill = 'transparent', color = 'NA'))
+```
+
 # Describing cross-linguistic variation in kin term granularity
 
 The goal of this analysis is to describe the extent of variation in kin term granularity; that is, how many unique kin terms languages have to denote a fixed set of 48 types of relative.
@@ -25,7 +40,6 @@ gran <- read_csv('data/preprocessed/kinterm_granularity.csv')
 * `language_family` is the language family
 * `glottocode` is the glottocode for that language
 * `prop` is the kin term granularity: the proportion of kin terms over kin types.
-* `count` is the raw number of kin terms in that language.
 * `n_kintypes` is the number of kin types that were available in that language's dataset (out of a possible 48).
 
 
@@ -54,7 +68,7 @@ gran %>%
         plot.margin = margin(c(7,0,0,0)),
         axis.text = element_text(size = 8))
 
-ggsave('plots/veridical.pdf', device = cairo_pdf, width = 14, height = 5, unit = 'cm')
+ggsave('plots/veridical.pdf', device = cairo_pdf, width = 15, height = 6, unit = 'cm')
 ```
 
 ```{r}
@@ -121,8 +135,8 @@ labels <- gran %>% filter(family %in% c('Atlantic-Congo', 'Austronesian','Indo-E
 annotations <- data.frame(
   family = c('Atlantic-Congo','Atlantic-Congo', 'Atlantic-Congo','Austronesian','Austronesian','Austronesian', 'Indo-European', 'Indo-European','Indo-European'),
   language = c('Tiv', 'Zulu', 'Batanga', 'Paiwan', 'Indonesian', 'Gane', 'Italian', 'Danish', 'Hindi'),
-  lab_x = c(0.05, 0.28, 0.8, 0.1, 0.6, 0.7, 0.18, 0.25, 0.68),
-  lab_y = c(7, 28, 10, 20, 31, 7, 14, 23, 16),
+  lab_x = c(0.05, 0.25, 0.8, 0.1, 0.6, 0.7, 0.18, 0.25, 0.68),
+  lab_y = c(7, 28, 9, 20, 31, 7, 14, 23, 16),
   line_x = c(0.1, 0.28, 0.83, 0.08, 0.5, 0.6, 0.2, 0.25, 0.67),
   line_xend = c(0.2,0.33,0.83,0.08,0.25,0.43,0.27,0.37,0.67),
   line_y = c(5, 24, 6, 17, 28, 6, 10, 20, 13),
@@ -153,9 +167,10 @@ gran %>% filter(family %in% c('Atlantic-Congo', 'Austronesian','Indo-European'))
   facet_wrap(~family) +
   theme(legend.position = 'none',
         plot.margin = margin(c(0,0,0,0)),
-        axis.text.x = element_text(size = 8))
+        axis.text.x = element_text(size = 8),
+        panel.spacing = unit(1, "lines"))
 
-ggsave('plots/lex_size_fam.pdf', device = cairo_pdf, unit = 'cm', width = 15, height = 5)
+ggsave('plots/lex_size_fam.pdf', device = cairo_pdf, unit = 'cm', width = 15, height = 6)
 ```
 
 ```{r}
